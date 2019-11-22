@@ -1,0 +1,34 @@
+<template>
+  <b-container> 
+  		<app-row :data="row" v-for="row in rows" :key="row.eno" :data-eno="row.eno" />
+ </b-container>
+</template>
+
+<script>
+// @ is an alias to /src
+import Row from '@/components/Row.vue'
+
+export default {
+  name: 'container',
+  props:{
+  	data:Object
+  }, 
+  components:{
+  	'app-row' : Row
+  },
+  computed:{
+  	rows:{
+  		get(){
+  			return this.$store.getters.getRows(this.data.eno);
+  		},
+  		set(val){
+  			return val;
+  		}
+  	}
+  }
+}
+</script>
+<style>
+
+
+</style>

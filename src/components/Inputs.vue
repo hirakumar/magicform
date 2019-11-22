@@ -1,0 +1,53 @@
+<template>
+  
+    
+     <b-form-input 
+      :disabled = "data.disabled"
+      :required = "data.required"
+      :form = "data.form"
+      :autofocus = "data.autofocus"
+      :size = "data.size"
+      :state = "data.state"
+      :value = "data.value"
+      :readonly = "data.readonly"
+      :plaintext = "data.plaintext"
+      :autocomplete = "data.autocomplete"
+      :placeholder = "data.placeholder"
+      :trim = "data.trim"
+      :number = "data.number"
+      :type = "data.type"
+      :on-wheel = "data.on_wheel"
+      :min = "data.min"
+      :max = "data.max"
+      :step = "data.step"
+      :list = "data.list"
+      :id = "data.id"
+      :data-eno="data.eno"
+      @click="clickInput"
+     ></b-form-input>
+
+</template>
+
+<script>
+// @ is an alias to /src
+//import HelloWorld from '@/components/HelloWorld.vue'
+
+export default {
+  name: 'inputs',
+  props:{
+  	data:Object
+  },
+  methods:{
+    clickInput:function(event){
+       console.log("ENO :" +this.data.eno);
+       this.$store.commit("setActiveEno",this.data.eno);
+       this.$store.commit("setEditMode",true);
+        event.preventDefault();
+        event.stopPropagation();
+    }
+  },
+  components: {
+    
+  }
+}
+</script>
