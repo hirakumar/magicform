@@ -22,7 +22,7 @@
 		@mouseleave="hoverOut(data.eno)"
 		@click ="clickCol"
     >
-
+<app-infoele :data="data"></app-infoele>
 	<app-elements v-for="child in childs" :key="child.eno" :data="child" :parentID="colID" />
     </b-col>
   
@@ -32,6 +32,7 @@
 // @ is an alias to /src
 
 import Elements from '@/components/Elements.vue'
+import InfoEle from '@/components/InfoEle.vue'
 export default {
   name: 'cols',
   props:{
@@ -74,7 +75,8 @@ export default {
   },
   components:{
 	 
-	  'app-elements' : Elements
+	  'app-elements' : Elements,
+    'app-infoele' : InfoEle
   }
 }
 </script>
