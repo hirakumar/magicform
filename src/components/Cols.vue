@@ -18,11 +18,10 @@
     	:xl = "data.xl"
 		:data-eno = "data.eno"
 		:id = "data.id"
-		@mouseenter="hoverOn(data.eno)"
-		@mouseleave="hoverOut(data.eno)"
-		@click ="clickCol"
+		
+		
     >
-<app-infoele :data="data"></app-infoele>
+<app-infoele :data="data" @click ="clickCol"></app-infoele>
 	<app-elements v-for="child in childs" :key="child.eno" :data="child" :parentID="colID" />
     </b-col>
   

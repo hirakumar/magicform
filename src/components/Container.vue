@@ -1,5 +1,5 @@
 <template>
-  <b-container :data-eno="data.eno" >
+  <b-container :data-eno="data.eno" :fluid="data.fluid"  :tag="data.tag" >
      
       <app-infoele :data="data"></app-infoele>
   		<app-row :data="row" v-for="row in rows" :key="row.eno"  :data-eno="row.eno" />

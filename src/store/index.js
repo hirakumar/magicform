@@ -70,8 +70,7 @@ export default new Vuex.Store({
     },
     editObj(state,payload){
       let obj = state.elements.find(item=>item.eno===state.activeEno);
-      let objIndex = state.elements.indexOf(obj);
-     
+      let objIndex = state.elements.indexOf(obj);     
       
         Object.entries(payload).map((item,index)=>{
           if( !state.elements[objIndex].hasOwnProperty(item[0])){   
@@ -95,7 +94,7 @@ export default new Vuex.Store({
     addContainer (state){
      
       if(state.elements.length==0){
-        state.elements.push({ eno:1, ele:'container', order:1 })
+        state.elements.push({ eno:1, ele:'container', order:1,  })
         state.elements.push({eno:2, parent:1, ele:'row', order:1})
         state.elements.push({eno:3, parent:2, ele:'col', cols:12, order:1})
       }else{
@@ -115,13 +114,11 @@ export default new Vuex.Store({
         lasteno++;
         state.elements.push({eno:lasteno, parent:lasteno-1, ele:'col', cols:12, order:1})
       }
-      
-     
+    },
+    addContainerBefore(state){
+      console.log("Add Container Before ... ")
 
-   
-    
-
-    }
+    },
   },
   actions: {  },
   getters: {

@@ -1,5 +1,7 @@
 <template>
     <div class="container">
+
+
         <div class="row">
               <div class="col-6">
                 {{eleObj}}
@@ -7,16 +9,20 @@
                 <b-form >
                     <!-- Container -->
                     
-                    <b-form-group v-if="isContainer" label="Where to add ?" label-cols="3">
-                       <b-form-select :options="containerAddOptions" size="sm" class="mt-3"></b-form-select>
-                      
-                    </b-form-group>
-                    
-                    <b-form-group v-if="isContainer">
-                       <b-button>Add Container </b-button> 
-                      <b-button @click="removeObj">Remove Container </b-button>
+                        <b-card no-body v-if="isContainer">
+                          <b-list-group flush>
+                            <b-list-group-item>  Fluid Width : <b-form-checkbox v-model="fluidWidth" class="float-right"  name="check-button" switch></b-form-checkbox> 
+                            </b-list-group-item>
+                            <b-list-group-item><a href="#" @click="addContainerBefore" >Add Before Container</a></b-list-group-item>
+                              <b-list-group-item><a href="#" >Add After Container</a></b-list-group-item>
+                            
+                            <b-list-group-item ><b-button variant="danger" @click="removeObj">Remove Container</b-button></b-list-group-item>
+                          </b-list-group>  
+                        </b-card>
 
-                    </b-form-group>
+                  
+                    
+              
                     <!-- Cols -->
 
                     
@@ -173,9 +179,16 @@ export default {
       },
       removeObj(){
            this.$store.commit('removeObj')
+      },
+      setContainerWidth(val){
+          console.log("set:",val);
+      },
+      addContainerBefore(){
+        this.$store.commit('addContainerBefore');
       }
   },
   computed:{
+
       eno:{
           get(){
               console.log("Main data:",this.data)
@@ -191,6 +204,14 @@ export default {
   		set(val){
   			return val;
   		}
+      },
+      fluidWidth:{
+        get(){
+          return (this.eleObj.fluid ? true : false );
+        },
+        set(val){
+          return this.$store.commit('editObj',{fluid:val})
+        }
       },
       isContainer:{
         get(){

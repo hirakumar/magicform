@@ -33,7 +33,7 @@ form{
 
 
 
-.container{
+.container,.container-fluid{
 	border:dashed 1px #ccc;
 	.eleinfo{
 		padding: 1px;
