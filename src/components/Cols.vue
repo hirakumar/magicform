@@ -67,7 +67,9 @@ export default {
 	  clickCol : function(event){
 		  event.currentTarget.classList.add('active');
 		  this.$store.commit('setEditMode',true);
-		  this.$store.commit('setActiveEno',this.data.eno)
+		  this.$store.commit('setActiveEno',this.data.eno);
+       event.preventDefault();
+      event.stopPropagation();
 	  }
   },
   components:{

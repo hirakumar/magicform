@@ -1,6 +1,6 @@
 <template>
-  <b-container> 
-  		<app-row :data="row" v-for="row in rows" :key="row.eno" :data-eno="row.eno" />
+  <b-container :data-eno="data.eno" @click ="clickCol"> 
+  		<app-row :data="row" v-for="row in rows" :key="row.eno"  :data-eno="row.eno" />
  </b-container>
 </template>
 
@@ -25,6 +25,13 @@ export default {
   			return val;
   		}
   	}
+  },
+  methods:{
+    clickCol : function(event){
+      event.currentTarget.classList.add('active');
+      this.$store.commit('setEditMode',true);
+      this.$store.commit('setActiveEno',this.data.eno)
+    }
   }
 }
 </script>

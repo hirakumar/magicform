@@ -5,7 +5,20 @@
                 {{eleObj}}
                 input : {{isInput}}
                 <b-form >
+                    <!-- Container -->
+                    
+                    <b-form-group v-if="isContainer" label="Where to add ?" label-cols="3">
+                       <b-form-select :options="containerAddOptions" size="sm" class="mt-3"></b-form-select>
+                      
+                    </b-form-group>
+                    
+                    <b-form-group v-if="isContainer">
+                       <b-button>Add Container </b-button> 
+                      <b-button @click="removeObj">Remove Container </b-button>
+
+                    </b-form-group>
                     <!-- Cols -->
+
                     
                     <b-form-group v-if="isCol"
                         id="cols"      
@@ -149,7 +162,8 @@ export default {
             {value:'right', text:'Right'}
         ],
         colOptions:[1,2,3,4,5,6,7,8,9,10,11,12],
-        typeOptions:['text','number','email','password','search','url','tel','date','time','range','color']
+        typeOptions:['text','number','email','password','search','url','tel','date','time','range','color'],
+        containerAddOptions:['At First','Before','After','At Last']
       }
   },
   methods:{
@@ -177,6 +191,11 @@ export default {
   		set(val){
   			return val;
   		}
+      },
+      isContainer:{
+        get(){
+              return (this.eleObj.ele=="container" ? true : false);
+          }
       },
       isCol:{
           get(){

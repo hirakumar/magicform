@@ -98,6 +98,22 @@ export default new Vuex.Store({
         state.elements.push({ eno:1, ele:'container', order:1 })
         state.elements.push({eno:2, parent:1, ele:'row', order:1})
         state.elements.push({eno:3, parent:2, ele:'col', cols:12, order:1})
+      }else{
+        let allContainer = state.elements.filter(item=>item.ele==='container');
+        let x = allContainer.sort((a,b)=>{ return a.order - b.order });
+        
+        let lastContainer = x[x.length-1];
+        let lastChild = state.elements[state.elements.length-1];
+        
+        let lasteno=lastChild.eno;
+        let enoID = lastChild.eno;
+
+        lasteno++;
+        state.elements.push({ eno:lasteno, ele:'container', order:lastContainer+1 })
+        lasteno++;
+        state.elements.push({eno:lasteno, parent:lasteno-1, ele:'row', order:1})
+        lasteno++;
+        state.elements.push({eno:lasteno, parent:lasteno-1, ele:'col', cols:12, order:1})
       }
       
      
