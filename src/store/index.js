@@ -49,11 +49,10 @@ export default new Vuex.Store({
       state.activeEno=payload;
     },
     setCol  (state,payload) {
-      console.log("Payload" + payload);
+      
       let obj = state.elements.find(item=>item.eno===state.configEle);
       let index = state.elements.indexOf(obj);
-      console.log("Index :" + index);
-      console.log("Cols :" + obj.cols);
+      
       if(obj.ele=='col'){
         let cols = obj.cols;
         cols+=payload;
@@ -88,37 +87,103 @@ export default new Vuex.Store({
      state.editMode=payload;
     },
     setActiveEno (state,payload){
-      console.log(payload);
-       state.activeEno=payload;
+      state.activeEno=payload;
     },
-    addContainer (state){
+    addContainer (state,payload){
+      try{
+// Assigned Variable
+let obj,lastObj,lastContainer,allEleOrder,allContainer;
      
-      if(state.elements.length==0){
-        state.elements.push({ eno:1, ele:'container', order:1,  })
-        state.elements.push({eno:2, parent:1, ele:'row', order:1})
-        state.elements.push({eno:3, parent:2, ele:'col', cols:12, order:1})
-      }else{
-        let allContainer = state.elements.filter(item=>item.ele==='container');
-        let x = allContainer.sort((a,b)=>{ return a.order - b.order });
-        
-        let lastContainer = x[x.length-1];
-        let lastChild = state.elements[state.elements.length-1];
-        
-        let lasteno=lastChild.eno;
-        let enoID = lastChild.eno;
+// Active Object 
+if(state.activeEno!=null){
+  obj =  state.elements.find(item=>item.eno===state.activeEno);
+}
 
-        lasteno++;
-        state.elements.push({ eno:lasteno, ele:'container', order:lastContainer+1 })
-        lasteno++;
-        state.elements.push({eno:lasteno, parent:lasteno-1, ele:'row', order:1})
-        lasteno++;
-        state.elements.push({eno:lasteno, parent:lasteno-1, ele:'col', cols:12, order:1})
-      }
-    },
-    addContainerBefore(state){
-      console.log("Add Container Before ... ")
+// Last Object
+if(state.lasteno != null){
+  // Last Object
+  lastObj = state.elements.find(item=>item.eno===state.lasteno);
+}
 
+if(state.elements.length>0){
+  // All Container 
+  allContainer = state.elements.filter(item=>item.ele==='container');
+  // Sort All container ascending by order
+  allEleOrder = allContainer.sort((a,b)=>{ return a.order - b.order });
+  // Last Container
+  lastContainer = allEleOrder[allEleOrder.length-1];
+}
+
+/* Adding Container At Last */
+if(payload.action == "addAtLast") {
+  if(state.elements.length==0){
+    state.elements.push({ eno:1, ele:'container', order:1,  })
+    state.elements.push({eno:2, parent:1, ele:'row', order:1})
+    state.elements.push({eno:3, parent:2, ele:'col', cols:12, order:1})
+    state.lasteno=3;
+  }else{
+  
+    let lasteno=state.lasteno;  
+    lasteno++;
+    state.elements.push({ eno:lasteno, ele:'container', order:lastContainer.order+1 })
+    lasteno++;
+    state.elements.push({eno:lasteno, parent:lasteno-1, ele:'row', order:1})
+    lasteno++;
+    state.elements.push({eno:lasteno, parent:lasteno-1, ele:'col', cols:12, order:1})
+
+    state.lasteno=lasteno;
+
+  }
+}
+
+/* Add Container Before Targeted Container */
+if(payload.action=="addBefore"){
+ 
+  let lasteno = state.lasteno;
+  lasteno++;
+  state.elements.push({ eno:lasteno, ele:'container', order:obj.order })
+  lasteno++;
+  state.elements.push({eno:lasteno, parent:lasteno-1, ele:'row', order:1})
+  lasteno++;
+  state.elements.push({eno:lasteno, parent:lasteno-1, ele:'col', cols:12, order:1})
+  state.lasteno = lasteno;
+
+   // List asscenig order
+   allEleOrder.forEach(function(item){
+    if(item.order>=obj.order){            
+      item.order+=1;
+    }
+  })
+  
+}
+
+/* Add Container After Targeted Container */
+if(payload.action=="addAfter"){
+ 
+  let lasteno = state.lasteno;
+  lasteno++;
+  state.elements.push({ eno:lasteno, ele:'container', order:obj.order+1 })
+  lasteno++;
+  state.elements.push({eno:lasteno, parent:lasteno-1, ele:'row', order:1})
+  lasteno++;
+  state.elements.push({eno:lasteno, parent:lasteno-1, ele:'col', cols:12, order:1})
+  state.lasteno = lasteno;
+
+  allEleOrder.forEach(function(item){
+    if(item.order>obj.order){
+      item.order+=1;
+    }
+  })      
+
+}
+      }catch(err){
+        console.log("Error on addContainer : ", err)
+      
+      
+    }
+      
     },
+    
   },
   actions: {  },
   getters: {

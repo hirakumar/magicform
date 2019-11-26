@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    
+    {{containers}}
     <InfoEle v-if="isConfigEle" />
     <EditEle v-if="isEditMode==true" :data="activeEno" />
     

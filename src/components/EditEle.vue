@@ -14,7 +14,7 @@
                             <b-list-group-item>  Fluid Width : <b-form-checkbox v-model="fluidWidth" class="float-right"  name="check-button" switch></b-form-checkbox> 
                             </b-list-group-item>
                             <b-list-group-item><a href="#" @click="addContainerBefore" >Add Before Container</a></b-list-group-item>
-                              <b-list-group-item><a href="#" >Add After Container</a></b-list-group-item>
+                              <b-list-group-item><a href="#" @click="addContainerAfter" >Add After Container</a></b-list-group-item>
                             
                             <b-list-group-item ><b-button variant="danger" @click="removeObj">Remove Container</b-button></b-list-group-item>
                           </b-list-group>  
@@ -184,22 +184,23 @@ export default {
           console.log("set:",val);
       },
       addContainerBefore(){
-        this.$store.commit('addContainerBefore');
+        this.$store.commit('addContainer',{action:'addBefore'});
+      },
+      addContainerAfter(){
+        this.$store.commit('addContainer',{action:'addAfter'});
       }
   },
   computed:{
 
       eno:{
           get(){
-              console.log("Main data:",this.data)
-              return this.data; 
+             return this.data; 
           }
       },
       
       eleObj:{
           get(){
-              console.log("Eno :" + this.eno);
-  			return this.$store.getters.getObj(this.eno);
+            return this.$store.getters.getObj(this.eno);
   		},
   		set(val){
   			return val;

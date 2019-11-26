@@ -19,7 +19,7 @@ export default {
   },
   methods:{
   	creatContainer : function(){
-  		this.$store.commit('addContainer');
+  		this.$store.commit('addContainer',{action:'addAtLast'});
   	}
   },
   components:{

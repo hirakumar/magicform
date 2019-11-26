@@ -28,7 +28,8 @@ export default {
   		set(val){
   			return val;
   		}
-  	}
+    },
+   
   },
   methods:{
     clickCol : function(event){
