@@ -1,5 +1,5 @@
 <template>
- <b-button href="#" class="eleinfo" size="sm" @click ="clickCol">{{data.ele}} : {{data.eno}}  </b-button>
+ <b-button href="#" class="eleinfo" size="sm" @click ="clickCol">{{data.ele}} : {{data.eno}} / {{data.order}}  </b-button>
 </template>
 <script>
 

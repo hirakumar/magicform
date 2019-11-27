@@ -8,6 +8,7 @@
                         label="ID : "
                         label-for="id"
                         label-cols="6"
+                        class="mb-0"
                     >
                         <b-form-input id="id" type="text" size="sm" v-model="idname"   trim></b-form-input>
                     </b-form-group>
@@ -19,6 +20,7 @@
                         label="Class : "
                         label-for="class"
                         label-cols="6"
+                        class="mb-0"
                     >
                         <b-form-input id="class" type="text" size="sm" v-model="classname"   trim></b-form-input>
                     </b-form-group>

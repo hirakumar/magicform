@@ -184,18 +184,54 @@ if(payload.action=="addAfter"){
     },
     addEle(state,payload){
       try{
-          console.log("Add Ele ", payload);
+          // Targeted Object
+          let obj = state.elements.find(item=>item.eno===payload.eno);
+          // Targeted Object's parent eno
+          let parent = obj.parent;
+          // All element whose parent id is equal to targeted's parent eno
+          let allEle = state.elements.filter(item=>item.parent===obj.parent);
+          // Sorting ascending order
+          let sortedList = allEle.sort((a,b)=> { return a.order - b.order} );
+
+          
+          if(payload.action=="addBefore"){
+            // Creating new Object to add before targeted element
+            let newObj = {eno:state.lasteno+1, ele:obj.ele,order:obj.order,parent:obj.parent};
+            state.elements.push(newObj);
+            state.lasteno=newObj.eno;     
+            
+            // increase order greater or equal to
+          sortedList.map((item)=>{
+            if(item.order>=obj.order){
+              item.order+=1;
+            }
+          })
+
+
+          }
+
+          if(payload.action=="addAfter"){
+            // Creating new Object to add before targeted element
+
+            // increase order greater or equal to            
+            let newObj = {eno:state.lasteno+1, ele:obj.ele,order:obj.order+1,parent:obj.parent};
+            state.elements.push(newObj);
+            state.lasteno=newObj.eno; 
+            console.log(JSON.stringify(sortedList));
+
+            sortedList.map((item)=>{
+              if(item.order>obj.order){
+                item.order+=1;
+              }
+            })
+            
+                 
+          } 
       }catch(err){
         console.log("Error on addEle : ", err)
       }
     },
-    removeEle(state){
-      try{
-        console.log("Removing Ele");
-      }catch(err){
-        console.log("Error on removeEle : ", err)
-      }
-    }
+
     
   },
   actions: {  },

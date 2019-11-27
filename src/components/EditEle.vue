@@ -1,13 +1,41 @@
 <template>
     <div class="container">
 
-
+  
         <div class="row">
+            <div class="col">
+ <!-- Container -->
+                <template v-if="isContainer">
+                    <b-button>Add Row</b-button>
+                </template>
+
+                <template v-if="isRow">
+                    <b-button>Add Col</b-button>
+                </template>
+
+                <template v-if="isCol">
+                    <b-button-group>
+                    <b-button>Input</b-button>
+                    <b-button>Select Box</b-button>
+                    <b-button>Check Box</b-button>
+                    <b-button>Radio Box</b-button>
+                    <b-button>Button</b-button>
+                    <b-button>Textarea</b-button>
+                    <b-button>File</b-button>
+                    </b-button-group>
+                </template>
+            </div>
+        </div>
+   
+        <div class="row">
+                
               <div class="col-6">             
                
                 <b-form >
-                <!-- Container -->
+               
 
+
+               
                 <app-configContainer v-if="isContainer" :data="data" />
                 <app-configCols v-if="isCol" :data="data" />
                 <app-configRow v-if="isRow" :data="data" />
