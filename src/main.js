@@ -13,10 +13,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 
-import Dexie from 'dexie';
+// import Dexie from 'dexie';
 Vue.use(BootstrapVue)
 
-console.log(Dexie);
 
 
 new Vue({

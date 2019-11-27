@@ -3,41 +3,17 @@
 
 
         <div class="row">
-              <div class="col-6">
-                {{eleObj}}
-                input : {{isInput}}
+              <div class="col-6">             
+               
                 <b-form >
-                    <!-- Container -->
-                    
-                        <b-card no-body v-if="isContainer">
-                          <b-list-group flush>
-                            <b-list-group-item>  Fluid Width : <b-form-checkbox v-model="fluidWidth" class="float-right"  name="check-button" switch></b-form-checkbox> 
-                            </b-list-group-item>
-                            <b-list-group-item><a href="#" @click="addContainerBefore" >Add Before Container</a></b-list-group-item>
-                              <b-list-group-item><a href="#" @click="addContainerAfter" >Add After Container</a></b-list-group-item>
-                            
-                            <b-list-group-item ><b-button variant="danger" @click="removeObj">Remove Container</b-button></b-list-group-item>
-                          </b-list-group>  
-                        </b-card>
+                <!-- Container -->
 
-                  
-                    
-              
-                    <!-- Cols -->
-
-                    
-                    <b-form-group v-if="isCol"
-                        id="cols"      
-                        label="Cols : "
-                        label-for="cols"     
-                        label-cols="4"
-                        >
-                        <b-form-input id="cols" type="number" size="sm" v-model="cols"  trim></b-form-input>
-                    </b-form-group>
-                    
+                <app-configContainer v-if="isContainer" :data="data" />
+                <app-configCols v-if="isCol" :data="data" />
+                <app-configRow v-if="isRow" :data="data" />
+                   
                     <!-- Label -->
-                    <b-form-group v-if="isFormGroup"
-                       
+                    <b-form-group v-if="isFormGroup"                       
                         label="Label : "
                         label-for="input-1"
                         label-cols="6"
@@ -145,6 +121,14 @@
 
                             <b-button @click="removeObj">Remove</b-button>
                     </b-form-group>
+                   
+                  
+
+
+                    
+
+
+
    </b-form>
   
 
@@ -154,7 +138,9 @@
     
 </template>
 <script>
-
+import ConfigCols from '@/components/config/Cols.vue'
+import ConfigContainer from '@/components/config/Container.vue'
+import ConfigRow from '@/components/config/Row.vue'
 export default {
   name: 'editele',
   props:{
@@ -169,7 +155,8 @@ export default {
         ],
         colOptions:[1,2,3,4,5,6,7,8,9,10,11,12],
         typeOptions:['text','number','email','password','search','url','tel','date','time','range','color'],
-        containerAddOptions:['At First','Before','After','At Last']
+        containerAddOptions:['At First','Before','After','At Last'],
+      
       }
   },
   methods:{
@@ -177,18 +164,7 @@ export default {
         
         this.$store.commit('changeColVal',val)
       },
-      removeObj(){
-           this.$store.commit('removeObj')
-      },
-      setContainerWidth(val){
-          console.log("set:",val);
-      },
-      addContainerBefore(){
-        this.$store.commit('addContainer',{action:'addBefore'});
-      },
-      addContainerAfter(){
-        this.$store.commit('addContainer',{action:'addAfter'});
-      }
+   
   },
   computed:{
 
@@ -197,23 +173,16 @@ export default {
              return this.data; 
           }
       },
-      
+     
       eleObj:{
-          get(){
+        get(){
             return this.$store.getters.getObj(this.eno);
   		},
   		set(val){
   			return val;
   		}
       },
-      fluidWidth:{
-        get(){
-          return (this.eleObj.fluid ? true : false );
-        },
-        set(val){
-          return this.$store.commit('editObj',{fluid:val})
-        }
-      },
+      
       isContainer:{
         get(){
               return (this.eleObj.ele=="container" ? true : false);
@@ -235,14 +204,13 @@ export default {
               return (this.eleObj.ele=="form-input" ? true : false);
           }
       },
-      cols:{
-            get(){
-                return this.eleObj.cols;
-            },set(val){
-                //this.$store.commit('changeColVal',val)
-               this.$store.commit('editObj',{cols:val})
-            }
+      isRow:{
+          get(){
+              return (this.eleObj.ele=="row" ? true : false);
+          }
       },
+      
+     
       label:{
           get(){
                 return this.eleObj.label;
@@ -300,6 +268,7 @@ export default {
                 this.$store.commit('editObj',{after:val})
             }
       },
+      
       inputType:{
            get(){
                
@@ -312,7 +281,12 @@ export default {
   
       
 
-  }
+  },
+  components:{
+       'app-configCols' : ConfigCols,
+       'app-configContainer' : ConfigContainer,
+       'app-configRow' : ConfigRow
+    }
 }
 </script>
 <style scoped>

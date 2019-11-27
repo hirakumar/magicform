@@ -2,22 +2,24 @@
   
     <b-col 
     	:offset = "data.offset" 
-    	:offset-sm = "data.offset_sm" 
-    	:offset-md = "data.offset_md" 
-    	:offset-xl = "data.offset_xl" 
-    	:offset-lg = "data.offset_lg"
+    	:offset-sm = "data['offset-sm']" 
+    	:offset-md = "data['offset-md']" 
+    	:offset-xl = "data['offset-xl']" 
+    	:offset-lg = "data['offset-lg']"
     	:order = "data.order" 
-    	:order-sm = "data.order_sm" 
-    	:order-md = "data.order_md" 
-    	:order-xl = "data.order_xl" 
-    	:order-lg = "data.order_lg"   
+    	:order-sm = "data['order-sm']" 
+    	:order-md = "data['order-md']" 
+    	:order-xl = "data['order-xl']" 
+    	:order-lg = "data['order-lg']"   
     	:cols = "data.cols" 
     	:md = "data.md" 
     	:sm = "data.sm" 
-    	:lg ="data.lg" 
+    	:lg = "data.lg" 
     	:xl = "data.xl"
 		:data-eno = "data.eno"
 		:id = "data.id"
+		:align-self = "data['align-self']"
+		:tag = "data.tag"
 		
 		
     >

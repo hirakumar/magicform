@@ -1,5 +1,12 @@
 <template>
-  <b-row :tag="data.tag" :no-gutters="data.no_gutters" :align-v="data.align_v" :align-h="data.align_h" :align-content="data.align_content">
+  <b-row 
+      :class="data.class"
+      :id="data.id"
+      :tag="data.tag" 
+      :no-gutters="data['no-gutters']" 
+      :align-v="data['align-v']" 
+      :align-h="data['align-h']" 
+      :align-content="data['align-content']">
     <app-infoele :data="data"></app-infoele>
   	<app-col :data="col" v-for="col in cols" :key="col.id" :data-id="col.id" />
   </b-row>  

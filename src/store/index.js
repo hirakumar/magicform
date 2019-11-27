@@ -130,7 +130,6 @@ if(payload.action == "addAtLast") {
     state.elements.push({eno:lasteno, parent:lasteno-1, ele:'row', order:1})
     lasteno++;
     state.elements.push({eno:lasteno, parent:lasteno-1, ele:'col', cols:12, order:1})
-
     state.lasteno=lasteno;
 
   }
@@ -183,6 +182,20 @@ if(payload.action=="addAfter"){
     }
       
     },
+    addEle(state,payload){
+      try{
+          console.log("Add Ele ", payload);
+      }catch(err){
+        console.log("Error on addEle : ", err)
+      }
+    },
+    removeEle(state){
+      try{
+        console.log("Removing Ele");
+      }catch(err){
+        console.log("Error on removeEle : ", err)
+      }
+    }
     
   },
   actions: {  },
