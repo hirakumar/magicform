@@ -45,9 +45,7 @@ export default new Vuex.Store({
     changeEle (state, payload) {
       state.configEle=payload;
     },
-    setActiveEno(state, payload) {
-      state.activeEno=payload;
-    },
+   
     setCol  (state,payload) {
       
       let obj = state.elements.find(item=>item.eno===state.configEle);
@@ -59,15 +57,66 @@ export default new Vuex.Store({
         state.elements[index].cols=cols;
       }
     },
+    removeEle(state,payload){
+       state.elements.splice(payload.index,1);
+    },
     removeObj(state){
+
+      try{
+
+
       let obj = state.elements.find(item=>item.eno===state.activeEno);
       let objIndex = state.elements.indexOf(obj);
+      var removeEle=[];
 
-      state.elements.splice(objIndex,1);
+      removeEle.push(state.activeEno);
+
+      // Recursive function to detect it's child and collect eno on remoEle variable
+      var findChilds= function searchChild(parentID){
+        
+        let childs = state.elements.filter(item=>item.parent===parentID);
+        if(childs.length>0){
+          childs.map((item)=> { 
+            removeEle.push(item.eno);
+            findChilds(item.eno);
+          });
+        }        
+      }
+
+      findChilds(state.activeEno);
+      
+      // Removing one by one
+      removeEle.map((ele)=>{
+          let obj = state.elements.find(item=>item.eno===ele);
+          let index = state.elements.indexOf(obj);
+
+          // Removing specific obj from it's index
+          state.elements.splice(index,1);
+
+          // Adjuest Last eno while deleting object . If 
+          if(state.lasteno>=obj.eno && state.elements.length>0){
+            let lastIndex = state.elements.length-1;
+            state.lasteno = state.elements[lastIndex].eno;
+          }
+          // If we do not have elements then set lasteno is null
+          if(state.elements.length==0){
+            state.lasteno = null;
+          }
+
+      })     
+
+      // Setting active and edit mode false
       state.activeEno=null;
-      state.editMode=false;
+      state.editMode=false;      
+      
+       }catch(err){
+        console.log("Error on removeObj:", err);
+      }
     },
+
     editObj(state,payload){
+      try{
+      
       let obj = state.elements.find(item=>item.eno===state.activeEno);
       let objIndex = state.elements.indexOf(obj);     
       
@@ -80,15 +129,12 @@ export default new Vuex.Store({
            state.elements[objIndex][item[0]]=item[1];
           }
         })
-      
+       }catch(err){
+        console.log("Error on editObj :", err);
+      }
        
     },
-    setEditMode (state,payload){
-     state.editMode=payload;
-    },
-    setActiveEno (state,payload){
-      state.activeEno=payload;
-    },
+   
     addContainer (state,payload){
       try{
 // Assigned Variable
@@ -117,12 +163,13 @@ if(state.elements.length>0){
 /* Adding Container At Last */
 if(payload.action == "addAtLast") {
   if(state.elements.length==0){
+    
     state.elements.push({ eno:1, ele:'container', order:1,  })
     state.elements.push({eno:2, parent:1, ele:'row', order:1})
     state.elements.push({eno:3, parent:2, ele:'col', cols:12, order:1})
     state.lasteno=3;
   }else{
-  
+ 
     let lasteno=state.lasteno;  
     lasteno++;
     state.elements.push({ eno:lasteno, ele:'container', order:lastContainer.order+1 })
@@ -231,10 +278,76 @@ if(payload.action=="addAfter"){
         console.log("Error on addEle : ", err)
       }
     },
-
+    setLastEno(state,payload){
+      state.lasteno=payload.eno;
+    },
+    setActiveEno(state,payload){
+      state.activeEno=payload;
+    },
+    setEditMode(state,payload){
+      state.editMode=payload;  
+    }
     
   },
-  actions: {  },
+  actions: { 
+
+removeObj(context){
+
+      try{
+
+       
+      let obj = context.getters.getActiveObj
+     
+      var removeEle=[];
+
+      removeEle.push(context.getters.getActiveEno);
+
+      // Recursive function to detect it's child and collect eno on remoEle variable
+      var findChilds= function searchChild(parentID){
+                     
+        let childs = context.getters.getChilds(parentID);
+        if(childs.length>0){
+          childs.map((item)=> { 
+            removeEle.push(item.eno);
+            findChilds(item.eno);
+          });
+        }        
+      }
+
+      findChilds(context.getters.getActiveEno);
+      
+      // Removing one by one
+      removeEle.map((eno)=>{
+          
+          let obj = context.getters.getObj(eno);
+          let index = context.getters.getIndexByEno(eno);
+
+          // Removing specific obj from it's index
+          context.commit('removeEle',{index:index});         
+
+          // Adjuest Last eno while deleting object . If 
+          if(context.getters.getLastEno>=obj.eno && context.getters.getTotalElements>0){
+            let lastIndex = context.getters.getTotalElements-1;
+            let obj = context.getters.getObjByIndex(lastIndex);
+            context.commit('setLastEno',{eno:obj});
+          }
+          // If we do not have elements then set lasteno is null
+          if(context.getters.getTotalElements==0){
+            context.commit('setLastEno',{eno:null});
+          }
+
+      })     
+
+      // Setting active and edit mode false
+      context.commit('setActiveEno',null);
+      context.commit('setEditMode',false);
+          
+      
+       }catch(err){
+        console.log("Error on removeObj:", err);
+      }
+    },
+   },
   getters: {
     hasContainer: state =>{
       return (state.elements.length>0 ? true : false);
@@ -245,14 +358,27 @@ if(payload.action=="addAfter"){
     getActiveEno : state => {     
       return state.activeEno;
     },
+    getTotalElements : state =>{
+      return state.elements.length;
+    },
+    getObjByIndex : (state) => (index) => {
+      return state.elements[index];
+    },
     getActiveObj : state =>{
       return state.elements.find(item=>item.eno===state.activeEno)
     },
     getConfigEle: state => {     
       return state.configEle;
     },
+    getLastEno : state =>{
+      return state.lasteno;
+    },
     isConfigEle: state => {     
       return (state.configEle >0 ? true : false);
+    },
+    getIndexByEno: (state) => (eno) => {
+      let obj = state.elements.find(item => item.eno === eno);
+      return state.elements.indexOf(obj);
     },
     getConfigEleObj : state => {     
       return state.elements.find(item=>item.eno===state.configEle);
@@ -281,10 +407,12 @@ if(payload.action=="addAfter"){
 
     },
     getChilds: (state) => (eno) => {
-      let obj = state.elements.find(item => item.eno === eno);      
-      let list = state.elements.filter(item => item.parent===obj.eno);
-      let final = list.sort((a,b) => { return a.order - b.order} );
-      return final;
+      let obj = state.elements.find(item => item.eno === eno);
+      if(obj != undefined){
+        let list = state.elements.filter(item => item.parent===obj.eno);
+        let final = list.sort((a,b) => { return a.order - b.order} );
+         return final;
+      } 
     },
     hasChild: (state) => (eno) => {
       let obj = state.elements.find(item => item.eno === eno);      
