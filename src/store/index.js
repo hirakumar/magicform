@@ -4,48 +4,19 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-	 state: { 
+	 state: {
      count:100,
      configEle : 0,
-     activeEno :null,
+     activeEno : null,
       editMode : false,
-  	  elements:[
-        /*
-      {eno:64, ele:'container', order:2},
-      {eno:65, parent:64, ele:'row', order:1},
-      {eno:66, parent:65, ele:'col', cols:12, order:1},     
-      {eno:225, parent:66, ele:'div', text:'<b>Hira Kumar Maharjan</b>', order:2},
-      {eno:68, parent:66, ele:'h', size:2, text:'Sample txt', order:1},
-      {eno:52, ele :'container', order:1},
-      {eno:53, ele :'row', parent:52,order:1},
-      {eno:54, ele :'col', cols:6, parent:53, order:1},
-      {eno:88, ele :'h', parent:54, size:1, order:1, id:'pagetitle', class:'pagetitle1', text:'Customer Comments'},
-      {eno:55, ele : 'form-group', parent : 54, order:2, label:'Name', label_cols:3, before:'Before', after:'<b>After</b>'},
-      {eno:56, ele : 'form-input', parent : 55, order:1},
-      {eno:57, ele : 'form-group', parent : 54, label:'Email', label_cols:3, order:3},
-      {eno:58, ele : 'form-input', parent : 57, type:'email', order:1},
-      {eno:59, ele : 'form-group', parent : 54, label:'Subject',label_cols:3, order:4 },
-      {eno:60, ele : 'form-select', parent : 59, 
-        options:[
-          {text : 'Customer Support', value : 'Customer Support'},
-          {text : 'New Registration', value : 'New Registration'},
-          {text : 'Claim Referer ', value : 'Claim Referer'},
-          {text : 'Technical Support ', value : 'Technical Support'}
-        ],
-        order:1
-       },
-       {eno:61, ele : 'form-group', parent : 54, order:5 },
-      {eno : 62, ele : 'form-checkbox', parent : 61, order:1, text :'I accept the terms and condition'},
-      {eno : 63, ele : 'button', parent : 54, order:6, text :'Submit', type:'submit'},
-      {eno:69, parent:66, ele:'h', size:3, text:'Sample txt 2', order:3},
-*/
-  	]
+      lasteno: null,
+  	  elements:[]
   },
   mutations: { 
     changeEle (state, payload) {
       state.configEle=payload;
     },
-   
+   /*
     setCol  (state,payload) {
       
       let obj = state.elements.find(item=>item.eno===state.configEle);
@@ -57,62 +28,11 @@ export default new Vuex.Store({
         state.elements[index].cols=cols;
       }
     },
+    */
     removeEle(state,payload){
        state.elements.splice(payload.index,1);
     },
-    removeObj(state){
-
-      try{
-
-
-      let obj = state.elements.find(item=>item.eno===state.activeEno);
-      let objIndex = state.elements.indexOf(obj);
-      var removeEle=[];
-
-      removeEle.push(state.activeEno);
-
-      // Recursive function to detect it's child and collect eno on remoEle variable
-      var findChilds= function searchChild(parentID){
-        
-        let childs = state.elements.filter(item=>item.parent===parentID);
-        if(childs.length>0){
-          childs.map((item)=> { 
-            removeEle.push(item.eno);
-            findChilds(item.eno);
-          });
-        }        
-      }
-
-      findChilds(state.activeEno);
-      
-      // Removing one by one
-      removeEle.map((ele)=>{
-          let obj = state.elements.find(item=>item.eno===ele);
-          let index = state.elements.indexOf(obj);
-
-          // Removing specific obj from it's index
-          state.elements.splice(index,1);
-
-          // Adjuest Last eno while deleting object . If 
-          if(state.lasteno>=obj.eno && state.elements.length>0){
-            let lastIndex = state.elements.length-1;
-            state.lasteno = state.elements[lastIndex].eno;
-          }
-          // If we do not have elements then set lasteno is null
-          if(state.elements.length==0){
-            state.lasteno = null;
-          }
-
-      })     
-
-      // Setting active and edit mode false
-      state.activeEno=null;
-      state.editMode=false;      
-      
-       }catch(err){
-        console.log("Error on removeObj:", err);
-      }
-    },
+    
 
     editObj(state,payload){
       try{
@@ -286,11 +206,60 @@ if(payload.action=="addAfter"){
     },
     setEditMode(state,payload){
       state.editMode=payload;  
+    },
+    addElement(state,payload){
+      state.elements.push(payload);
+      state.lasteno=payload.eno;
     }
     
   },
   actions: { 
+    createFormGroup(context,payload){
+      console.log('createForm Group');
+      console.log('payload',payload);
+      let activeObj = context.getters.getActiveObj;
+      let lasteno = context.getters.getLastEno;
+      console.log("Last Eno :", lasteno);
+      
+      console.log("Last Eno :", lasteno);
+      let formgroupObj = {eno : lasteno+1, ele:'form-group', label:'Enter your name', description:'Please enter your full name', parent:activeObj.eno}
+      context.commit('addElement',formgroupObj);
 
+      let inputObj;
+      switch(payload.formType){
+        case 'input':
+        inputObj = {eno:lasteno+2, ele:'form-input', type:'text', parent:lasteno+1};
+        break;
+
+        case 'select':
+        inputObj = {eno:lasteno+2, ele:'form-select',  parent:lasteno+1};
+        break;
+
+        case 'textarea':
+        inputObj = {eno:lasteno+2, ele:'form-textarea',  parent:lasteno+1};
+        break;
+
+        case 'checkbox':
+        inputObj = {eno:lasteno+2, ele:'form-checkbox',  parent:lasteno+1};
+        break;
+
+        case 'radio':
+        inputObj = {eno:lasteno+2, ele:'form-radio',  parent:lasteno+1};
+        break;
+
+        case 'file':
+        inputObj = {eno:lasteno+2, ele:'form-file', parent:lasteno+1};
+        break;
+
+        case 'button':
+        inputObj = {eno:lasteno+2, ele:'button', parent:lasteno+1};
+        break;
+      }
+     
+      context.commit('addElement',inputObj);
+
+
+    },
 removeObj(context){
 
       try{
@@ -361,6 +330,13 @@ removeObj(context){
     getTotalElements : state =>{
       return state.elements.length;
     },
+    hasProperty: (state) => (obj)=>{
+      if(obj.ele.hasOwnProperty(obj.propery)){
+        return true;
+      }else{
+        return false;
+      }
+    },
     getObjByIndex : (state) => (index) => {
       return state.elements[index];
     },
@@ -371,7 +347,11 @@ removeObj(context){
       return state.configEle;
     },
     getLastEno : state =>{
-      return state.lasteno;
+      console.log("getLastEno" , state.lasteno);
+      if(state.lasteno!=undefined){
+        return state.lasteno;
+      }
+      
     },
     isConfigEle: state => {     
       return (state.configEle >0 ? true : false);
@@ -415,8 +395,10 @@ removeObj(context){
       } 
     },
     hasChild: (state) => (eno) => {
-      let obj = state.elements.find(item => item.eno === eno);      
-      let list = state.elements.filter(item => item.parent == obj.eno);
+      console.log(eno);
+      let obj = state.elements.find(item => item.eno === eno);
+      console.log(JSON.stringify(obj));      
+      let list = state.elements.filter(item => item.parent === obj.eno);
       console.log(obj.ele +":" + list.length + ":" + obj.eno);
       return (list.length>0 ? true : false);
     },

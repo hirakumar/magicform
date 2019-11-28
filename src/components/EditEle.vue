@@ -15,13 +15,15 @@
 
                 <template v-if="isCol">
                     <b-button-group>
-                    <b-button>Input</b-button>
+                   
+                    <b-button @click="createFormGroup">Input</b-button>
                     <b-button>Select Box</b-button>
                     <b-button>Check Box</b-button>
                     <b-button>Radio Box</b-button>
                     <b-button>Button</b-button>
                     <b-button>Textarea</b-button>
                     <b-button>File</b-button>
+                    
                     </b-button-group>
                 </template>
             </div>
@@ -31,125 +33,18 @@
                 
               <div class="col-6">             
                
-                <b-form >
-               
+                <b-form >          
 
 
                
                 <app-configContainer v-if="isContainer" :data="data" />
                 <app-configCols v-if="isCol" :data="data" />
                 <app-configRow v-if="isRow" :data="data" />
+                <app-configFormGroup v-if="isFormGroup" :data="data" />
+                <app-configInput v-if="isInput" :data="data" />
+                <app-config-form-select v-if="isFormSelect" :data="data"></app-config-form-select>
                    
-                    <!-- Label -->
-                    <b-form-group v-if="isFormGroup"                       
-                        label="Label : "
-                        label-for="input-1"
-                        label-cols="6"
-                    >
-                        <b-form-input id="input-1" type="text" size="sm" v-model="label"   trim></b-form-input>
-                    </b-form-group>
-
-                     <!-- Label Align -->
-                    <b-form-group v-if="isFormGroup"
-                      
-                        label="Label Align : "
-                        label-for="input-1"
-                        label-cols="6"
-                    >
-                        <b-form-select  v-model="labelAlign" :options="alignOptions" size="sm" class="mt-3"></b-form-select>
-                    </b-form-group>
-
-                   
-
-                    <!-- Label Cols -->
-                    <b-form-group v-if="isFormGroup"
-                       
-                        label="Label Cols : "
-                        label-for="input-1"
-                        label-cols="6"
-                    >
-                        <b-form-select  v-model="labelCols" :options="colOptions" size="sm" ></b-form-select>
-                    </b-form-group>
-
-                    <!-- Label Class -->
-                    <b-form-group v-if="isFormGroup"
-                       
-                        label="Label Class : "
-                        label-for="input-1"
-                        label-cols="6"
-                     >
-                        <b-form-input id="input-1" type="text" size="sm" v-model="labelClass"  trim></b-form-input>
-
-                    </b-form-group>
-                    
-                    <!-- Label Sr Only -->
-                    <b-form-group v-if="isFormGroup"
-                   
-                    label="Sr Only : "
-                    label-for="input-1"
-                    label-cols="6"
-                    >    
-                        <b-form-checkbox
-                           
-                            v-model="srOnly"
-                            name="checkbox-1"
-                           
-                            />
-                      
-
-                    </b-form-group>
-
-                    <!-- Description -->
-                    <b-form-group v-if="isFormGroup"
-                      
-                        label="Description : "
-                        label-for="input-1"
-                        label-cols="6"
-                    >
-                        <b-form-input id="input-1" type="text" size="sm" v-model="description"   trim></b-form-input>
-                    </b-form-group>
-
-                    <!-- Before -->
-                    <b-form-group v-if="isFormGroup"
-                   
-                    label="Before : "
-                    label-for="input-1"
-                    label-cols="6"
-                    >
-                        <b-textarea v-model="before" />
-                    </b-form-group>
-
-                    <!-- After -->
-                    <b-form-group v-if="isFormGroup"
-                      
-                        label="After : "
-                        label-for="input-1"
-                        label-cols="6"
-                        >
-                            <b-textarea v-model="after" />
-                    </b-form-group>
-                     
-                   <b-form-group v-if="isInput"
-                      
-                        label="Input Type : "
-                        label-cols="6"
-                        >
-                           <b-form-select v-model="inputType"   :options="typeOptions" size="sm" ></b-form-select>
-                    </b-form-group>
-
-                     
-                     <b-form-group v-if="isFormGroup"
-                      
-                       
-                        label-for="input-1"
-                        label-cols="6"
-                        >
-
-
-
-                            <b-button @click="removeObj">Remove</b-button>
-                    </b-form-group>
-                   
+               
                   
 
 
@@ -169,6 +64,9 @@
 import ConfigCols from '@/components/config/Cols.vue'
 import ConfigContainer from '@/components/config/Container.vue'
 import ConfigRow from '@/components/config/Row.vue'
+import ConfigFormGroups from '@/components/config/FormGroups.vue'
+import ConfigInput from '@/components/config/Input.vue'
+import ConfigSelect from '@/components/config/FormSelect.vue'
 export default {
   name: 'editele',
   props:{
@@ -192,6 +90,9 @@ export default {
         
         this.$store.commit('changeColVal',val)
       },
+      createFormGroup(){
+          this.$store.dispatch('createFormGroup',{formType : 'input'});
+      }
    
   },
   computed:{
@@ -230,6 +131,13 @@ export default {
           get(){
             if(this.eleObj != undefined){
               return (this.eleObj.ele=="form-group" ? true : false);
+            }
+          }
+      },
+       isFormSelect:{
+          get(){
+            if(this.eleObj != undefined){
+              return (this.eleObj.ele=="form-select" ? true : false);
             }
           }
       },
@@ -313,15 +221,7 @@ export default {
             }
       },
       
-      inputType:{
-           get(){
-               
-               return (this.eleObj.hasOwnProperty('type') ? this.eleObj.type : "text");
-               
-            },set(val){
-                this.$store.commit('editObj',{type:val})
-            }
-      }
+      
   
       
 
@@ -329,7 +229,10 @@ export default {
   components:{
        'app-configCols' : ConfigCols,
        'app-configContainer' : ConfigContainer,
-       'app-configRow' : ConfigRow
+       'app-configRow' : ConfigRow,
+       'app-configFormGroup' : ConfigFormGroups,
+       'app-configInput' : ConfigInput,
+       'app-config-form-select' : ConfigSelect
     }
 }
 </script>

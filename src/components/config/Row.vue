@@ -207,14 +207,14 @@ export default {
   
   },
   methods:{
-         addBefore : function(){
+     addBefore : function(){
           this.$store.commit("addEle",{action:'addBefore',eno:this.data});
       },
       addAfter: function(){
           this.$store.commit("addEle",{action:'addAfter',eno:this.data});
       },
       remove: function(){
-          this.$store.commit("removeObj");
+         this.$store.dispatch("removeObj");
       }
   },
   components:{

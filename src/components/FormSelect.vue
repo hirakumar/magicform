@@ -19,6 +19,8 @@
       :multiple = "data.multiple"
       :select-size = "data.select_size"
       :selected = "data.selected"
+     
+      @click="clickedSelectBox"
 
      
      />
@@ -32,7 +34,15 @@ export default {
   props:{
   	data:Object
   },
-  
+  methods:{
+    clickedSelectBox:function(event){
+       console.log("ENO :" +this.data.eno);
+       this.$store.commit("setActiveEno",this.data.eno);
+       this.$store.commit("setEditMode",true);
+        event.preventDefault();
+        event.stopPropagation();
+    }
+  },
   computed:{
      
     
