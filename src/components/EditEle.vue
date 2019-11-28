@@ -213,49 +213,65 @@ export default {
       
       isContainer:{
         get(){
+            if(this.eleObj != undefined){
+
               return (this.eleObj.ele=="container" ? true : false);
+            }
           }
       },
       isCol:{
           get(){
+            if(this.eleObj != undefined){
               return (this.eleObj.ele=="col" ? true : false);
+            }
           }
       },
        isFormGroup:{
           get(){
+            if(this.eleObj != undefined){
               return (this.eleObj.ele=="form-group" ? true : false);
+            }
           }
       },
       isInput:{
           get(){
-              
+              if(this.eleObj != undefined){
               return (this.eleObj.ele=="form-input" ? true : false);
+            }
           }
       },
       isRow:{
           get(){
+            if(this.eleObj != undefined){
               return (this.eleObj.ele=="row" ? true : false);
+            }
           }
       },
       
      
       label:{
           get(){
+            if(this.eleObj != undefined){
                 return this.eleObj.label;
+              }
             },set(val){
                 this.$store.commit('editObj',{label:val})
             }
       },
       description:{
            get(){
+            if(this.eleObj != undefined){
                 return this.eleObj.description;
+              }
             },set(val){
                  this.$store.commit('editObj',{description:val})
             }
       },
       labelAlign:{
            get(){
+            if(this.eleObj != undefined){
                 return this.eleObj.label_align;
+              }
             },set(val){
                 this.$store.commit('editObj',{label_align:val})
             }
