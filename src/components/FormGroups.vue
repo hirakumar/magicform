@@ -23,6 +23,7 @@
       :data-eno="data.eno"
       :disabled="data.disabled"
       
+      
     >
     
     <app-formcheckbox v-for="checkbox in checkboxes" :data="checkbox" :key="checkbox.eno" :data-eno="checkbox.eno" />

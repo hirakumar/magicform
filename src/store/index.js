@@ -222,37 +222,37 @@ if(payload.action=="addAfter"){
       console.log("Last Eno :", lasteno);
       
       console.log("Last Eno :", lasteno);
-      let formgroupObj = {eno : lasteno+1, ele:'form-group', label:'Enter your name', description:'Please enter your full name', parent:activeObj.eno}
+      let formgroupObj = {eno : lasteno+1, ele:'form-group', 'label-for' :`label${lasteno+1}`, label:'Enter your name', description:'Please enter your full name', parent:activeObj.eno}
       context.commit('addElement',formgroupObj);
 
       let inputObj;
       switch(payload.formType){
         case 'input':
-        inputObj = {eno:lasteno+2, ele:'form-input', type:'text', parent:lasteno+1};
+        inputObj = {eno:lasteno+2, ele:'form-input', type:'text', parent:lasteno+1, id : `label${lasteno+1}`};
         break;
 
         case 'select':
-        inputObj = {eno:lasteno+2, ele:'form-select',  parent:lasteno+1};
+        inputObj = {eno:lasteno+2, ele:'form-select',  parent:lasteno+1, id : `label${lasteno+1}`};
         break;
 
         case 'textarea':
-        inputObj = {eno:lasteno+2, ele:'form-textarea',  parent:lasteno+1};
+        inputObj = {eno:lasteno+2, ele:'form-textarea',  parent:lasteno+1, id : `label${lasteno+1}`};
         break;
 
         case 'checkbox':
-        inputObj = {eno:lasteno+2, ele:'form-checkbox',  parent:lasteno+1};
+        inputObj = {eno:lasteno+2, ele:'form-checkbox',  parent:lasteno+1, id : `label${lasteno+1}`};
         break;
 
         case 'radio':
-        inputObj = {eno:lasteno+2, ele:'form-radio',  parent:lasteno+1};
+        inputObj = {eno:lasteno+2, ele:'form-radio',  parent:lasteno+1, id : `label${lasteno+1}`};
         break;
 
         case 'file':
-        inputObj = {eno:lasteno+2, ele:'form-file', parent:lasteno+1};
+        inputObj = {eno:lasteno+2, ele:'form-file', parent:lasteno+1, id : `label${lasteno+1}`};
         break;
 
         case 'button':
-        inputObj = {eno:lasteno+2, ele:'button', parent:lasteno+1};
+        inputObj = {eno:lasteno+2, ele:'button', parent:lasteno+1, id : `label${lasteno+1}`} ;
         break;
       }
      

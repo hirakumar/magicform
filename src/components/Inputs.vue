@@ -1,7 +1,7 @@
 <template>
   
-    <div>
-      {{data}}
+   
+     
      <b-form-input 
       :disabled = "data.disabled"
       :required = "data.required"
@@ -28,7 +28,7 @@
       :data-eno = "data.eno"
       @click = "clickInput"
      ></b-form-input>
-     </div>
+     
 
 </template>
 
