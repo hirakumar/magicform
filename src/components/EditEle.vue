@@ -17,7 +17,7 @@
                     <b-button-group>
                    
                     <b-button @click="createFormGroup">Input</b-button>
-                    <b-button>Select Box</b-button>
+                    <b-button @click="createFormSelectBox">Select Box</b-button>
                     <b-button>Check Box</b-button>
                     <b-button>Radio Box</b-button>
                     <b-button>Button</b-button>
@@ -92,6 +92,9 @@ export default {
       },
       createFormGroup(){
           this.$store.dispatch('createFormGroup',{formType : 'input'});
+      },
+      createFormSelectBox(){
+        this.$store.dispatch('createFormGroup',{formType : 'form-select'});
       }
    
   },
