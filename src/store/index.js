@@ -16,7 +16,7 @@ export default new Vuex.Store({
     changeEle (state, payload) {
       state.configEle=payload;
     },
-   /*
+   
     setCol  (state,payload) {
       
       let obj = state.elements.find(item=>item.eno===state.configEle);
@@ -28,7 +28,7 @@ export default new Vuex.Store({
         state.elements[index].cols=cols;
       }
     },
-    */
+ 
     removeEle(state,payload){
        state.elements.splice(payload.index,1);
     },

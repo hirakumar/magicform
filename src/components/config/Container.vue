@@ -96,6 +96,7 @@ export default {
   methods:{
      removeObj(){
           this.$store.dispatch("removeObj");
+           
       },
       setContainerWidth(val){
           console.log("set:",val);
