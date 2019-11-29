@@ -1,266 +1,283 @@
 <template>
-<b-card no-body >
-  
-<b-list-group flush>
-            <b-list-group-item>
-              <b-form-group 
-                      
-                        label="Input Type : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                           <b-form-select v-model="inputType"   :options="typeOptions" size="sm" ></b-form-select>
-                </b-form-group>
-            </b-list-group-item>
-            <b-list-group-item>
-              <b-form-group 
-                      
-                        label="Class : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                          
-                            <b-input v-model="classname" size="sm" />
-                </b-form-group>
-            </b-list-group-item>
-            <b-list-group-item>
-               <b-form-group 
-                      
-                        label="ID : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                          <b-input v-model="id" size="sm" />
-                          
-                    </b-form-group>
-             </b-list-group-item>
-                  <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Name : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                         <b-input v-model="name" size="sm" />
-                          
-                    </b-form-group>
-             </b-list-group-item>
-             <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Change Form Type : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                           <b-form-select v-model="inputEle"   :options="formOptions" size="sm" ></b-form-select>
-                    </b-form-group>
-             </b-list-group-item>
-              <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Disabled : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                          <b-form-checkbox v-model="disabled" class="float-right"  name="check-button" switch></b-form-checkbox> 
-                    </b-form-group>
-             </b-list-group-item>
-                  <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Required : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                          <b-form-checkbox v-model="required" class="float-right"  name="check-button" switch></b-form-checkbox> 
-                    </b-form-group>
-             </b-list-group-item>
-        
-          <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Form : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                          <b-input v-model="form" size="sm" />
-                    </b-form-group>
-             </b-list-group-item>
- <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Auto Focus : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                          <b-form-checkbox v-model="autofocus" class="float-right"  name="check-button" switch></b-form-checkbox> 
-                    </b-form-group>
-             </b-list-group-item>
- <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Aria Invalid : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                          <b-form-checkbox v-model="ariaInvalid" class="float-right"  name="check-button" switch></b-form-checkbox> 
-                          
-                    </b-form-group>
-             </b-list-group-item>
-              <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Size : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                          <b-form-select v-model="size"   :options="sizeOptions" size="sm" ></b-form-select>
-                    </b-form-group>
-             </b-list-group-item>
-              <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Value : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                        <b-input v-model="value" size="sm" />
-                    </b-form-group>
-             </b-list-group-item>
-             <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Plain Text : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                         <b-form-checkbox v-model="plaintext" class="float-right"  name="check-button" switch></b-form-checkbox> 
-                    </b-form-group>
-             </b-list-group-item>
-             <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Placeholder : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                        <b-input v-model="placeholder" size="sm" />
-                    </b-form-group>
-             </b-list-group-item>
-              <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Auto Complete : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                        <b-input v-model="autocomplete" size="sm" />
-                    </b-form-group>
-             </b-list-group-item>
-             <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Formater : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                        <b-input v-model="formater" size="sm" />
-                    </b-form-group>
-             </b-list-group-item>
-              <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Lazy Formatter : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                        <b-input v-model="lazyFormatter" size="sm" />
-                    </b-form-group>
-             </b-list-group-item>
-              <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Trim : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                         <b-form-checkbox v-model="trim" class="float-right"  name="check-button" switch></b-form-checkbox> 
-                    </b-form-group>
-             </b-list-group-item>
-              <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Number : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                         <b-form-checkbox v-model="number" class="float-right"  name="check-button" switch></b-form-checkbox> 
-                    </b-form-group>
-             </b-list-group-item>
-             <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Lazy : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                         <b-form-checkbox v-model="lazy" class="float-right"  name="check-button" switch></b-form-checkbox> 
-                    </b-form-group>
-             </b-list-group-item>
-               <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Debounce : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                         <b-input v-model="debounce" size="sm"  />
-                    </b-form-group>
-             </b-list-group-item>
-              <template v-if="eleObj.type=='number'">
-               <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Min : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                         <b-input v-model="min" size="sm" type="number" />
-                    </b-form-group>
-             </b-list-group-item>
+<b-card   title="Form Input">
 
-               <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Max : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                         <b-input v-model="max" size="sm" type="number" />
-                    </b-form-group>
-             </b-list-group-item>
-              </template>
-             <b-list-group-item>
-               <b-form-group 
-                      
-                        label="Step : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                         <b-input v-model="step" size="sm" type="number" />
-                    </b-form-group>
-             </b-list-group-item>
-  <b-list-group-item>
-               <b-form-group 
-                      
-                        label="List : "
-                        label-cols="6"
-                        class="mb-0"
-                        >
-                         <b-input v-model="list" size="sm" type="text" />
-                    </b-form-group>
-             </b-list-group-item>
-          
+  <b-button variant="link" size="md" class="trash">
+    <font-awesome-icon :icon="['fas','trash-alt']" /> 
+  </b-button>
+     
+  <b-card-text><i class="fa fa-home"></i></b-card-text>
+  <b-list-group flush>
+    <!-- Type -->
+    <b-list-group-item>
+      <b-form-group 
+        label="Type : "
+        label-cols="6"
+        class="mb-0"
+      >
+        <b-form-select v-model="inputType"    :options="typeOptions" size="sm" ></b-form-select>
+      </b-form-group>
+    </b-list-group-item>
+    <!-- If Type is number need to show max and min -->
+    <template v-if="eleObj.type=='number'">
+      <b-list-group-item>
+        <b-form-group 
+          label="Min : "
+          label-cols="6"
+          class="mb-0"
+        >
+          <b-input v-model="min" size="sm" type="number" />
+        </b-form-group>
+      </b-list-group-item>
+
+      <b-list-group-item>
+        <b-form-group             
+              label="Max : "
+              label-cols="6"
+              class="mb-0"
+              >
+          <b-input v-model="max" size="sm" type="number" />
+        </b-form-group>
+      </b-list-group-item>
+    </template>
+
+    <!-- Value -->
+    <b-list-group-item>
+      <b-form-group 
+        label="Value : "
+        label-cols="6"
+        class="mb-0"
+      >
+        <b-input v-model="value" size="sm" />
+      </b-form-group>
+    </b-list-group-item>
+
+    <!-- Placeholder -->
+    <b-list-group-item>
+      <b-form-group 
+        label="Placeholder : "
+        label-cols="6"
+        class="mb-0"
+        >
+        <b-input v-model="placeholder" size="sm" />
+        
+      </b-form-group>
+      <b-button class="expand" @click="expand1Level" variant="outline-secondary">
+        <font-awesome-icon v-if="expandOneLevel" :icon="['fas','chevron-up']" />
+        <font-awesome-icon v-else :icon="['fas','chevron-down']" />
+      </b-button>
+
+    </b-list-group-item>
+    <template v-if="expandOneLevel">
+    <!-- Name -->
+    <b-list-group-item>
+      <b-form-group 
+        label="Name : "
+        label-cols="6"
+        class="mb-0"
+      >
+        <b-input v-model="name" size="sm" />
+      </b-form-group>
+    </b-list-group-item>
+
+    <!-- ID -->
+    <b-list-group-item>
+      <b-form-group 
+        label="ID : "
+        label-cols="6"
+        class="mb-0"
+        >
+        <b-input v-model="id" size="sm" />
+      </b-form-group>
+    </b-list-group-item>
+    <!-- Class -->
+    <b-list-group-item>
+      <b-form-group 
+        label="Class : "
+        label-cols="6"
+        class="mb-0"
+      >                          
+        <b-input v-model="classname" size="sm" />
+      </b-form-group>
+    </b-list-group-item>
+    <!-- disabled -->
+    <b-list-group-item>
+      <b-form-group 
+        label="Disabled : "
+        label-cols="6"
+        class="mb-0"
+        >
+          <b-form-checkbox v-model="disabled" class="float-right"  name="check-button" switch></b-form-checkbox> 
+      </b-form-group>
+    </b-list-group-item>
+
+    <!-- required -->
+    <b-list-group-item>
+        <b-form-group
+          label="Required : "
+          label-cols="6"
+          class="mb-0"
+        >
+          <b-form-checkbox v-model="required" class="float-right"  name="check-button" switch></b-form-checkbox> 
+        </b-form-group>
+    </b-list-group-item>
+    
+    <!-- size -->
+    <b-list-group-item>
+      <b-form-group 
+        label="Size : "
+        label-cols="6"
+        class="mb-0"
+              >
+        <b-select v-model="size" size="sm" :options="sizeOptions" />
+      </b-form-group>
+      
+      <b-button class="expand" @click="expand2Level" variant="outline-secondary">
+          <font-awesome-icon v-if="expandTwoLevel" :icon="['fas','chevron-up']" />
+          <font-awesome-icon v-else :icon="['fas','chevron-down']" />
+      </b-button>
+   
+    </b-list-group-item>
+    </template>
+
+    <template v-if="expandTwoLevel">         
+    <b-list-group-item>
+    <b-form-group 
+
+    label="Change Form Type : "
+    label-cols="6"
+    class="mb-0"
+    >
+    <b-form-select v-model="inputEle"   :options="formOptions" size="sm" ></b-form-select>
+    </b-form-group>
+    </b-list-group-item>
+
+    <b-list-group-item>
+    <b-form-group 
+
+    label="Auto Focus : "
+    label-cols="6"
+    class="mb-0"
+    >
+    <b-form-checkbox v-model="autofocus" class="float-right"  name="check-button" switch></b-form-checkbox> 
+    </b-form-group>
+    </b-list-group-item>
+    <b-list-group-item>
+    <b-form-group 
+
+    label="Aria Invalid : "
+    label-cols="6"
+    class="mb-0"
+    >
+    <b-form-checkbox v-model="ariaInvalid" class="float-right"  name="check-button" switch></b-form-checkbox> 
+
+    </b-form-group>
+    </b-list-group-item>
+  
+
+    <b-list-group-item>
+    <b-form-group 
+
+    label="Plain Text : "
+    label-cols="6"
+    class="mb-0"
+    >
+    <b-form-checkbox v-model="plaintext" class="float-right"  name="check-button" switch></b-form-checkbox> 
+    </b-form-group>
+    </b-list-group-item>
+
+    <b-list-group-item>
+    <b-form-group 
+
+    label="Auto Complete : "
+    label-cols="6"
+    class="mb-0"
+    >
+    <b-input v-model="autocomplete" size="sm" />
+    </b-form-group>
+    </b-list-group-item>
+    <b-list-group-item>
+    <b-form-group 
+
+    label="Formater : "
+    label-cols="6"
+    class="mb-0"
+    >
+    <b-input v-model="formater" size="sm" />
+    </b-form-group>
+    </b-list-group-item>
+    <b-list-group-item>
+    <b-form-group 
+
+    label="Lazy Formatter : "
+    label-cols="6"
+    class="mb-0"
+    >
+    <b-input v-model="lazyFormatter" size="sm" />
+    </b-form-group>
+    </b-list-group-item>
+    <b-list-group-item>
+    <b-form-group 
+
+    label="Trim : "
+    label-cols="6"
+    class="mb-0"
+    >
+    <b-form-checkbox v-model="trim" class="float-right"  name="check-button" switch></b-form-checkbox> 
+    </b-form-group>
+    </b-list-group-item>
+    <b-list-group-item>
+    <b-form-group 
+
+    label="Number : "
+    label-cols="6"
+    class="mb-0"
+    >
+    <b-form-checkbox v-model="number" class="float-right"  name="check-button" switch></b-form-checkbox> 
+    </b-form-group>
+    </b-list-group-item>
+    <b-list-group-item>
+    <b-form-group 
+
+    label="Lazy : "
+    label-cols="6"
+    class="mb-0"
+    >
+    <b-form-checkbox v-model="lazy" class="float-right"  name="check-button" switch></b-form-checkbox> 
+    </b-form-group>
+    </b-list-group-item>
+    <b-list-group-item>
+    <b-form-group 
+
+    label="Debounce : "
+    label-cols="6"
+    class="mb-0"
+    >
+    <b-input v-model="debounce" size="sm"  />
+    </b-form-group>
+    </b-list-group-item>
+
+    <b-list-group-item>
+    <b-form-group 
+
+    label="Step : "
+    label-cols="6"
+    class="mb-0"
+    >
+    <b-input v-model="step" size="sm" type="number" />
+    
+    </b-form-group>
+    </b-list-group-item>
+    <b-list-group-item>
+    <b-form-group 
+
+    label="List : "
+    label-cols="6"
+    class="mb-0"
+    >
+    <b-input v-model="list" size="sm" type="text" />
+    </b-form-group>
+    </b-list-group-item>
+    </template>
         </b-list-group>
 
 
@@ -276,7 +293,8 @@ export default {
   data:function(){
     return {
       activeProperty:'',
-     
+      expandOneLevel:false,
+      expandTwoLevel:false,
       typeOptions:['text','number','email','password','search','url','tel','date','time','range','color'],
       sizeOptions:[
         {text:'None', value:false},
@@ -553,6 +571,20 @@ export default {
     
   },
   methods:{
+    expand1Level:function(){
+      if(this.expandOneLevel){
+        this.expandOneLevel=false;
+      }else{
+        this.expandOneLevel=true;
+      }
+    },
+    expand2Level:function(){
+      if(this.expandTwoLevel){
+        this.expandTwoLevel=false;
+      }else{
+        this.expandTwoLevel=true;
+      }
+    }
     /*
     changeActiveProperty(val){
       this.activeProperty=val;
@@ -593,3 +625,30 @@ export default {
   }
 }
 </script>
+<style >
+.expand{
+  position: absolute;
+  right: 0px;
+  bottom: -12px;
+  z-index: 999;
+  border:solid 2px #333;
+  width:25px;
+  height:25px;
+  align-items: center;
+  justify-content: center;
+  display:flex;
+  border-radius:25px;
+  background:#ffffff;
+  padding:0px;
+}
+.expand svg{
+  width:13px;
+  height:13px;
+}
+.trash{
+      position: absolute;
+    right: 12px;
+    top: 11px;
+    color:#333;
+}
+</style>
