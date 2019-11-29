@@ -22,7 +22,10 @@ export default {
      },  
     hasChild:{
         get(){
-            return this.$store.getters.hasChild(this.objID);
+            if(this.objID != undefined){
+                return this.$store.getters.hasChild(this.objID);
+            }
+            
         }
     }  
   

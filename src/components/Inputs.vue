@@ -1,6 +1,7 @@
 <template>
   
-    
+    <div>
+      {{data}}
      <b-form-input 
       :disabled = "data.disabled"
       :required = "data.required"
@@ -8,6 +9,7 @@
       :autofocus = "data.autofocus"
       :size = "data.size"
       :state = "data.state"
+      :name = "data.name"
       :value = "data.value"
       :readonly = "data.readonly"
       :plaintext = "data.plaintext"
@@ -16,15 +18,17 @@
       :trim = "data.trim"
       :number = "data.number"
       :type = "data.type"
-      :on-wheel = "data.on_wheel"
+      :on-wheel = "data['on-wheel']"
       :min = "data.min"
       :max = "data.max"
       :step = "data.step"
       :list = "data.list"
       :id = "data.id"
-      :data-eno="data.eno"
-      @click="clickInput"
+      :class = "data.class"
+      :data-eno = "data.eno"
+      @click = "clickInput"
      ></b-form-input>
+     </div>
 
 </template>
 

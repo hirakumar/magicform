@@ -1,5 +1,5 @@
 <template>
- <b-button href="#" class="eleinfo" size="sm" @click ="clickCol">{{data.ele}} : {{data.eno}} , order:{{data.order}}</b-button>
+ <b-button href="#" class="eleinfo" size="sm" @click ="clickCol">{{data.ele}} : {{data.eno}} / {{data.order}}  </b-button>
 </template>
 <script>
 
@@ -27,14 +27,7 @@ export default {
   },
   computed:{
   
-      eleObj:{
-          get(){
-  			return this.$store.getters.getConfigEleObj;
-  		},
-  		set(val){
-  			return val;
-  		}
-      },
+  
 
   }
 }
