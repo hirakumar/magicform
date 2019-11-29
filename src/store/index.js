@@ -347,7 +347,7 @@ removeObj(context){
       return state.configEle;
     },
     getLastEno : state =>{
-      console.log("getLastEno" , state.lasteno);
+     
       if(state.lasteno!=undefined){
         return state.lasteno;
       }
