@@ -1,5 +1,6 @@
 <template>
    <div  @click="clickedSelectBox">
+    
     <b-form-select
       :placeholder = "data.placeholder"
       :size = "data.size"

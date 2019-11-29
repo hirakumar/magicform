@@ -218,12 +218,30 @@ if(payload.action=="addAfter"){
       let index = payload.index;
       state.elements[index].options
       if(state.elements[index].hasOwnProperty('options')){
-        state.elements[index].options.push({text:payload.options.text,value:payload.options.value});
+        var obj = {};
+        obj.value = payload.options.value;
+        obj.text = payload.options.text;
+
+        let eles = state.elements[index].options.filter(item=>item.text===obj.text);
+        if(eles.length==0){
+          state.elements[index].options.push({text:payload.options.text,value:payload.options.value});
+        }else{
+          alert("Sorry duplicate data");
+        }
+        
       }else{
-        state.elements[index].options=[];
+        //state.elements[index].options=[];
+        Vue.set(state.elements[index],'options',[])
         console.log(JSON.stringify(payload));
-       state.elements[index].options.push({text:payload.options.text,value:payload.options.value});
+        var obj = {};
+        obj.value = payload.options.value;
+        obj.text = payload.options.text;
+       state.elements[index].options.push(obj);
+       //Vue.set(state.elements[index],'options',obj)
       }
+    },
+    removeSelectBoxOption(state,payload){
+      state.elements[payload.objIndex].options.splice(payload.optionIndex,1);
     }
     
   },
@@ -232,6 +250,11 @@ if(payload.action=="addAfter"){
       let eno = context.getters.getActiveEno;
       let index = context.getters.getIndexByEno(eno);
       context.commit('addSelectBoxOption',{index:index,options:payload});
+    },
+    removeSelectOption(context,payload){
+      let eno = context.getters.getActiveEno;
+      let index = context.getters.getIndexByEno(eno);
+      context.commit('removeSelectBoxOption',{objIndex:index,optionIndex:payload.index})
     },
     createFormGroup(context,payload){
       console.log('createForm Group');
@@ -252,7 +275,7 @@ if(payload.action=="addAfter"){
         break;
 
         case 'form-select':
-        inputObj = {eno:lasteno+2, ele:'form-select',  parent:lasteno+1, id : `label${lasteno+1}`};
+        inputObj = {eno:lasteno+2, ele:'form-select',  parent:lasteno+1, id : `label${lasteno+1}`, options:[], disabled:false, required:false, autofocus: false, size:'md', plain : false, value:'', multiple:false, 'select-size':0,'aria-invalid':false};
         break;
 
         case 'textarea':
