@@ -1,14 +1,5 @@
 <template>
-    <div class="container">
-        <div class="row">
-              <div class="col">
-   
-                  {{eleObj}}
-
-    </div>
-    </div>
-    </div>
-    
+ <b-button href="#" class="eleinfo" size="sm" @click ="clickCol">{{data.ele}} : {{data.eno}} / {{data.order}}  </b-button>
 </template>
 <script>
 
@@ -25,16 +16,18 @@ export default {
   components:{
   
   },
+  methods:{
+    clickCol : function(event){
+      event.currentTarget.classList.add('active');
+      this.$store.commit('setEditMode',true);
+      this.$store.commit('setActiveEno',this.data.eno);
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  },
   computed:{
   
-      eleObj:{
-          get(){
-  			return this.$store.getters.getConfigEleObj;
-  		},
-  		set(val){
-  			return val;
-  		}
-      },
+  
 
   }
 }

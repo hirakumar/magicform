@@ -1,6 +1,5 @@
 <template>
-    <div class="formGroupBlock" @mouseenter="mouseEnter"
-      @mouseleave="mouseLeave"
+    <div class="formGroupBlock" 
       @click="clickEvent">
     <div v-html="data.before" class="before"></div>
     <b-form-group
@@ -8,20 +7,22 @@
       :description="data.description"
       :label="data.label"
       :label-for="data.label_for"
-      :label-cols = "data.label_cols"
-      :label-cols-sm = "data.label_cols_sm"
-      :label-cols-md = "data.label_cols_md" 
-      :label-cols-lg = "data.label_cols_lg" 
-      :label-cols-xl = "data.label_cols_xl" 
-      :label-size = "data.label_size" 
-      :label-align = "data.label_align"
-      :label-align-sm = "data.label_align_sm"
-      :label-align-md = "data.label_align_md"
-      :label-align-lg = "data.label_align_lg"
-      :label-align-xl = "data.label_align_xl"
-      :label-class = "data.label_class"
-      :label-sr-only = "data.label_sr_only"
+      :label-cols = "data['label-cols']"
+      :label-cols-sm = "data['label-cols-sm']"
+      :label-cols-md = "data['label-cols-md']" 
+      :label-cols-lg = "data['label-cols-lg']" 
+      :label-cols-xl = "data['label-cols-xl']" 
+      :label-size = "data['label-size']" 
+      :label-align = "data['label-align']"
+      :label-align-sm = "data['label-align-sm']"
+      :label-align-md = "data['label-align-md']"
+      :label-align-lg = "data['label-align-lg']"
+      :label-align-xl = "data['label-align-xl']"
+      :label-class = "data['label-class']"
+      :label-sr-only = "data['label-sr-only']"
       :data-eno="data.eno"
+      :disabled="data.disabled"
+      
       
     >
     
@@ -132,7 +133,5 @@ export default {
 }
 </script>
 <style scoped>
-.formGroupBlock:hover{
-  border:solid 1px Red;
-}
+
 </style>

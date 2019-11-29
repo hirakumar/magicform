@@ -2,27 +2,28 @@
   
     <b-col 
     	:offset = "data.offset" 
-    	:offset-sm = "data.offset_sm" 
-    	:offset-md = "data.offset_md" 
-    	:offset-xl = "data.offset_xl" 
-    	:offset-lg = "data.offset_lg"
+    	:offset-sm = "data['offset-sm']" 
+    	:offset-md = "data['offset-md']" 
+    	:offset-xl = "data['offset-xl']" 
+    	:offset-lg = "data['offset-lg']"
     	:order = "data.order" 
-    	:order-sm = "data.order_sm" 
-    	:order-md = "data.order_md" 
-    	:order-xl = "data.order_xl" 
-    	:order-lg = "data.order_lg"   
+    	:order-sm = "data['order-sm']" 
+    	:order-md = "data['order-md']" 
+    	:order-xl = "data['order-xl']" 
+    	:order-lg = "data['order-lg']"   
     	:cols = "data.cols" 
     	:md = "data.md" 
     	:sm = "data.sm" 
-    	:lg ="data.lg" 
+    	:lg = "data.lg" 
     	:xl = "data.xl"
 		:data-eno = "data.eno"
 		:id = "data.id"
-		@mouseenter="hoverOn(data.eno)"
-		@mouseleave="hoverOut(data.eno)"
-		@click ="clickCol"
+		:align-self = "data['align-self']"
+		:tag = "data.tag"
+		
+		
     >
-
+<app-infoele :data="data" @click ="clickCol"></app-infoele>
 	<app-elements v-for="child in childs" :key="child.eno" :data="child" :parentID="colID" />
     </b-col>
   
@@ -32,6 +33,7 @@
 // @ is an alias to /src
 
 import Elements from '@/components/Elements.vue'
+import InfoEle from '@/components/InfoEle.vue'
 export default {
   name: 'cols',
   props:{
@@ -67,12 +69,15 @@ export default {
 	  clickCol : function(event){
 		  event.currentTarget.classList.add('active');
 		  this.$store.commit('setEditMode',true);
-		  this.$store.commit('setActiveEno',this.data.eno)
+		  this.$store.commit('setActiveEno',this.data.eno);
+       event.preventDefault();
+      event.stopPropagation();
 	  }
   },
   components:{
 	 
-	  'app-elements' : Elements
+	  'app-elements' : Elements,
+    'app-infoele' : InfoEle
   }
 }
 </script>
