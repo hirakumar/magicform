@@ -1,28 +1,25 @@
 <template>
-   <div>
+   <div  @click="clickedSelectBox">
+    
     <b-form-select
-      :placeholder ="data.placeholder"
-      :size="data.size"
-      :disabled ="data.disabled"
-      :name ="data.name"
+      :placeholder = "data.placeholder"
+      :size = "data.size"
+      :disabled = "data.disabled"
+      :name = "data.name"
       :required = "data.required"
-      :form ="data.form"
+      :form = "data.form"
       :autofocus = "data.autofocus"
-      :state ="data.state"
-      :plain="data.plain"
+      :state = "data.state"
+      :plain = "data.plain"
       :id = "data.id"
       :data-eno = "data.eno"
       :options = "data.options"
-      :value-field = "data.value_field"
-      :text-field = "data.text_field"
+      :value-field = "data['value-field']"
+      :text-field = "data['text-field']"
       :value = "data.value"
       :multiple = "data.multiple"
-      :select-size = "data.select_size"
-      :selected = "data.selected"
-     
-      @click="clickedSelectBox"
-
-     
+      :select-size = "data['select_size']"
+      :selected = "data.selected"     
      />
   </div>
 

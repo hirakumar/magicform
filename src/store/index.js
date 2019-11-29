@@ -208,12 +208,54 @@ if(payload.action=="addAfter"){
       state.editMode=payload;  
     },
     addElement(state,payload){
+      console.log("addElement");
+      console.log(JSON.stringify(payload));
       state.elements.push(payload);
       state.lasteno=payload.eno;
+    },
+    addSelectBoxOption(state,payload){
+      console.log(payload);
+      let index = payload.index;
+      state.elements[index].options
+      if(state.elements[index].hasOwnProperty('options')){
+        var obj = {};
+        obj.value = payload.options.value;
+        obj.text = payload.options.text;
+
+        let eles = state.elements[index].options.filter(item=>item.text===obj.text);
+        if(eles.length==0){
+          state.elements[index].options.push({text:payload.options.text,value:payload.options.value});
+        }else{
+          alert("Sorry duplicate data");
+        }
+        
+      }else{
+        //state.elements[index].options=[];
+        Vue.set(state.elements[index],'options',[])
+        console.log(JSON.stringify(payload));
+        var obj = {};
+        obj.value = payload.options.value;
+        obj.text = payload.options.text;
+       state.elements[index].options.push(obj);
+       //Vue.set(state.elements[index],'options',obj)
+      }
+    },
+    removeSelectBoxOption(state,payload){
+      state.elements[payload.objIndex].options.splice(payload.optionIndex,1);
     }
     
   },
   actions: { 
+    addOption(context,payload){
+      let eno = context.getters.getActiveEno;
+      let index = context.getters.getIndexByEno(eno);
+      context.commit('addSelectBoxOption',{index:index,options:payload});
+    },
+    removeSelectOption(context,payload){
+      let eno = context.getters.getActiveEno;
+      let index = context.getters.getIndexByEno(eno);
+      context.commit('removeSelectBoxOption',{objIndex:index,optionIndex:payload.index})
+    },
     createFormGroup(context,payload){
       console.log('createForm Group');
       console.log('payload',payload);
@@ -221,18 +263,19 @@ if(payload.action=="addAfter"){
       let lasteno = context.getters.getLastEno;
       console.log("Last Eno :", lasteno);
       
-      console.log("Last Eno :", lasteno);
       let formgroupObj = {eno : lasteno+1, ele:'form-group', 'label-for' :`label${lasteno+1}`, label:'Enter your name', description:'Please enter your full name', parent:activeObj.eno}
+      
       context.commit('addElement',formgroupObj);
 
       let inputObj;
+      console.log("Form Type :", payload.formType);
       switch(payload.formType){
         case 'input':
         inputObj = {eno:lasteno+2, ele:'form-input', type:'text', parent:lasteno+1, id : `label${lasteno+1}`};
         break;
 
-        case 'select':
-        inputObj = {eno:lasteno+2, ele:'form-select',  parent:lasteno+1, id : `label${lasteno+1}`};
+        case 'form-select':
+        inputObj = {eno:lasteno+2, ele:'form-select',  parent:lasteno+1, id : `label${lasteno+1}`, options:[], disabled:false, required:false, autofocus: false, size:'md', plain : false, value:'', multiple:false, 'select-size':0,'aria-invalid':false};
         break;
 
         case 'textarea':
@@ -255,7 +298,7 @@ if(payload.action=="addAfter"){
         inputObj = {eno:lasteno+2, ele:'button', parent:lasteno+1, id : `label${lasteno+1}`} ;
         break;
       }
-     
+      console.log("Input Obj :" , JSON.stringify(inputObj));
       context.commit('addElement',inputObj);
 
 

@@ -263,8 +263,7 @@ export default {
         return {
             expandlevel: 0,
             activeProperty: '',
-            expandOneLevel: false,
-            expandTwoLevel: false,
+         
             typeOptions: ['text', 'number', 'email', 'password', 'search', 'url', 'tel', 'date', 'time', 'range', 'color'],
             sizeOptions: [{
                     text: 'None',

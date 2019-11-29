@@ -13,7 +13,7 @@
         label-cols="4"
         class="mb-0"
         >
-        <b-form-input id="cols" min="0" max="12" type="number" size="sm" v-model="cols"  trim></b-form-input>
+        <b-form-input id="cols" min="0" max="12" type="range" size="sm" v-model="cols"  trim></b-form-input>
     </b-form-group>
      </b-list-group-item>
        <b-list-group-item>
