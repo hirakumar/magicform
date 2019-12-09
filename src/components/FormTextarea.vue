@@ -1,5 +1,5 @@
 <template>
-   <div>
+   <div  @click="clickedSelectBox">
     <b-form-textarea
         :id = "data.id"
         :name = "data.name"
@@ -15,14 +15,14 @@
         :autocomplete="data.autocomplete"
 
         :placeholder ="data.placeholder"
-        :lazy-formatter = "data.lazy_formatter"
+        :lazy-formatter = "data['lazy-formatter']"
         :trim = "data.trim"
         :number = "data.number"
         :rows = "data.rows"
-        :max-rows = "data.max_rows"
+        :max-rows = "data['max-rows']"
         :wrap = "data.wrap"
-        :re-size = "data.re_size"
-        :no-auto-shrink = "data.no_auto_shrink"
+        :re-size = "data['re-size']"
+        :no-auto-shrink = "data['no-auto-shrink']"
      
      />
   </div>
@@ -43,6 +43,15 @@ export default {
   },
   components:{
     
+  },
+  methods:{
+    clickedSelectBox:function(event){
+      
+       this.$store.commit("setActiveEno",this.data.eno);
+       this.$store.commit("setEditMode",true);
+        event.preventDefault();
+        event.stopPropagation();
+    }
   }
 }
 </script>

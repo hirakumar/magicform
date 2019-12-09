@@ -278,8 +278,8 @@ if(payload.action=="addAfter"){
         inputObj = {eno:lasteno+2, ele:'form-select',  parent:lasteno+1, id : `label${lasteno+1}`, options:[], disabled:false, required:false, autofocus: false, size:'md', plain : false, value:'', multiple:false, 'select-size':0,'aria-invalid':false};
         break;
 
-        case 'textarea':
-        inputObj = {eno:lasteno+2, ele:'form-textarea',name:lasteno+1,  parent:lasteno+1, id : `label${lasteno+1}`};
+        case 'form-textarea':
+        inputObj = {eno:lasteno+2, ele:'form-textarea', name:`label${lasteno+1}`,  parent:lasteno+1, id : `label${lasteno+1}`, required : false, size: 'md', readonly : false, plaintext : false, placeholder : '', rows : 2, 'max-rows' : 5, 'no-resize' : false, 'no-auto-shrink' :  false, value :''};
         break;
 
         case 'form-checkbox-group':
