@@ -282,8 +282,12 @@ if(payload.action=="addAfter"){
         inputObj = {eno:lasteno+2, ele:'form-textarea',name:lasteno+1,  parent:lasteno+1, id : `label${lasteno+1}`};
         break;
 
-        case 'form-checkbox':
+        case 'form-checkbox-group':
         inputObj = {eno:lasteno+2, ele:'form-checkbox-group', name:`label${lasteno+1}`, stacked:false, options:[{text:'Sample Checkbox Option1', value:'sample_checkbox_option1'}],  parent:lasteno+1, id : `label${lasteno+1}`, disabled:false, size:'sm', switches :false, buttons:false, 'button-variant':'primary', required:false, autofocus: false, size:'md',};
+        break;
+
+        case 'form-radio-group':
+        inputObj = {eno:lasteno+2, ele:'form-radio-group', name:`label${lasteno+1}`, stacked:false, options:[{text:'Sample Radio Option1', value:'sample_checkbox_option1'}],  parent:lasteno+1, id : `label${lasteno+1}`, disabled:false, size:'sm', switches :false, buttons:false, 'button-variant':'primary', required:false, autofocus: false, size:'md',};
         break;
 
         case 'radio':

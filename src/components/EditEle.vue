@@ -18,8 +18,8 @@
                    
                     <b-button @click="createFormGroup">Input</b-button>
                     <b-button @click="createFormSelectBox">Select Box</b-button>
-                    <b-button @click="createCheckBox">Check Box</b-button>
-                    <b-button>Radio Box</b-button>
+                    <b-button @click="createCheckBoxGroup">Check Box</b-button>
+                    <b-button @click="createRadioGroup">Radio Button Group</b-button>
                     <b-button>Button</b-button>
                     <b-button>Textarea</b-button>
                     <b-button>File</b-button>
@@ -44,6 +44,7 @@
                 <app-configInput v-if="isInput" :data="data" />
                 <app-config-form-select v-if="isFormSelect" :data="data"></app-config-form-select>          
                 <app-config-checkbox-group v-if="isCheckBoxGroup" :data="data"></app-config-checkbox-group>
+                <app-config-radio-group v-if="isRadioGroup" :data="data" />
                   
 
 
@@ -67,6 +68,7 @@ import ConfigFormGroups from '@/components/config/FormGroups.vue'
 import ConfigInput from '@/components/config/Input.vue'
 import ConfigSelect from '@/components/config/FormSelect.vue'
 import ConfigCheckboxGroup from '@/components/config/FormCheckboxGroup.vue'
+import ConfigRadioGroup from '@/components/config/FormRadioGroup.vue'
 export default {
   name: 'editele',
   props:{
@@ -97,8 +99,11 @@ export default {
       createFormSelectBox(){
         this.$store.dispatch('createFormGroup',{formType : 'form-select'});
       },
-      createCheckBox(){
-        this.$store.dispatch('createFormGroup',{formType : 'form-checkbox'});
+      createCheckBoxGroup(){
+        this.$store.dispatch('createFormGroup',{formType : 'form-checkbox-group'});
+      },
+      createRadioGroup(){
+        this.$store.dispatch('createFormGroup',{formType : 'form-radio-group'});
       }
    
   },
@@ -159,6 +164,14 @@ export default {
         get(){
           if(this.eleObj != undefined){
              return (this.eleObj.ele=="form-checkbox-group" ? true : false);
+          }
+        }
+      },
+      
+       isRadioGroup:{
+        get(){
+          if(this.eleObj != undefined){
+             return (this.eleObj.ele=="form-radio-group" ? true : false);
           }
         }
       },
@@ -247,7 +260,8 @@ export default {
        'app-configFormGroup' : ConfigFormGroups,
        'app-configInput' : ConfigInput,
        'app-config-form-select' : ConfigSelect,
-       'app-config-checkbox-group' : ConfigCheckboxGroup
+       'app-config-checkbox-group' : ConfigCheckboxGroup,
+       'app-config-radio-group' : ConfigRadioGroup
     }
 }
 </script>
