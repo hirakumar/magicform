@@ -18,7 +18,7 @@
                    
                     <b-button @click="createFormGroup">Input</b-button>
                     <b-button @click="createFormSelectBox">Select Box</b-button>
-                    <b-button>Check Box</b-button>
+                    <b-button @click="createCheckBox">Check Box</b-button>
                     <b-button>Radio Box</b-button>
                     <b-button>Button</b-button>
                     <b-button>Textarea</b-button>
@@ -42,9 +42,8 @@
                 <app-configRow v-if="isRow" :data="data" />
                 <app-configFormGroup v-if="isFormGroup" :data="data" />
                 <app-configInput v-if="isInput" :data="data" />
-                <app-config-form-select v-if="isFormSelect" :data="data"></app-config-form-select>
-                   
-               
+                <app-config-form-select v-if="isFormSelect" :data="data"></app-config-form-select>          
+                <app-config-checkbox-group v-if="isCheckBoxGroup" :data="data"></app-config-checkbox-group>
                   
 
 
@@ -67,6 +66,7 @@ import ConfigRow from '@/components/config/Row.vue'
 import ConfigFormGroups from '@/components/config/FormGroups.vue'
 import ConfigInput from '@/components/config/Input.vue'
 import ConfigSelect from '@/components/config/FormSelect.vue'
+import ConfigCheckboxGroup from '@/components/config/FormCheckboxGroup.vue'
 export default {
   name: 'editele',
   props:{
@@ -80,6 +80,7 @@ export default {
             {value:'right', text:'Right'}
         ],
         colOptions:[1,2,3,4,5,6,7,8,9,10,11,12],
+        sampleCheckBoxOptions:['Sample Checkbox Option 1'],
         typeOptions:['text','number','email','password','search','url','tel','date','time','range','color'],
         containerAddOptions:['At First','Before','After','At Last'],
       
@@ -95,6 +96,9 @@ export default {
       },
       createFormSelectBox(){
         this.$store.dispatch('createFormGroup',{formType : 'form-select'});
+      },
+      createCheckBox(){
+        this.$store.dispatch('createFormGroup',{formType : 'form-checkbox'});
       }
    
   },
@@ -150,6 +154,13 @@ export default {
               return (this.eleObj.ele=="form-input" ? true : false);
             }
           }
+      },
+      isCheckBoxGroup:{
+        get(){
+          if(this.eleObj != undefined){
+             return (this.eleObj.ele=="form-checkbox-group" ? true : false);
+          }
+        }
       },
       isRow:{
           get(){
@@ -235,7 +246,8 @@ export default {
        'app-configRow' : ConfigRow,
        'app-configFormGroup' : ConfigFormGroups,
        'app-configInput' : ConfigInput,
-       'app-config-form-select' : ConfigSelect
+       'app-config-form-select' : ConfigSelect,
+       'app-config-checkbox-group' : ConfigCheckboxGroup
     }
 }
 </script>

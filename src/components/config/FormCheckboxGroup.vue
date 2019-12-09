@@ -1,10 +1,9 @@
 <template>
-<b-card   title="Form Select">
-
-  <b-button variant="link" size="md" class="trash" @click="remove" >
+    <b-card   title="Form Checkbox Group" v-if="hasObj">
+          <b-button variant="link" size="md" class="trash" @click="remove" >
       <font-awesome-icon :icon="['fas','trash-alt']" /> 
   </b-button>
-  <b-list-group flush>
+   <b-list-group flush>
       <b-list-group-item class="pl-0 pr-0">
           <!-- Label -->
           <b-form-group                        
@@ -12,22 +11,31 @@
             label-for="label"
             label-cols="6"
             class="mb-0"
-            >
-            
+          >            
           </b-form-group>
           <b-row>
-              <b-col cols="5"><b-input placeholder="Text" v-model="text" @keyup="changeValue" /> </b-col>
-              <b-col cols="5"><b-input placeholder="Value" v-model="value" /></b-col>
-              <b-col cols="2"><b-button size="sm" @click="addOption"><font-awesome-icon :icon="['fas','plus']" /> </b-button></b-col>
-          </b-row>
-        
-          <b-row v-for="(opt,index) in options">
-              <b-col cols="5"> {{opt.text}} </b-col>
-              <b-col cols="5">{{opt.value}}</b-col>
+             <b-col cols="10">
+                <b-row>
+                    <b-col cols="12">
+                        <b-input placeholder="Text"  v-model="text" @keyup="changeVal" />
+                    </b-col>
+                    <b-col cols="2"><small>Value :</small></b-col>
+                    <b-col cols="10"> <b-input placeholder="Value" v-model="value" size="sm" :readonly="showFalse" :plaintext="showTrue" /></b-col>
+                </b-row>
+            </b-col>
+            <b-col cols="2"><b-button size="sm" @click="addOption"><font-awesome-icon :icon="['fas','plus']" /> </b-button></b-col>
+        </b-row>     
+        <template v-if="hasOptions">
+          <b-row v-for="(opt,index) in options" >
+              <b-col cols="1"> {{index+1}}. </b-col>
+              <b-col cols="9">  <b-input type="text" :value="opt.text" size="sm" :data-index="index" @keyup="changeText" />
+                  <b-input type="text" :value="opt.value" size="sm" :data-index="index" @keyup="changeValue" />
+                </b-col>
               <b-col cols="2"><b-button size="sm" @click="removeOption(index)"><font-awesome-icon :icon="['fas','trash-alt']" /> </b-button></b-col>
           </b-row>
+          </template>
       </b-list-group-item>
-      <!-- Name -->
+            <!-- Name -->
             <b-list-group-item class="pl-0 pr-0">
                <b-form-group 
                   label="Name : "
@@ -58,6 +66,7 @@
                   <b-input v-model="classname" size="sm" />
                </b-form-group>
             </b-list-group-item>
+
             <!-- disabled -->
             <b-list-group-item class="pl-0 pr-0">
                <b-form-group 
@@ -88,53 +97,67 @@
                   <b-select v-model="size" size="sm" :options="sizeOptions" />
                </b-form-group>
             </b-list-group-item>
+              <!-- size -->
             <b-list-group-item class="pl-0 pr-0">
                <b-form-group 
-                  label="Multiple Size : "
+                  label="Mode : "
                   label-cols="6"
                   class="mb-0"
                   >
+                   <b-form-select v-model="mode" :options="modes"   />
+                       
+               </b-form-group>
                
-                   <b-form-checkbox v-model="multiple" class="float-right"  name="check-button" switch></b-form-checkbox>
-               </b-form-group>
             </b-list-group-item>
-            <b-list-group-item v-if="multiple" class="pl-0 pr-0">
+
+             <b-list-group-item class="pl-0 pr-0">
                <b-form-group 
-                  label="Select Size : "
+                  label="Stacked : "
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-input type="number" size="sm" v-model="selectSize"  min="1" />
-                  
+                  <b-form-checkbox v-model="stacked" class="float-right"  name="check-button" switch></b-form-checkbox>
+                       
                </b-form-group>
-
+               
             </b-list-group-item>
-          </template>
-  </b-list-group>
-  <div class="float-right">
-         <b-button  size="sm" variant="secondary" @click="increaselevel" v-if="expandlevel<2">
+            
+            
+            
+            </template>
+            
+   </b-list-group>
+    <div class="float-right">
+         <b-button  size="sm" variant="secondary" @click="increaselevel" v-if="expandlevel<1">
             <font-awesome-icon :icon="['fas','chevron-down']" />
          </b-button>
          <b-button  size="sm" variant="secondary" @click="decreaselevel" v-if="expandlevel>0">
             <font-awesome-icon :icon="['fas','chevron-up']" />
          </b-button>
       </div>
-</b-card>
+    </b-card>
 </template>
 <script>
 
 export default {
- name: 'ConfigFormSelect',
+ name: 'ConfigFormCheckboxGroup',
   props:{
     data:Number,
-    addDataPanelStatus:false
+    
   },
-  data:function(){
+   data:function(){
     return {
+      showTrue: true,
+      showFalse : false,
       expandlevel: 0,
       text:'',
       value:'',
-      sizeOptions: [{
+        modes:[
+            {text:'Normal', value:'normal'},
+            {text:'Switch', value:'switches'},
+            {text:'Buttons', value:'buttons'}
+        ],
+        sizeOptions: [{
                     text: 'None',
                     value: false
                 },
@@ -153,13 +176,12 @@ export default {
             ],
     }
   },
-  computed:{  
-     eno: {
+  computed:{
+        eno: {
             get() {
                 return this.data;
             }
         },
-
         eleObj: {
             get() {
                 return this.$store.getters.getObj(this.eno);
@@ -168,7 +190,12 @@ export default {
                 return val;
             }
         },
-        options:{
+        hasObj:{
+            get(){
+                return (this.eleObj!=null ? true : false);
+            }
+        },
+         options:{
           get(){
             if(this.eleObj!=undefined){
               return this.eleObj.options;
@@ -178,7 +205,13 @@ export default {
             return val;
           }
         },
-
+        hasOptions:{
+            get(){
+             if(this.eleObj!=undefined){
+                return (this.options.length>0 ? true : false);
+             }
+          },
+        },
         id: {
             get() {
                 if (this.eleObj != undefined) {
@@ -241,7 +274,7 @@ export default {
                 })
             }
         },
-        size: {
+         size: {
             get() {
                 if (this.eleObj != undefined) {
                     return this.eleObj.size;
@@ -253,77 +286,49 @@ export default {
                 })
             }
         },
-        value: {
+       
+        mode:{
+            get(){
+               
+            },
+            set(val) {
+                console.log(val);
+                switch(val){
+                    case "switches" :
+                        this.$store.commit('editObj', { switches : true })
+                        this.$store.commit('editObj', { buttons : false })
+                    break;
+
+                    case "buttons" :
+                        this.$store.commit('editObj', { buttons : true })
+                        this.$store.commit('editObj', { switches : false })
+                        
+                    break;
+
+                    default:
+                        this.$store.commit('editObj', { switches : false })
+                        this.$store.commit('editObj', { buttons : false })
+                }
+                return val;
+            }
+        },
+         stacked: {
             get() {
                 if (this.eleObj != undefined) {
-                    return this.eleObj.value;
+                    return this.eleObj.stacked;
                 }
             },
             set(val) {
                 this.$store.commit('editObj', {
-                    value: val
+                    stacked: val
                 })
             }
         },
-        plaintext: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.plaintext;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    plaintext: val
-                })
-            }
-        },
-        autocomplete: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.autocomplete;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    autocomplete: val
-                })
-            }
-        },
-        multiple:{
-          get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.multiple;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    multiple: val
-                })
-            }
-        },
-        selectSize:{
-          get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj['select-size'];
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    'select-size': val
-                })
-            }
-        }
-  
-  },
-  components:{
 
   },
   methods:{
-    addCustomData :  function(){
-      this.addDataPanelStatus =true;
-    },
-    
-    changeValue : function(){
+   
+    changeVal : function(){
       this.value =this.text.replace(/\s/g,'_').toLowerCase();
     },
     addOption : function(){
@@ -347,11 +352,31 @@ export default {
             } catch (err) {
                 console.log("Error on decreaselevel :", err)
             }
-        }
-
-  },
-   remove: function() {
+        },
+         remove: function() {
             this.$store.dispatch("removeObj");
         },
+        changeText: function(e){
+            console.log("Changing Text");
+            console.log(e);
+            this.options[e.target.dataset.index].text = e.target.value;
+            this.options[e.target.dataset.index].value = e.target.value.replace(/\s/g,'_').toLowerCase();
+             this.$store.commit('editObj', {
+                    options:this.options
+                })
+            e.preventDefault();
+            e.stopPropagation();
+        },
+         changeValue: function(e){
+            
+            this.options[e.target.dataset.index].value = e.target.value.replace(/\s/g,'_').toLowerCase();
+             this.$store.commit('editObj', {
+                    options:this.options
+                })
+            e.preventDefault();
+            e.stopPropagation();
+        }
+  }
+  
 }
-</script>
+  </script>

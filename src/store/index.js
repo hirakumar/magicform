@@ -258,7 +258,7 @@ if(payload.action=="addAfter"){
     },
     createFormGroup(context,payload){
       console.log('createForm Group');
-      console.log('payload',payload);
+     
       let activeObj = context.getters.getActiveObj;
       let lasteno = context.getters.getLastEno;
       console.log("Last Eno :", lasteno);
@@ -268,7 +268,7 @@ if(payload.action=="addAfter"){
       context.commit('addElement',formgroupObj);
 
       let inputObj;
-      console.log("Form Type :", payload.formType);
+     
       switch(payload.formType){
         case 'input':
         inputObj = {eno:lasteno+2, ele:'form-input', type:'text', parent:lasteno+1, id : `label${lasteno+1}`};
@@ -279,11 +279,11 @@ if(payload.action=="addAfter"){
         break;
 
         case 'textarea':
-        inputObj = {eno:lasteno+2, ele:'form-textarea',  parent:lasteno+1, id : `label${lasteno+1}`};
+        inputObj = {eno:lasteno+2, ele:'form-textarea',name:lasteno+1,  parent:lasteno+1, id : `label${lasteno+1}`};
         break;
 
-        case 'checkbox':
-        inputObj = {eno:lasteno+2, ele:'form-checkbox',  parent:lasteno+1, id : `label${lasteno+1}`};
+        case 'form-checkbox':
+        inputObj = {eno:lasteno+2, ele:'form-checkbox-group', name:`label${lasteno+1}`, stacked:false, options:[{text:'Sample Checkbox Option1', value:'sample_checkbox_option1'}],  parent:lasteno+1, id : `label${lasteno+1}`, disabled:false, size:'sm', switches :false, buttons:false, 'button-variant':'primary', required:false, autofocus: false, size:'md',};
         break;
 
         case 'radio':
@@ -298,7 +298,7 @@ if(payload.action=="addAfter"){
         inputObj = {eno:lasteno+2, ele:'button', parent:lasteno+1, id : `label${lasteno+1}`} ;
         break;
       }
-      console.log("Input Obj :" , JSON.stringify(inputObj));
+      console.log("inputObj :" + JSON.stringify(inputObj));
       context.commit('addElement',inputObj);
 
 

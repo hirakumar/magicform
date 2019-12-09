@@ -1,15 +1,22 @@
 <template>
-
+<div  @click="clickedSelectBox">
     <b-form-checkbox-group 
         :options = "data.options"
         :stacked = "data.stacked"
         :name = "data.name"
         :button-variant = "data.variant"
         :buttons="isButton"
-        :switches="isSwitches"
+        :switches ="isSwitches"
         :size="data.size"
         :plain="data.plain"
+        :disabled = "data.disabled"
+        :class = "data.class"
+        :id = "data.id"
+        :required = "data.required" 
+       
+        
      />
+     </div>
     
    
 
@@ -33,7 +40,7 @@ export default {
      },
      isButton:{
        get(){
-         return (this.data.button ? true : false);
+         return (this.data.buttons ? true : false);
        }
      },
      isSwitches:{
@@ -41,6 +48,15 @@ export default {
          return (this.data.switches ? true : false);
        }
      }
+  },
+   methods:{
+    clickedSelectBox:function(event){
+       console.log("ENO :" +this.data.eno);
+       this.$store.commit("setActiveEno",this.data.eno);
+       this.$store.commit("setEditMode",true);
+        event.preventDefault();
+        event.stopPropagation();
+    }
   },
   components:{
     
