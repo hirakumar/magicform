@@ -22,7 +22,7 @@
                     <b-button @click="createRadioGroup">Radio Button Group</b-button>
                     <b-button>Button</b-button>
                     <b-button @click="createTextarea">Textarea</b-button>
-                    <b-button>File</b-button>
+                    <b-button @click="createFile">File</b-button>
                     
                     </b-button-group>
                 </template>
@@ -46,6 +46,7 @@
                 <app-config-checkbox-group v-if="isCheckBoxGroup" :data="data"></app-config-checkbox-group>
                 <app-config-radio-group v-if="isRadioGroup" :data="data" />
                 <app-config-textarea v-if="isTextarea" :data="data" />
+                <app-config-file v-if="isFile" :data="data" />
                   
 
 
@@ -71,6 +72,7 @@ import ConfigSelect from '@/components/config/FormSelect.vue'
 import ConfigCheckboxGroup from '@/components/config/FormCheckboxGroup.vue'
 import ConfigRadioGroup from '@/components/config/FormRadioGroup.vue'
 import ConfigTextarea from '@/components/config/FormTextarea.vue'
+import ConfigFile from '@/components/config/FormFile.vue'
 export default {
   name: 'editele',
   props:{
@@ -109,6 +111,9 @@ export default {
       },
       createTextarea(){
         this.$store.dispatch('createFormGroup',{formType : 'form-textarea'});
+      },
+      createFile(){
+        this.$store.dispatch('createFormGroup',{formType : 'form-file'});
       }
    
   },
@@ -186,6 +191,13 @@ export default {
              return (this.eleObj.ele=="form-textarea" ? true : false);
           }
         }
+      },
+      isFile:{
+          get(){
+              if(this.eleObj != undefined){
+              return (this.eleObj.ele=="form-file" ? true : false);
+            }
+          }
       },
       isRow:{
           get(){
@@ -274,7 +286,8 @@ export default {
        'app-config-form-select' : ConfigSelect,
        'app-config-checkbox-group' : ConfigCheckboxGroup,
        'app-config-radio-group' : ConfigRadioGroup,
-       'app-config-textarea' : ConfigTextarea
+       'app-config-textarea' : ConfigTextarea,
+       'app-config-file' : ConfigFile
     }
 }
 </script>

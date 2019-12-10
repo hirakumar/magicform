@@ -1,7 +1,9 @@
 <template>
- 
+    
     <b-button
         :id = "data.id"
+        :class = "data.class"
+        :name = "data.name"
         :href = "data.href"
         :rel = "data.rel"
         :target = "data.target"
@@ -11,11 +13,11 @@
         :append = "data.append"
         :replace = "data.replace"
         :event = "data.event"
-        :active-class = "data.active_class"
+        :active-class = "data['active-class']"
         :exact = "data.exact"
-        :exact-active-class = "data.exact_active_class"
-        :router-tag = "data.router_tag"
-        :no-prefetch = "data.no_prefetch"
+        :exact-active-class = "data['exact-active-class']"
+        :router-tag = "data['router-tag']"
+        :no-prefetch = "data['no-prefetch']"
         :block = "data.block"
         :size = "data.size"
         :variant = "data.variant"

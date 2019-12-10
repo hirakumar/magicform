@@ -287,15 +287,15 @@ if(payload.action=="addAfter"){
         break;
 
         case 'form-radio-group':
-        inputObj = {eno:lasteno+2, ele:'form-radio-group', name:`label${lasteno+1}`, stacked:false, options:[{text:'Sample Radio Option1', value:'sample_checkbox_option1'}],  parent:lasteno+1, id : `label${lasteno+1}`, disabled:false, size:'sm', switches :false, buttons:false, 'button-variant':'primary', required:false, autofocus: false, size:'md',};
+        inputObj = {eno:lasteno+2, ele:'form-radio-group', name:`label${lasteno+1}`, stacked:false, options:[{text:'Sample Radio Option1', value:'sample_checkbox_option1'}],  parent:lasteno+1, id : `label${lasteno+1}`, disabled:false, size:'md', switches :false, buttons:false, 'button-variant':'primary', required:false, autofocus: false, };
         break;
 
         case 'radio':
         inputObj = {eno:lasteno+2, ele:'form-radio',  parent:lasteno+1, id : `label${lasteno+1}`};
         break;
 
-        case 'file':
-        inputObj = {eno:lasteno+2, ele:'form-file', parent:lasteno+1, id : `label${lasteno+1}`};
+        case 'form-file':
+        inputObj = {eno:lasteno+2, ele:'form-file', name:`label${lasteno+1}`, parent:lasteno+1, id : `label${lasteno+1}`,  disabled:false, size:'sm', required:false, autofocus: false, capture : false, multiple:false, accept:'', plain:false, 'browse-text':'Browse', directory:false,'no-traverse':false,'no-drop':false, 'placeholder' :'No File choosen', 'drop-placeholder' : 'Drop files here' };
         break;
 
         case 'button':
