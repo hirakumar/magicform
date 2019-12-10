@@ -19,8 +19,14 @@
                     <b-button @click="createFormGroup">Input</b-button>
                     <b-button @click="createFormSelectBox">Select Box</b-button>
                     <b-button @click="createCheckBoxGroup">Check Box</b-button>
+                     <b-dropdown right text="Buttons">
+                       <b-dropdown-item @click="createButton">Button</b-dropdown-item>
+                       <b-dropdown-item @click="createButtonGroup">Button Groups</b-dropdown-item>
+                       
+                   
+                     </b-dropdown>
                     <b-button @click="createRadioGroup">Radio Button Group</b-button>
-                    <b-button @click="createButton">Button</b-button>
+                    
                     <b-button @click="createTextarea">Textarea</b-button>
                     <b-button @click="createFile">File</b-button>
                     
@@ -33,7 +39,7 @@
                 
               <div class="col-6">             
                
-                <b-form >          
+                <b-form>          
 
 
                
@@ -48,6 +54,7 @@
                 <app-config-textarea v-if="isTextarea" :data="data" />
                 <app-config-file v-if="isFile" :data="data" />
                 <app-button v-if="isButton" :data="data"  />
+                <app-button-group v-if="isButtonGroup" :data="data" />
 
 
                     
@@ -74,6 +81,7 @@ import ConfigRadioGroup from '@/components/config/FormRadioGroup.vue'
 import ConfigTextarea from '@/components/config/FormTextarea.vue'
 import ConfigFile from '@/components/config/FormFile.vue'
 import ConfigButton from '@/components/config/Button.vue'
+import ConfigButtonGroup from '@/components/config/ButtonGroups.vue'
 export default {
   name: 'editele',
   props:{
@@ -118,6 +126,9 @@ export default {
       },
       createButton(){
         this.$store.dispatch('createEle',{ele : 'button'});
+      },
+      createButtonGroup(){
+        this.$store.dispatch('createButtonGroup',{ele : 'button-group'});
       }
    
   },
@@ -171,6 +182,13 @@ export default {
           get(){
             if(this.eleObj != undefined){
               return (this.eleObj.ele=="button" ? true : false);
+            }
+          }
+      },
+      isButtonGroup:{
+        get(){
+            if(this.eleObj != undefined){
+              return (this.eleObj.ele=="button-group" ? true : false);
             }
           }
       },
@@ -299,7 +317,8 @@ export default {
        'app-config-radio-group' : ConfigRadioGroup,
        'app-config-textarea' : ConfigTextarea,
        'app-config-file' : ConfigFile,
-       'app-button' : ConfigButton
+       'app-button' : ConfigButton,
+       'app-button-group' : ConfigButtonGroup
     }
 }
 </script>

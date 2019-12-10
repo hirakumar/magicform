@@ -260,10 +260,20 @@ if(payload.action=="addAfter"){
       let obj;
       switch(payload.ele){
         case 'button':
-        obj = {eno : lasteno+1, text:'Button', 'border-style':null, ele:'button', parent:lasteno, id : `label${lasteno+1}`, name:`label${lasteno+1}`, active : false, disabled : false, append: false, replace : false, 'active-class':'active', exact: false, 'exact-active-class': '', 'router-tag':'a', block:false,size:'md',variant:'secondary', type:'button', tag:'button',pill:false,squared:false}
+        obj = {eno : lasteno+1, text:'Button', 'border-style':null, ele:'button', parent:activeObj.eno, id : `label${lasteno+1}`, name:`label${lasteno+1}`, active : false, disabled : false, append: false, replace : false, 'active-class':'active', exact: false, 'exact-active-class': '', 'router-tag':'a', block:false,size:'md',variant:'secondary', type:'button', tag:'button',pill:false,squared:false}
         break;
       }
       context.commit('addElement',obj);
+    },
+    createButtonGroup(context,payload){
+      let activeObj = context.getters.getActiveObj;
+      let lasteno = context.getters.getLastEno;  
+      
+      let buttonGroupObj = {eno : lasteno+1, ele:'button-group',  parent:activeObj.eno, before:'', after:'', vertical:false, size:'md',tag:'div','aria-role':'group'}
+      context.commit('addElement',buttonGroupObj);
+
+      let btnObj = {eno : lasteno+2, text:'Button', order:1, 'border-style':null, ele:'button', parent:lasteno+1, id : `btn${lasteno+1}`, name:`btn${lasteno+1}`, active : false, disabled : false, append: false, replace : false, 'active-class':'active', exact: false, 'exact-active-class': '', 'router-tag':'a', block:false,size:'md',variant:'secondary', type:'button', tag:'button',pill:false,squared:false}
+      context.commit('addElement',btnObj);
     },
     createFormGroup(context,payload){
     
@@ -438,7 +448,9 @@ removeObj(context){
 
     },
     getChilds: (state) => (eno) => {
+      console.log("Get Childs :" + eno);
       let obj = state.elements.find(item => item.eno === eno);
+
       if(obj != undefined){
         let list = state.elements.filter(item => item.parent===obj.eno);
         let final = list.sort((a,b) => { return a.order - b.order} );
@@ -446,10 +458,14 @@ removeObj(context){
       } 
     },
     hasChild: (state) => (eno) => {
-     
-      let obj = state.elements.find(item => item.eno === eno);
-      let list = state.elements.filter(item => item.parent === obj.eno);
-      return (list.length>0 ? true : false);
+      try{
+        let obj = state.elements.find(item => item.eno === eno);
+        let list = state.elements.filter(item => item.parent === obj.eno);
+        return (list.length>0 ? true : false);
+      }catch(err){
+        console.log("Error on hasChild :", err);
+      }
+      
     },
     getFormGroups: (state) => (eno) => {
       let obj = state.elements.find(item => item.eno === eno);      

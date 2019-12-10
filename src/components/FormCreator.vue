@@ -29,10 +29,6 @@ export default {
 </script>
 <style lang="scss">
 form{
-
-
-
-
 .container,.container-fluid{
 	border:dashed 1px #ccc;
 	.eleinfo{
@@ -62,6 +58,12 @@ form{
 				top:-5px;
 				background:#333;
 				border:#333;
+			}
+			.buttonGroup{
+				border:dashed 1px gray;
+				.eleinfo{
+					left:0px;
+				}
 			}
 		}
 	}

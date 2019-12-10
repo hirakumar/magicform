@@ -1,6 +1,6 @@
 <template>
-    <div  @click="clickedEle">
-    <b-button
+    
+    <b-button @click="clickedEle"
         :id = "data.id"
         :class = "data.class"
         :name = "data.name"
@@ -29,7 +29,7 @@
         :data-eno = "data.eno"
        
      >{{data.text}}</b-button>
-     </div>
+     
      
   
 

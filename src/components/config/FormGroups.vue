@@ -36,7 +36,8 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-form-select id="labelCols"  v-model="labelCols" :options="colOptions" size="sm" ></b-form-select>
+                  <b-input  type="range"   v-model="labelCols" min="1" max="12" />
+              
                </b-form-group>
             </b-list-group-item>
             <template v-if="expandlevel>0">
