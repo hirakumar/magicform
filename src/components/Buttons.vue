@@ -1,5 +1,5 @@
 <template>
-    
+    <div  @click="clickedEle">
     <b-button
         :id = "data.id"
         :class = "data.class"
@@ -27,8 +27,9 @@
         :squared = "data.squared"
         :pressed = "data.pressed"
         :data-eno = "data.eno"
-     
+       
      >{{data.text}}</b-button>
+     </div>
      
   
 
@@ -48,6 +49,15 @@ export default {
   },
   components:{
     
+  },
+  methods:{
+     clickedEle:function(event){
+       this.$store.commit("setActiveEno",this.data.eno);
+       this.$store.commit("setEditMode",true);
+       event.preventDefault();
+       event.stopPropagation();
+    }
   }
+  
 }
 </script>

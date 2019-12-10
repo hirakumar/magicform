@@ -20,7 +20,7 @@
                     <b-button @click="createFormSelectBox">Select Box</b-button>
                     <b-button @click="createCheckBoxGroup">Check Box</b-button>
                     <b-button @click="createRadioGroup">Radio Button Group</b-button>
-                    <b-button>Button</b-button>
+                    <b-button @click="createButton">Button</b-button>
                     <b-button @click="createTextarea">Textarea</b-button>
                     <b-button @click="createFile">File</b-button>
                     
@@ -47,7 +47,7 @@
                 <app-config-radio-group v-if="isRadioGroup" :data="data" />
                 <app-config-textarea v-if="isTextarea" :data="data" />
                 <app-config-file v-if="isFile" :data="data" />
-                  
+                <app-button v-if="isButton" :data="data"  />
 
 
                     
@@ -73,6 +73,7 @@ import ConfigCheckboxGroup from '@/components/config/FormCheckboxGroup.vue'
 import ConfigRadioGroup from '@/components/config/FormRadioGroup.vue'
 import ConfigTextarea from '@/components/config/FormTextarea.vue'
 import ConfigFile from '@/components/config/FormFile.vue'
+import ConfigButton from '@/components/config/Button.vue'
 export default {
   name: 'editele',
   props:{
@@ -114,6 +115,9 @@ export default {
       },
       createFile(){
         this.$store.dispatch('createFormGroup',{formType : 'form-file'});
+      },
+      createButton(){
+        this.$store.dispatch('createEle',{ele : 'button'});
       }
    
   },
@@ -160,6 +164,13 @@ export default {
           get(){
             if(this.eleObj != undefined){
               return (this.eleObj.ele=="form-select" ? true : false);
+            }
+          }
+      },
+       isButton:{
+          get(){
+            if(this.eleObj != undefined){
+              return (this.eleObj.ele=="button" ? true : false);
             }
           }
       },
@@ -287,7 +298,8 @@ export default {
        'app-config-checkbox-group' : ConfigCheckboxGroup,
        'app-config-radio-group' : ConfigRadioGroup,
        'app-config-textarea' : ConfigTextarea,
-       'app-config-file' : ConfigFile
+       'app-config-file' : ConfigFile,
+       'app-button' : ConfigButton
     }
 }
 </script>

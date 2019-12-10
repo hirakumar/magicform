@@ -42,10 +42,10 @@ export default new Vuex.Store({
       
         Object.entries(payload).map((item,index)=>{
           if( !state.elements[objIndex].hasOwnProperty(item[0])){   
-            console.log("Vue SEt");     
+               
             Vue.set(state.elements[objIndex],item[0],item[1]);
           }else{
-            console.log("Yppsd SEt"); 
+           
            state.elements[objIndex][item[0]]=item[1];
           }
         })
@@ -184,7 +184,7 @@ if(payload.action=="addAfter"){
             let newObj = {eno:state.lasteno+1, ele:obj.ele,order:obj.order+1,parent:obj.parent};
             state.elements.push(newObj);
             state.lasteno=newObj.eno; 
-            console.log(JSON.stringify(sortedList));
+           
 
             sortedList.map((item)=>{
               if(item.order>obj.order){
@@ -208,13 +208,11 @@ if(payload.action=="addAfter"){
       state.editMode=payload;  
     },
     addElement(state,payload){
-      console.log("addElement");
-      console.log(JSON.stringify(payload));
       state.elements.push(payload);
       state.lasteno=payload.eno;
     },
     addSelectBoxOption(state,payload){
-      console.log(payload);
+      
       let index = payload.index;
       state.elements[index].options
       if(state.elements[index].hasOwnProperty('options')){
@@ -232,7 +230,7 @@ if(payload.action=="addAfter"){
       }else{
         //state.elements[index].options=[];
         Vue.set(state.elements[index],'options',[])
-        console.log(JSON.stringify(payload));
+       
         var obj = {};
         obj.value = payload.options.value;
         obj.text = payload.options.text;
@@ -256,15 +254,23 @@ if(payload.action=="addAfter"){
       let index = context.getters.getIndexByEno(eno);
       context.commit('removeSelectBoxOption',{objIndex:index,optionIndex:payload.index})
     },
-    createFormGroup(context,payload){
-      console.log('createForm Group');
-     
+    createEle(context,payload){
       let activeObj = context.getters.getActiveObj;
       let lasteno = context.getters.getLastEno;
-      console.log("Last Eno :", lasteno);
+      let obj;
+      switch(payload.ele){
+        case 'button':
+        obj = {eno : lasteno+1, text:'Button', 'border-style':null, ele:'button', parent:lasteno, id : `label${lasteno+1}`, name:`label${lasteno+1}`, active : false, disabled : false, append: false, replace : false, 'active-class':'active', exact: false, 'exact-active-class': '', 'router-tag':'a', block:false,size:'md',variant:'secondary', type:'button', tag:'button',pill:false,squared:false}
+        break;
+      }
+      context.commit('addElement',obj);
+    },
+    createFormGroup(context,payload){
+    
+      let activeObj = context.getters.getActiveObj;
+      let lasteno = context.getters.getLastEno;  
       
       let formgroupObj = {eno : lasteno+1, ele:'form-group', 'label-for' :`label${lasteno+1}`, label:'Enter your name', description:'Please enter your full name', parent:activeObj.eno}
-      
       context.commit('addElement',formgroupObj);
 
       let inputObj;
@@ -298,11 +304,9 @@ if(payload.action=="addAfter"){
         inputObj = {eno:lasteno+2, ele:'form-file', name:`label${lasteno+1}`, parent:lasteno+1, id : `label${lasteno+1}`,  disabled:false, size:'sm', required:false, autofocus: false, capture : false, multiple:false, accept:'', plain:false, 'browse-text':'Browse', directory:false,'no-traverse':false,'no-drop':false, 'placeholder' :'No File choosen', 'drop-placeholder' : 'Drop files here' };
         break;
 
-        case 'button':
-        inputObj = {eno:lasteno+2, ele:'button', parent:lasteno+1, id : `label${lasteno+1}`} ;
-        break;
+        
       }
-      console.log("inputObj :" + JSON.stringify(inputObj));
+     
       context.commit('addElement',inputObj);
 
 
@@ -442,11 +446,9 @@ removeObj(context){
       } 
     },
     hasChild: (state) => (eno) => {
-      console.log(eno);
+     
       let obj = state.elements.find(item => item.eno === eno);
-      console.log(JSON.stringify(obj));      
       let list = state.elements.filter(item => item.parent === obj.eno);
-      console.log(obj.ele +":" + list.length + ":" + obj.eno);
       return (list.length>0 ? true : false);
     },
     getFormGroups: (state) => (eno) => {

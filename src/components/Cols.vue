@@ -24,6 +24,7 @@
 		
     >
 <app-infoele :data="data" @click ="clickCol"></app-infoele>
+
 	<app-elements v-for="child in childs" :key="child.eno" :data="child" :parentID="colID" />
     </b-col>
   

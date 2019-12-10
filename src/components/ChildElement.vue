@@ -1,6 +1,5 @@
 <template>
 <div class="childElement">
-  
   <app-h v-if="isH" :data="data" />
    <app-button v-if="isButton" :data="data"  />
    <app-div v-if="isDiv" :data="data" ></app-div>
