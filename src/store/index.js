@@ -258,9 +258,10 @@ if(payload.action=="addAfter"){
       let activeObj = context.getters.getActiveObj;
       let lasteno = context.getters.getLastEno;
       let obj;
+      let getLastChild = context.getters.getLastChild;
       switch(payload.ele){
         case 'button':
-        obj = {eno : lasteno+1, text:'Button', 'border-style':null, ele:'button', parent:activeObj.eno, id : `label${lasteno+1}`, name:`label${lasteno+1}`, active : false, disabled : false, append: false, replace : false, 'active-class':'active', exact: false, 'exact-active-class': '', 'router-tag':'a', block:false,size:'md',variant:'secondary', type:'button', tag:'button',pill:false,squared:false}
+        obj = {eno : lasteno+1, order:getLastChild.order+1, text:'Button', 'border-style':null, ele:'button', parent:activeObj.eno, id : `label${lasteno+1}`, name:`label${lasteno+1}`, active : false, disabled : false, append: false, replace : false, 'active-class':'active', exact: false, 'exact-active-class': '', 'router-tag':'a', block:false,size:'md',variant:'secondary', type:'button', tag:'button',pill:false,squared:false}
         break;
       }
       context.commit('addElement',obj);
@@ -472,6 +473,13 @@ removeObj(context){
       let list= state.elements.filter(item=>item.parent===obj.eno);
       return list.sort((a,b)=> { return a.order - b.order} );
  
+    },
+    getLastChild: state => {
+      let activeObj = state.elements.find(item=>item.eno===state.activeEno);
+      let list = state.elements.filter(item=>item.parent===activeObj.eno);
+      let sortedList = list.sort((a,b)=> { return a.order - b.order} );
+      return sortedList[sortedList.length-1];
+
     },
     getElements: (state) => (eno) => {
       let obj = state.elements.find(item => item.eno === eno);      
