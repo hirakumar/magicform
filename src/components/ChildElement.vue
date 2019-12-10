@@ -34,12 +34,7 @@ export default {
              
              return (this.data.ele=='div' ? true : false);
          }
-     },
-
-
-  
-
-   
+     }, 
    
   
   },

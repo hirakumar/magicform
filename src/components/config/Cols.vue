@@ -2,7 +2,14 @@
 
 
                     
-        <b-card no-body >
+        <b-card title="Column" >
+
+              <b-button variant="link" size="md" class="trash" @click="remove" >
+      <font-awesome-icon :icon="['fas','trash-alt']" /> 
+  </b-button>
+
+
+
         <b-list-group flush>
             <b-list-group-item>
     <!-- Cols -->
@@ -42,18 +49,65 @@
              </b-list-group-item>
     </b-list-group-item>
     <b-list-group-item>
-        <b-button-group>
-        <b-button size='sm' @click="addBefore">Add Before</b-button>
-        <b-button size='sm' @click="addAfter">Add After</b-button>
-        <b-button size='sm' @click="remove" variant="danger">Remove</b-button>
+        <b-button-group >
+       
+      
+      <b-dropdown right text="Add TD" size="sm">
+                       <b-dropdown-item  @click="addBefore">Before TD</b-dropdown-item>
+                       <b-dropdown-item @click="addAfter">After TD</b-dropdown-item>
+                       
+                   
+                     </b-dropdown>
+
 
         </b-button-group>
 
-        <b-form-checkbox v-model="detail" class="float-right"  name="check-button" switch></b-form-checkbox>
+       
         
     </b-list-group-item>
-    <template v-if="detail">
+    <template v-if="expandlevel>0">
+    
+          <b-list-group-item>
+        <b-form-group
+        id="col"      
+        label="offset: "
+
+        label-for="offsset"     
+        label-cols="4"
+            class="mb-0"
+        >
+        <b-form-input id="offset" type="range" min="0" max="12" size="xl" v-model="offset"  trim></b-form-input>
+        
+    </b-form-group>
+        </b-list-group-item>
+
+          <b-list-group-item>
+        <b-form-group
+        id="col"      
+        label="Align self: "
+        label-for="align-self"     
+        label-cols="4"
+            class="mb-0"
+        >
+    
+        <b-form-select   :options="alignOptions" size="sm" ></b-form-select>
+    </b-form-group>
+        </b-list-group-item>
     <b-list-group-item>
+        <b-form-group
+        id="col"      
+        label="Tag : "
+        label-for="tag"     
+        label-cols="4"
+            class="mb-0"
+        >
+        <b-form-input id="tag" type="text" min="0" max="12" size="sm" v-model="tag"  trim></b-form-input>
+        
+    </b-form-group>
+        </b-list-group-item>
+    </template>
+    <template v-if="expandlevel>1">
+<b-list-group-item>
     <!-- Col -->
         <b-form-group
         id="col"      
@@ -116,19 +170,7 @@
         
     </b-form-group>
         </b-list-group-item>
-    <b-list-group-item>
-        <b-form-group
-        id="col"      
-        label="offset: "
-
-        label-for="offsset"     
-        label-cols="4"
-            class="mb-0"
-        >
-        <b-form-input id="offset" type="number" min="0" max="12" size="xl" v-model="offset"  trim></b-form-input>
-        
-    </b-form-group>
-        </b-list-group-item>
+  
     <b-list-group-item>
     <b-form-group
         id="col"      
@@ -237,32 +279,18 @@
         
     </b-form-group>
         </b-list-group-item>
-    <b-list-group-item>
-        <b-form-group
-        id="col"      
-        label="Align self: "
-        label-for="align-self"     
-        label-cols="4"
-            class="mb-0"
-        >
-    
-        <b-form-select   :options="alignOptions" size="sm" ></b-form-select>
-    </b-form-group>
-        </b-list-group-item>
-    <b-list-group-item>
-        <b-form-group
-        id="col"      
-        label="Tag : "
-        label-for="tag"     
-        label-cols="4"
-            class="mb-0"
-        >
-        <b-form-input id="tag" type="text" min="0" max="12" size="sm" v-model="tag"  trim></b-form-input>
-        
-    </b-form-group>
-        </b-list-group-item>
+  
         </template>
             </b-list-group>
+              <div class="float-right">
+                 
+         <b-button  size="sm" variant="secondary" @click="increaselevel" v-if="expandlevel<2" >
+            <font-awesome-icon :icon="['fas','chevron-down']" />
+         </b-button>
+         <b-button  size="sm" variant="secondary" @click="decreaselevel" v-if="expandlevel>0">
+            <font-awesome-icon :icon="['fas','chevron-up']" />
+         </b-button>
+      </div>
             </b-card>
 
                     
@@ -272,11 +300,13 @@
 export default {
  name: 'DivEle',
   props:{
-      data:Number,    
+      data:Number,
+       
   },
   data: function(){
       return {
-          detail :false
+          detail :false,
+          expandlevel: 0,
       }
   },
   computed:{
@@ -481,7 +511,22 @@ export default {
       },
       remove: function(){
           this.$store.dispatch("removeObj");
-      }
+      },
+       increaselevel: function() {
+            try {
+                this.expandlevel += 1;
+            } catch (err) {
+                console.log("Error on increaselevel :", err)
+            }
+
+        },
+        decreaselevel: function() {
+            try {
+                this.expandlevel -= 1;
+            } catch (err) {
+                console.log("Error on decreaselevel :", err)
+            }
+        },
 
   }
 }

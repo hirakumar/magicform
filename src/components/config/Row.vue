@@ -1,5 +1,9 @@
 <template>
-  <b-card no-body >
+  <b-card title="Row">
+         <b-button variant="link" size="md" class="trash" @click="remove" >
+      <font-awesome-icon :icon="['fas','trash-alt']" /> 
+  </b-button>
+
         <b-list-group flush>
             <b-list-group-item>
                   <!-- Label -->
@@ -29,14 +33,14 @@
         <b-button-group>
         <b-button size='sm' @click="addBefore">Add Before</b-button>
         <b-button size='sm' @click="addAfter">Add After</b-button>
-        <b-button size='sm' @click="remove" variant="danger">Remove</b-button>
+        
 
         </b-button-group>
 
-        <b-form-checkbox v-model="detail" class="float-right"  name="check-button" switch></b-form-checkbox>
+       
         
     </b-list-group-item>
-    <template v-if="detail">
+    <template v-if="expandlevel>0">
                <b-list-group-item >
                     <b-form-group 
                         label="Tag"
@@ -91,6 +95,15 @@
                     </b-list-group-item>
      </template>
                 </b-list-group>
+                   <div class="float-right">
+                 
+         <b-button  size="sm" variant="secondary" @click="increaselevel" v-if="expandlevel<1" >
+            <font-awesome-icon :icon="['fas','chevron-down']" />
+         </b-button>
+         <b-button  size="sm" variant="secondary" @click="decreaselevel" v-if="expandlevel>0">
+            <font-awesome-icon :icon="['fas','chevron-up']" />
+         </b-button>
+      </div>
                 </b-card>
                     </template>
 
@@ -103,7 +116,8 @@ export default {
   },
   data:function(){
       return {
-           detail :false
+         
+           expandlevel: 0,
       }
   },
   computed:{
@@ -215,7 +229,22 @@ export default {
       },
       remove: function(){
           this.$store.dispatch("removeObj");
-      }
+      },
+       increaselevel: function() {
+            try {
+                this.expandlevel += 1;
+            } catch (err) {
+                console.log("Error on increaselevel :", err)
+            }
+
+        },
+        decreaselevel: function() {
+            try {
+                this.expandlevel -= 1;
+            } catch (err) {
+                console.log("Error on decreaselevel :", err)
+            }
+        },
   },
   components:{
     
