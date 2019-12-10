@@ -387,7 +387,7 @@ removeObj(context){
           if(context.getters.getLastEno>=obj.eno && context.getters.getTotalElements>0){
             let lastIndex = context.getters.getTotalElements-1;
             let obj = context.getters.getObjByIndex(lastIndex);
-            context.commit('setLastEno',{eno:obj});
+            context.commit('setLastEno',{eno:obj.eno});
           }
           // If we do not have elements then set lasteno is null
           if(context.getters.getTotalElements==0){

@@ -1,124 +1,90 @@
 <template>
 
-<b-card   title="Button Group">
-   
-  <b-button variant="link" size="md" class="trash" @click="remove" >
-      <font-awesome-icon :icon="['fas','trash-alt']" /> 
-  </b-button>
-  <b-list-group flush>
-        
-  		<b-list-group-item  class="pl-0 pr-0">
+    <b-card title="Button Group">
 
- <!-- Placeholder --> <b-button @click="addButton">Add Button</b-button>
- 		</b-list-group-item>
-         <b-list-group-item class="pl-0 pr-0">
-            <b-form-group 
-               label="Vertical : "
-               label-cols="6"
-               class="mb-0"
-               >
-               <b-form-checkbox v-model="vertical" class="float-right"  name="check-button" switch></b-form-checkbox>
-            </b-form-group>
-         </b-list-group-item>
-     <!-- size -->
+        <b-button variant="link" size="md" class="trash" @click="remove">
+            <font-awesome-icon :icon="['fas','trash-alt']" />
+        </b-button>
+        <b-list-group flush>
+
             <b-list-group-item class="pl-0 pr-0">
-               <b-form-group 
-                  label="Size : "
-                  label-cols="6"
-                  class="mb-0"
-                  >
-                  <b-select v-model="size" size="sm" :options="sizeOptions" />
-               </b-form-group>
+
+                <!-- Placeholder -->
+                <b-button @click="addButton">Add Button</b-button>
+            </b-list-group-item>
+            <b-list-group-item class="pl-0 pr-0">
+                <b-form-group label="Vertical : " label-cols="6" class="mb-0">
+                    <b-form-checkbox v-model="vertical" class="float-right" name="check-button" switch></b-form-checkbox>
+                </b-form-group>
+            </b-list-group-item>
+            <!-- size -->
+            <b-list-group-item class="pl-0 pr-0">
+                <b-form-group label="Size : " label-cols="6" class="mb-0">
+                    <b-select v-model="size" size="sm" :options="sizeOptions" />
+                </b-form-group>
             </b-list-group-item>
             <template v-if="expandlevel>0">
-          <b-list-group-item class="pl-0 pr-0">
-            <b-form-group 
-               label="Tag : "
-               label-cols="6"
-               class="mb-0"
-               >
-               <b-input v-model="tag" type="text"></b-input>
-            </b-form-group>
-         </b-list-group-item>
+                <b-list-group-item class="pl-0 pr-0">
+                    <b-form-group label="Tag : " label-cols="6" class="mb-0">
+                        <b-input v-model="tag" type="text"></b-input>
+                    </b-form-group>
+                </b-list-group-item>
 
-             <b-list-group-item class="pl-0 pr-0">
-            <b-form-group 
-               label="Before : "
-               label-cols="6"
-               class="mb-0"
-               >
-               <b-textarea v-model="before" type="text" />
-            </b-form-group>
-         </b-list-group-item>
-   <b-list-group-item class="pl-0 pr-0">
-            <b-form-group 
-               label="After : "
-               label-cols="6"
-               class="mb-0"
-               >
-               <b-textarea v-model="after" type="text" />
-            </b-form-group>
-         </b-list-group-item>
-   <b-list-group-item class="pl-0 pr-0">
-            <b-form-group 
-               label="Aria Role : "
-               label-cols="6"
-               class="mb-0"
-               >
-                <b-input v-model="ariaRole" type="text"></b-input>
-              
-            </b-form-group>
-         </b-list-group-item>
+                <b-list-group-item class="pl-0 pr-0">
+                    <b-form-group label="Before : " label-cols="6" class="mb-0">
+                        <b-textarea v-model="before" type="text" />
+                    </b-form-group>
+                </b-list-group-item>
+                <b-list-group-item class="pl-0 pr-0">
+                    <b-form-group label="After : " label-cols="6" class="mb-0">
+                        <b-textarea v-model="after" type="text" />
+                    </b-form-group>
+                </b-list-group-item>
+                <b-list-group-item class="pl-0 pr-0">
+                    <b-form-group label="Aria Role : " label-cols="6" class="mb-0">
+                        <b-input v-model="ariaRole" type="text"></b-input>
 
+                    </b-form-group>
+                </b-list-group-item>
 
-            <!-- ID -->
-            <b-list-group-item class="pl-0 pr-0">
-               <b-form-group 
-                  label="ID : "
-                  label-cols="6"
-                  class="mb-0"
-                  >
-                  <b-input v-model="id" size="sm" />
-               </b-form-group>
-            </b-list-group-item>
-            <!-- Class -->
-            <b-list-group-item class="pl-0 pr-0">
-               <b-form-group 
-                  label="Class : "
-                  label-cols="6"
-                  class="mb-0"
-                  >
-                  <b-input v-model="classname" size="sm" />
-               </b-form-group>
-            </b-list-group-item>
+                <!-- ID -->
+                <b-list-group-item class="pl-0 pr-0">
+                    <b-form-group label="ID : " label-cols="6" class="mb-0">
+                        <b-input v-model="id" size="sm" />
+                    </b-form-group>
+                </b-list-group-item>
+                <!-- Class -->
+                <b-list-group-item class="pl-0 pr-0">
+                    <b-form-group label="Class : " label-cols="6" class="mb-0">
+                        <b-input v-model="classname" size="sm" />
+                    </b-form-group>
+                </b-list-group-item>
             </template>
-          
-           
-  </b-list-group>
-         
- 
-  <div class="float-right">
-         <b-button  size="sm" variant="secondary" @click="increaselevel" v-if="expandlevel<1">
-            <font-awesome-icon :icon="['fas','chevron-down']" />
-         </b-button>
-         <b-button  size="sm" variant="secondary" @click="decreaselevel" v-if="expandlevel>0">
-            <font-awesome-icon :icon="['fas','chevron-up']" />
-         </b-button>
-      </div>
-</b-card>
+
+        </b-list-group>
+
+        <div class="float-right">
+            <b-button size="sm" variant="secondary" @click="increaselevel" v-if="expandlevel<1">
+                <font-awesome-icon :icon="['fas','chevron-down']" />
+            </b-button>
+            <b-button size="sm" variant="secondary" @click="decreaselevel" v-if="expandlevel>0">
+                <font-awesome-icon :icon="['fas','chevron-up']" />
+            </b-button>
+        </div>
+    </b-card>
 
 </template>
 <script>
-	export default {
- name: 'ButtonGroup',
-  props:{
-    data:Number   
-  },
-  data:function(){
-    return {
-      expandlevel: 0,
-      
-      sizeOptions: [{
+export default {
+    name: 'ButtonGroup',
+    props: {
+        data: Number
+    },
+    data: function() {
+        return {
+            expandlevel: 0,
+
+            sizeOptions: [{
                     text: 'None',
                     value: false
                 },
@@ -135,10 +101,10 @@
                     value: 'lg'
                 },
             ],
-    }
-  },
-  computed:{  
-     eno: {
+        }
+    },
+    computed: {
+        eno: {
             get() {
                 return this.data;
             }
@@ -179,7 +145,7 @@
                 })
             }
         },
-         tag: {
+        tag: {
             get() {
                 if (this.eleObj != undefined) {
                     return this.eleObj.tag;
@@ -191,7 +157,7 @@
                 })
             }
         },
-          before: {
+        before: {
             get() {
                 if (this.eleObj != undefined) {
                     return this.eleObj.before;
@@ -203,7 +169,7 @@
                 })
             }
         },
-          after: {
+        after: {
             get() {
                 if (this.eleObj != undefined) {
                     return this.eleObj.after;
@@ -227,8 +193,7 @@
                 })
             }
         },
-        
-  
+
         classname: {
             get() {
                 if (this.eleObj != undefined) {
@@ -241,7 +206,7 @@
                 })
             }
         },
-        
+
         size: {
             get() {
                 if (this.eleObj != undefined) {
@@ -254,18 +219,14 @@
                 })
             }
         },
-  
-        
-       
     },
-    methods:{
-    	 increaselevel: function() {
+    methods: {
+        increaselevel: function() {
             try {
                 this.expandlevel += 1;
             } catch (err) {
                 console.log("Error on increaselevel :", err)
             }
-
         },
         decreaselevel: function() {
             try {
@@ -274,13 +235,15 @@
                 console.log("Error on decreaselevel :", err)
             }
         },
-         remove: function() {
+        remove: function() {
             this.$store.dispatch("removeObj");
         },
-        addButton: function(){
-            this.$store.dispatch("createEle",{ele:'button'});
+        addButton: function() {
+            this.$store.dispatch("createEle", {
+                ele: 'button'
+            });
         }
-    
+
     }
 }
 </script>

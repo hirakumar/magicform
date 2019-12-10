@@ -1,235 +1,136 @@
 <template>
-   <div>
-     <b-card   title="Form Group">
+
+    <b-card title="Form Group">
 
         <b-button variant="link" size="md" class="trash" @click="remove">
-            <font-awesome-icon :icon="['fas','trash-alt']" /> 
+            <font-awesome-icon :icon="['fas','trash-alt']" />
         </b-button>
-         <b-list-group flush>
+        <b-list-group flush>
             <b-list-group-item>
-               <!-- Label -->
-               <b-form-group                        
-                  label="Label : "
-                  label-for="label"
-                  label-cols="6"
-                  class="mb-0"
-                  >
-                  <b-form-input id="label" type="text" size="sm" v-model="label"   trim></b-form-input>
-               </b-form-group>
+                <!-- Label -->
+                <b-form-group label="Label : " label-for="label" label-cols="6" class="mb-0">
+                    <b-form-input id="label" type="text" size="sm" v-model="label" trim></b-form-input>
+                </b-form-group>
             </b-list-group-item>
             <!-- Description -->
             <b-list-group-item>
-               <b-form-group 
-                  label="Description : "
-                  label-for="description"
-                  label-cols="6"
-                  class="mb-0"
-                  >
-                  <b-form-input id="description" type="text" size="sm" v-model="description"   trim></b-form-input>
-               </b-form-group>
+                <b-form-group label="Description : " label-for="description" label-cols="6" class="mb-0">
+                    <b-form-input id="description" type="text" size="sm" v-model="description" trim></b-form-input>
+                </b-form-group>
             </b-list-group-item>
             <b-list-group-item>
-               <!-- Label Cols -->
-               <b-form-group 
-                  label="Label Cols : "
-                  label-for="labelCols"
-                  label-cols="6"
-                  class="mb-0"
-                  >
-                  <b-input  type="range"   v-model="labelCols" min="1" max="12" />
-              
-               </b-form-group>
+                <!-- Label Cols -->
+                <b-form-group label="Label Cols : " label-for="labelCols" label-cols="6" class="mb-0">
+                    <b-input type="range" v-model="labelCols" min="1" max="12" />
+
+                </b-form-group>
             </b-list-group-item>
             <template v-if="expandlevel>0">
-            <b-list-group-item>
-               
-                  <!-- Label Class -->
-                  <b-form-group 
-                     label="Class : "
-                     label-for="labelClass"
-                     label-cols="6"
-                     class="mb-0"
-                     >
-                     <b-form-input id="labelClass" type="text" size="sm" v-model="labelClass"  trim></b-form-input>
-                  </b-form-group>
-            </b-list-group-item>
-            <b-list-group-item>
-            <b-form-group 
-               label = "Disabled "
-               label-for = "disabled"
-               label-cols = "6"
-               class = "mb-0"
-               >
-            <b-form-checkbox v-model="disabled" class="float-right"  name="check-button" switch></b-form-checkbox>
-            </b-form-group>
-            </b-list-group-item>
-            <b-list-group-item>
-            <!-- Label Sr Only -->
-            <b-form-group
-               label="Sr Only : "
-               label-for="srOnly"
-               label-cols="6"
-               class="mb-0"
-               >    
-            <b-form-checkbox
-               id="srOnly"
-               v-model="srOnly"
-               name="checkbox-1"
-               />
-            </b-form-group>
-            </b-list-group-item>
-            <b-list-group-item>
-            <!-- Label Align -->
-            <b-form-group 
-               label="Label Align : "
-               label-for="labelAlign"
-               label-cols="6"
-               class="mb-0"
-               >
-            <b-form-select id="labelAlign" v-model="labelAlign" :options="alignOptions" size="sm" class="mt-3"></b-form-select>
-            </b-form-group>
-            </b-list-group-item>
-            <b-list-group-item>
-            <!-- Before -->
-            <b-form-group 
-               label="Before : "
-               label-for="before"
-               label-cols="6"
-               class="mb-0"
-               >
-            <b-textarea id="before" v-model="before" />
-            </b-form-group>
-            </b-list-group-item>
-            <b-list-group-item>
-            <!-- After -->
-            <b-form-group 
-               label="After : "
-               label-for="after"
-               label-cols="6"
-               class="mb-0"
-               >
-            <b-textarea id="after" v-model="after" />
-            </b-form-group>
-            </b-list-group-item>
-            <b-list-group-item>
-            <b-form-group 
-               label="Label For"
-               label-for="labelFor"
-               label-cols="6"
-               class="mb-0"
-               >
-            <b-form-input id="labelFor" type="text" size="sm" v-model="labelFor"   trim></b-form-input>
-            </b-form-group>
-            </b-list-group-item>
-            <b-list-group-item>
-            <b-form-group 
-               label="Label Size"
-               label-for="labelSize"
-               label-cols="6"
-               class="mb-0"
-               >
-            <b-form-select id="labelSize"  v-model="labelSize" :options="size" size="sm" ></b-form-select>
-            </b-form-group>
-            </b-list-group-item>
+                <b-list-group-item>
+
+                    <!-- Label Class -->
+                    <b-form-group label="Class : " label-for="labelClass" label-cols="6" class="mb-0">
+                        <b-form-input id="labelClass" type="text" size="sm" v-model="labelClass" trim></b-form-input>
+                    </b-form-group>
+                </b-list-group-item>
+                <b-list-group-item>
+                    <b-form-group label="Disabled " label-for="disabled" label-cols="6" class="mb-0">
+                        <b-form-checkbox v-model="disabled" class="float-right" name="check-button" switch></b-form-checkbox>
+                    </b-form-group>
+                </b-list-group-item>
+                <b-list-group-item>
+                    <!-- Label Sr Only -->
+                    <b-form-group label="Sr Only : " label-for="srOnly" label-cols="6" class="mb-0">
+                        <b-form-checkbox id="srOnly" v-model="srOnly" name="checkbox-1" />
+                    </b-form-group>
+                </b-list-group-item>
+                <b-list-group-item>
+                    <!-- Label Align -->
+                    <b-form-group label="Label Align : " label-for="labelAlign" label-cols="6" class="mb-0">
+                        <b-form-select id="labelAlign" v-model="labelAlign" :options="alignOptions" size="sm" class="mt-3"></b-form-select>
+                    </b-form-group>
+                </b-list-group-item>
+                <b-list-group-item>
+                    <!-- Before -->
+                    <b-form-group label="Before : " label-for="before" label-cols="6" class="mb-0">
+                        <b-textarea id="before" v-model="before" />
+                    </b-form-group>
+                </b-list-group-item>
+                <b-list-group-item>
+                    <!-- After -->
+                    <b-form-group label="After : " label-for="after" label-cols="6" class="mb-0">
+                        <b-textarea id="after" v-model="after" />
+                    </b-form-group>
+                </b-list-group-item>
+                <b-list-group-item>
+                    <b-form-group label="Label For" label-for="labelFor" label-cols="6" class="mb-0">
+                        <b-form-input id="labelFor" type="text" size="sm" v-model="labelFor" trim></b-form-input>
+                    </b-form-group>
+                </b-list-group-item>
+                <b-list-group-item>
+                    <b-form-group label="Label Size" label-for="labelSize" label-cols="6" class="mb-0">
+                        <b-form-select id="labelSize" v-model="labelSize" :options="size" size="sm"></b-form-select>
+                    </b-form-group>
+                </b-list-group-item>
             </template>
             <template v-if="expandlevel>1">
-            
-               <b-list-group-item>
-                  <!-- Label Cols -->
-                  <b-form-group 
-                     label="Label Cols sm : "
-                     label-for="labelColSm"
-                     label-cols="6"
-                     class="mb-0"
-                     >
-                     <b-form-select id="labelColSm"  v-model="labelColSm" :options="colOptions" size="sm" ></b-form-select>
-                  </b-form-group>
-               </b-list-group-item>
-               <b-list-group-item>
-                  <!-- Label Cols -->
-                  <b-form-group 
-                     label="Label Cols md : "
-                     label-for="labelColMd"
-                     label-cols="6"
-                     class="mb-0"
-                     >
-                     <b-form-select id="labelColMd"  v-model="labelColMd" :options="colOptions" size="sm" ></b-form-select>
-                  </b-form-group>
-               </b-list-group-item>
-               <b-list-group-item>
-                  <!-- Label Cols -->
-                  <b-form-group 
-                     label="Label Cols lg : "
-                     label-for="labelColLg"
-                     label-cols="6"
-                     class="mb-0"
-                     >
-                     <b-form-select id="labelColLg"  v-model="labelColLg" :options="colOptions" size="sm" ></b-form-select>
-                  </b-form-group>
-               </b-list-group-item>
-               <b-list-group-item>
-                  <!-- Label Cols -->
-                  <b-form-group 
-                     label="Label Cols xl : "
-                     label-for="labelColXl"
-                     label-cols="6"
-                     class="mb-0"
-                     >
-                     <b-form-select id="labelColXl"  v-model="labelColXl" :options="colOptions" size="sm" ></b-form-select>
-                  </b-form-group>
-               </b-list-group-item>
-               <b-list-group-item>
-                  <b-form-group 
-                     label="Label Align sm : "
-                     label-for="labelAlignSm"
-                     label-cols="6"
-                     class="mb-0"
-                     >
-                     <b-form-select id="labelAlignSm"  v-model="labelAlignSm" :options="alignOptions" size="sm" ></b-form-select>
-                  </b-form-group>
-               </b-list-group-item>
-               <b-list-group-item>
-                  <b-form-group 
-                     label = "Label Align md : "
-                     label-for = "labelAlignMd"
-                     label-cols = "6"
-                     class = "mb-0"
-                     >
-                     <b-form-select id= "labelAlignMd"  v-model="labelAlignMd" :options="alignOptions" size="sm" ></b-form-select>
-                  </b-form-group>
-               </b-list-group-item>
-               <b-list-group-item>
-                  <b-form-group 
-                     label = "Label Align lg : "
-                     label-for = "labelAlignLg"
-                     label-cols = "6"
-                     class = "mb-0"
-                     >
-                     <b-form-select id= "labelAlignLg"  v-model="labelAlignLg" :options="alignOptions" size="sm" ></b-form-select>
-                  </b-form-group>
-               </b-list-group-item>
-               <b-list-group-item>
-                  <b-form-group 
-                     label = "Label Align xl : "
-                     label-for = "labelAlignXl"
-                     label-cols = "6"
-                     class = "mb-0"
-                     >
-                     <b-form-select id= "labelAlignXl"  v-model="labelAlignXl" :options="alignOptions" size="sm" ></b-form-select>
-                  </b-form-group>
-               </b-list-group-item>
+
+                <b-list-group-item>
+                    <!-- Label Cols -->
+                    <b-form-group label="Label Cols sm : " label-for="labelColSm" label-cols="6" class="mb-0">
+                        <b-form-select id="labelColSm" v-model="labelColSm" :options="colOptions" size="sm"></b-form-select>
+                    </b-form-group>
+                </b-list-group-item>
+                <b-list-group-item>
+                    <!-- Label Cols -->
+                    <b-form-group label="Label Cols md : " label-for="labelColMd" label-cols="6" class="mb-0">
+                        <b-form-select id="labelColMd" v-model="labelColMd" :options="colOptions" size="sm"></b-form-select>
+                    </b-form-group>
+                </b-list-group-item>
+                <b-list-group-item>
+                    <!-- Label Cols -->
+                    <b-form-group label="Label Cols lg : " label-for="labelColLg" label-cols="6" class="mb-0">
+                        <b-form-select id="labelColLg" v-model="labelColLg" :options="colOptions" size="sm"></b-form-select>
+                    </b-form-group>
+                </b-list-group-item>
+                <b-list-group-item>
+                    <!-- Label Cols -->
+                    <b-form-group label="Label Cols xl : " label-for="labelColXl" label-cols="6" class="mb-0">
+                        <b-form-select id="labelColXl" v-model="labelColXl" :options="colOptions" size="sm"></b-form-select>
+                    </b-form-group>
+                </b-list-group-item>
+                <b-list-group-item>
+                    <b-form-group label="Label Align sm : " label-for="labelAlignSm" label-cols="6" class="mb-0">
+                        <b-form-select id="labelAlignSm" v-model="labelAlignSm" :options="alignOptions" size="sm"></b-form-select>
+                    </b-form-group>
+                </b-list-group-item>
+                <b-list-group-item>
+                    <b-form-group label="Label Align md : " label-for="labelAlignMd" label-cols="6" class="mb-0">
+                        <b-form-select id="labelAlignMd" v-model="labelAlignMd" :options="alignOptions" size="sm"></b-form-select>
+                    </b-form-group>
+                </b-list-group-item>
+                <b-list-group-item>
+                    <b-form-group label="Label Align lg : " label-for="labelAlignLg" label-cols="6" class="mb-0">
+                        <b-form-select id="labelAlignLg" v-model="labelAlignLg" :options="alignOptions" size="sm"></b-form-select>
+                    </b-form-group>
+                </b-list-group-item>
+                <b-list-group-item>
+                    <b-form-group label="Label Align xl : " label-for="labelAlignXl" label-cols="6" class="mb-0">
+                        <b-form-select id="labelAlignXl" v-model="labelAlignXl" :options="alignOptions" size="sm"></b-form-select>
+                    </b-form-group>
+                </b-list-group-item>
             </template>
-         </b-list-group>
-         <div class="float-right">
-            <b-button  size="sm" variant="secondary" @click="increaselevel" v-if="expandlevel<2">
-               <font-awesome-icon :icon="['fas','chevron-down']" />
+        </b-list-group>
+        <div class="float-right">
+            <b-button size="sm" variant="secondary" @click="increaselevel" v-if="expandlevel<2">
+                <font-awesome-icon :icon="['fas','chevron-down']" />
             </b-button>
-            <b-button  size="sm" variant="secondary" @click="decreaselevel" v-if="expandlevel>0">
-               <font-awesome-icon :icon="['fas','chevron-up']" />
+            <b-button size="sm" variant="secondary" @click="decreaselevel" v-if="expandlevel>0">
+                <font-awesome-icon :icon="['fas','chevron-up']" />
             </b-button>
-         </div>
-      </b-card>
-   </div>
+        </div>
+    </b-card>
+
 </template>
 
 
