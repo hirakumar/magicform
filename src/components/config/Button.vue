@@ -123,6 +123,17 @@
                   <b-form-checkbox v-model="block" class="float-right"  name="check-button" switch></b-form-checkbox>
                </b-form-group>
             </b-list-group-item>
+
+            <!-- order -->
+            <b-list-group-item class="pl-0 pr-0">
+               <b-form-group 
+                  label="Order : "
+                  label-cols="6"
+                  class="mb-0"
+                  >
+                   <b-input v-model="order" size="sm" type="number" min="1" />
+               </b-form-group>
+            </b-list-group-item>
              
 
            </template>
@@ -394,6 +405,18 @@
             set(val) {
                 this.$store.commit('editObj', {
                     size: val
+                })
+            }
+        },
+        order: {
+            get() {
+                if (this.eleObj != undefined) {
+                    return this.eleObj.order;
+                }
+            },
+            set(val) {
+                this.$store.commit('editObj', {
+                    order: val
                 })
             }
         },

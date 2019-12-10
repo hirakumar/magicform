@@ -17,7 +17,7 @@
     >    
     <template v-if="hasChild">
      
-       <app-button v-for="btn in buttons" :data="btn"></app-button>
+       <app-button v-for="btn in buttons" :data="btn" :key="btn.order"></app-button>
     </template>
     
   </b-btn-group>
