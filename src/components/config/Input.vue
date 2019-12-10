@@ -1,8 +1,6 @@
 <template>
    <b-card   title="Form Input">
-      <b-button variant="link" size="md" class="trash">
-         <font-awesome-icon :icon="['fas','trash-alt']" />
-      </b-button>
+     
       <b-list-group flush>
          <!-- Type -->
          <b-list-group-item>
