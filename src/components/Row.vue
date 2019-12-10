@@ -7,7 +7,7 @@
       :align-v="data['align-v']" 
       :align-h="data['align-h']" 
       :align-content="data['align-content']">
-    <app-infoele :data="data"></app-infoele>
+    <div style="width:100%;`"><app-infoele :data="data"></app-infoele></div>
   	<app-col :data="col" v-for="col in cols" :key="col.id" :data-id="col.id" />
   </b-row>  
 </template>

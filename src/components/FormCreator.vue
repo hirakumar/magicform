@@ -41,6 +41,12 @@ form{
 		left:-15px;
 		background:#ccc;
 		border:#ccc;
+		&:after{
+			content:'';
+			display:block;
+			width:100%;
+			height:1px;
+		}
 	};
 	.row{
 		border:dashed 1px #999;

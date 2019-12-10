@@ -88,6 +88,7 @@
                         label="Align Content"
                          label-cols="6"
                          class="mb-0"
+                        
                     >
                      <b-form-select  v-model="alignContent" :options="alignContentOptions" size="sm" ></b-form-select>
                    
@@ -118,6 +119,7 @@ export default {
       return {
          
            expandlevel: 0,
+           showTrue : true
       }
   },
   computed:{

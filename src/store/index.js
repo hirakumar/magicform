@@ -86,7 +86,7 @@ if(payload.action == "addAtLast") {
     
     state.elements.push({ eno:1, ele:'container', order:1,  })
     state.elements.push({eno:2, parent:1, ele:'row', order:1})
-    state.elements.push({eno:3, parent:2, ele:'col', cols:12, order:1})
+    state.elements.push({eno:3, parent:2, ele:'col',  order:1})
     state.lasteno=3;
   }else{
  
@@ -96,7 +96,7 @@ if(payload.action == "addAtLast") {
     lasteno++;
     state.elements.push({eno:lasteno, parent:lasteno-1, ele:'row', order:1})
     lasteno++;
-    state.elements.push({eno:lasteno, parent:lasteno-1, ele:'col', cols:12, order:1})
+    state.elements.push({eno:lasteno, parent:lasteno-1, ele:'col',  order:1})
     state.lasteno=lasteno;
 
   }
@@ -258,13 +258,40 @@ if(payload.action=="addAfter"){
       let activeObj = context.getters.getActiveObj;
       let lasteno = context.getters.getLastEno;
       let obj;
-      let getLastChild = context.getters.getLastChild;
+      let order=1;
+      
+      // Find last child element and find order
+      if(context.getters.getLastChild != false){
+          order= context.getters.getLastChild.order+1;
+      }
+       
       switch(payload.ele){
         case 'button':
-        obj = {eno : lasteno+1, order:getLastChild.order+1, text:'Button', 'border-style':null, ele:'button', parent:activeObj.eno, id : `label${lasteno+1}`, name:`label${lasteno+1}`, active : false, disabled : false, append: false, replace : false, 'active-class':'active', exact: false, 'exact-active-class': '', 'router-tag':'a', block:false,size:'md',variant:'secondary', type:'button', tag:'button',pill:false,squared:false}
+        obj = {eno : lasteno+1, order:order, text:'Button', 'border-style':null, ele:'button', parent:activeObj.eno, id : `label${lasteno+1}`, name:`label${lasteno+1}`, active : false, disabled : false, append: false, replace : false, 'active-class':'active', exact: false, 'exact-active-class': '', 'router-tag':'a', block:false,size:'md',variant:'secondary', type:'button', tag:'button',pill:false,squared:false}
+        context.commit('addElement',obj);
+        break;
+        /*
+ state.elements.push({eno:lasteno, parent:lasteno-1, ele:'row', order:1})
+  lasteno++;
+  state.elements.push({eno:lasteno, parent:lasteno-1, ele:'col', cols:12, order:1})
+        */
+        case 'col':
+        obj = {eno:lasteno+1, parent:activeObj.eno, ele:'col', order:order}
+        context.commit('addElement',obj);
+        break;
+
+        case 'row':
+        let rowObj = {eno:lasteno+1, parent:activeObj.eno, ele:'row', order:order}
+        context.commit('addElement',rowObj);
+
+        obj = {eno:lasteno+2, parent:rowObj.eno, ele:'col', order:1}
+        context.commit('addElement',obj);
+
+
         break;
       }
-      context.commit('addElement',obj);
+      //context.commit('addElement',obj);
+      
     },
     createButtonGroup(context,payload){
       let activeObj = context.getters.getActiveObj;
@@ -281,7 +308,7 @@ if(payload.action=="addAfter"){
       let activeObj = context.getters.getActiveObj;
       let lasteno = context.getters.getLastEno;  
       
-      let formgroupObj = {eno : lasteno+1, ele:'form-group', 'label-for' :`label${lasteno+1}`, label:'Enter your name', description:'Please enter your full name', parent:activeObj.eno}
+      let formgroupObj = {eno : lasteno+1, ele:'form-group', 'label-for' :`label${lasteno+1}`, label:'Sample Label Text', description:'Sample short description', parent:activeObj.eno}
       context.commit('addElement',formgroupObj);
 
       let inputObj;
@@ -360,7 +387,7 @@ removeObj(context){
           if(context.getters.getLastEno>=obj.eno && context.getters.getTotalElements>0){
             let lastIndex = context.getters.getTotalElements-1;
             let obj = context.getters.getObjByIndex(lastIndex);
-            context.commit('setLastEno',{eno:obj});
+            context.commit('setLastEno',{eno:obj.eno});
           }
           // If we do not have elements then set lasteno is null
           if(context.getters.getTotalElements==0){
@@ -449,7 +476,7 @@ removeObj(context){
 
     },
     getChilds: (state) => (eno) => {
-      console.log("Get Childs :" + eno);
+      
       let obj = state.elements.find(item => item.eno === eno);
 
       if(obj != undefined){
@@ -477,8 +504,14 @@ removeObj(context){
     getLastChild: state => {
       let activeObj = state.elements.find(item=>item.eno===state.activeEno);
       let list = state.elements.filter(item=>item.parent===activeObj.eno);
-      let sortedList = list.sort((a,b)=> { return a.order - b.order} );
-      return sortedList[sortedList.length-1];
+      console.log("Childs :" ,list.length)
+      if(list.length>0){
+        let sortedList = list.sort((a,b)=> { return a.order - b.order} );
+        return sortedList[sortedList.length-1];
+      }else{
+        return false;
+      }
+      
 
     },
     getElements: (state) => (eno) => {

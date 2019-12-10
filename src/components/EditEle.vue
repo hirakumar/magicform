@@ -6,11 +6,11 @@
             <div class="col">
  <!-- Container -->
                 <template v-if="isContainer">
-                    <b-button>Add Row</b-button>
+                    <b-button @click="addRow">Add Row</b-button>
                 </template>
 
                 <template v-if="isRow">
-                    <b-button>Add Col</b-button>
+                    <b-button @click="addCol">Add Col</b-button>
                 </template>
 
                 <template v-if="isCol">
@@ -129,6 +129,12 @@ export default {
       },
       createButtonGroup(){
         this.$store.dispatch('createButtonGroup',{ele : 'button-group'});
+      },
+      addCol(){
+        this.$store.dispatch('createEle',{ele:'col'});
+      },
+      addRow(){
+        this.$store.dispatch('createEle',{ele:'row'});
       }
    
   },
