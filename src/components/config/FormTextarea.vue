@@ -11,7 +11,7 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-input  size="sm" type="number" v-model="rows"  min="2" max="15" />
+                  <b-input  size="sm" type="number" v-model="eleObj.rows"  min="2" max="15" />
                   
                </b-form-group>
  <!-- Placeholder -->
@@ -22,7 +22,7 @@
                label-cols="6"
                class="mb-0"
                >
-               <b-input v-model="placeholder" size="sm" />
+               <b-input v-model="eleObj.placeholder" size="sm" />
             </b-form-group>
          </b-list-group-item>
             <b-list-group-item class="pl-0 pr-0">
@@ -31,7 +31,7 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-input v-model="value" size="sm" />
+                  <b-input v-model="eleObj.value" size="sm" />
                </b-form-group>
             </b-list-group-item>
            <b-list-group-item class="pl-0 pr-0">
@@ -40,7 +40,7 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-input v-model="name" size="sm" />
+                  <b-input v-model="eleObj.name" size="sm" />
                </b-form-group>
             </b-list-group-item>
             <template v-if="expandlevel>0">
@@ -51,7 +51,7 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-input v-model="id" size="sm" />
+                  <b-input v-model="eleObj.id" size="sm" />
                </b-form-group>
             </b-list-group-item>
             <!-- Class -->
@@ -61,7 +61,7 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-input v-model="classname" size="sm" />
+                  <b-input v-model="eleObj.class" size="sm" />
                </b-form-group>
             </b-list-group-item>
 
@@ -72,7 +72,7 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-form-checkbox v-model="disabled" class="float-right"  name="check-button" switch></b-form-checkbox>
+                  <b-form-checkbox v-model="eleObj.disabled" class="float-right"  name="check-button" switch></b-form-checkbox>
                </b-form-group>
             </b-list-group-item>
             <!-- required -->
@@ -82,7 +82,7 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-form-checkbox v-model="required" class="float-right"  name="check-button" switch></b-form-checkbox>
+                  <b-form-checkbox v-model="eleObj.required" class="float-right"  name="check-button" switch></b-form-checkbox>
                </b-form-group>
             </b-list-group-item>
             <!-- size -->
@@ -92,7 +92,7 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-select v-model="size" size="sm" :options="sizeOptions" />
+                  <b-select v-model="eleObj.size" size="sm" :options="sizeOptions" />
                </b-form-group>
             </b-list-group-item>
              <b-list-group-item class="pl-0 pr-0">
@@ -101,7 +101,7 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-input v-model="maxRows" size="sm" type="number" />
+                  <b-input v-model="eleObj['max-rows']" size="sm" type="number" />
                </b-form-group>
             </b-list-group-item>
             <b-list-group-item class="pl-0 pr-0">
@@ -111,7 +111,7 @@
                   class="mb-0"
                   >
                  
-                   <b-form-checkbox v-model="noResize" class="float-right"  name="check-button" switch></b-form-checkbox>
+                   <b-form-checkbox v-model="eleObj['no-resize']" class="float-right"  name="check-button" switch></b-form-checkbox>
                </b-form-group>
             </b-list-group-item>
              <b-list-group-item class="pl-0 pr-0">
@@ -121,7 +121,7 @@
                   class="mb-0"
                   >
                  
-                   <b-form-checkbox v-model="noAutoShrink" class="float-right"  name="check-button" switch></b-form-checkbox>
+                   <b-form-checkbox v-model="eleObj['no-auto-shrink']" class="float-right"  name="check-button" switch></b-form-checkbox>
                </b-form-group>
             </b-list-group-item>
            </template>
@@ -182,164 +182,6 @@
             }
         },
 
-        id: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.id;
-                }
-
-            },
-            set(val) {
-                console.log("ID");
-                this.$store.commit('editObj', {
-                    id: val
-                })
-            }
-        },
-        name: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.name;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    name: val
-                })
-            }
-        },
-        placeholder: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.placeholder;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    placeholder: val
-                })
-            }
-        },
-        rows: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.rows;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    rows: val
-                })
-            }
-        },
-        classname: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.class;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    class: val
-                })
-            }
-        },
-        disabled: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.disabled;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    disabled: val
-                })
-            }
-        },
-        required: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.required;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    required: val
-                })
-            }
-        },
-        size: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.size;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    size: val
-                })
-            }
-        },
-        value: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.value;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    value: val
-                })
-            }
-        },
-        plaintext: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.plaintext;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    plaintext: val
-                })
-            }
-        },
-        maxRows: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj['max-rows'];
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    'max-rows': val
-                })
-            }
-        },
-         noResize: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj['no-resize'];
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    'no-resize': val
-                })
-            }
-        },
-        noAutoShrink: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj['no-auto-shrink'];
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    'no-auto-shrink': val
-                })
-            }
-        },
     },
     methods:{
     	 increaselevel: function() {

@@ -1,10 +1,10 @@
 <template>
-<div v-html="data.text" :class="['divEle',data.class]" @click="clickedEle" :id="data.id"></div>
+    <b-form :class="['divEle',data.class]" @click="clickedEle" :id="data.id" :inline="data.inline" :novalidate="data.novalidate" :validated="data.validated"  />
 </template>
 <script>
 
 export default {
- name: 'DivEle',
+ name: 'FormEle',
   props:{
   	data:Object
   },

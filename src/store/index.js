@@ -256,7 +256,14 @@ if(payload.action=="addAfter"){
     },
     createEle(context,payload){
       let activeObj = context.getters.getActiveObj;
+      if(activeObj == undefined){
+        activeObj={eno:null};
+      }
       let lasteno = context.getters.getLastEno;
+      if(lasteno == undefined){
+        lasteno=0;
+      }
+      console.log("Last eno ", lasteno);
       let obj;
       let order=1;
       
@@ -266,15 +273,18 @@ if(payload.action=="addAfter"){
       }
        
       switch(payload.ele){
+        case 'form': 
+      
+        obj = {eno : lasteno+1, order:order, parent:activeObj.eno, ele:'form', inline:false, novalidate:false, validated:false};
+        console.log(obj);
+        context.commit('addElement',obj);
+        break;
+
         case 'button':
         obj = {eno : lasteno+1, order:order, text:'Button', 'border-style':null, ele:'button', parent:activeObj.eno, id : `label${lasteno+1}`, name:`label${lasteno+1}`, active : false, disabled : false, append: false, replace : false, 'active-class':'active', exact: false, 'exact-active-class': '', 'router-tag':'a', block:false,size:'md',variant:'secondary', type:'button', tag:'button',pill:false,squared:false}
         context.commit('addElement',obj);
         break;
-        /*
- state.elements.push({eno:lasteno, parent:lasteno-1, ele:'row', order:1})
-  lasteno++;
-  state.elements.push({eno:lasteno, parent:lasteno-1, ele:'col', cols:12, order:1})
-        */
+
         case 'col':
         obj = {eno:lasteno+1, parent:activeObj.eno, ele:'col', order:order}
         context.commit('addElement',obj);
@@ -286,8 +296,11 @@ if(payload.action=="addAfter"){
 
         obj = {eno:lasteno+2, parent:rowObj.eno, ele:'col', order:1}
         context.commit('addElement',obj);
+        break;
 
-
+        case 'div':
+        obj = {eno : lasteno+1, parent:activeObj.eno, ele:'div', order:order, text:'<b>Sample Text</b>' }
+        context.commit('addElement',obj);
         break;
       }
       //context.commit('addElement',obj);

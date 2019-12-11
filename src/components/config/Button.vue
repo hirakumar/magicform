@@ -8,23 +8,23 @@
 
             <b-list-group-item class="pl-0 pr-0">
                 <b-form-group label="Text : " label-cols="6" class="mb-0">
-                    <b-input v-model="text" size="sm" />
+                    <b-input v-model="eleObj.text" size="sm" />
                 </b-form-group>
             </b-list-group-item>
 
             <b-list-group-item class="pl-0 pr-0">
                 <b-form-group label="Name : " label-cols="6" class="mb-0">
-                    <b-input v-model="name" size="sm" />
+                    <b-input v-model="eleObj.name" size="sm" />
                 </b-form-group>
             </b-list-group-item>
             <b-list-group-item class="pl-0 pr-0">
                 <b-form-group label="Type : " label-cols="6" class="mb-0">
-                    <b-form-select v-model="type" :options="buttonType" size="sm"></b-form-select>
+                    <b-form-select v-model="eleObj.type" :options="buttonType" size="sm"></b-form-select>
                 </b-form-group>
             </b-list-group-item>
             <b-list-group-item class="pl-0 pr-0">
                 <b-form-group label="Variant : " label-cols="6" class="mb-0">
-                    <b-form-select v-model="variant" :options="variantOptions" size="sm"></b-form-select>
+                    <b-form-select v-model="eleObj.variant" :options="variantOptions" size="sm"></b-form-select>
                 </b-form-group>
             </b-list-group-item>
 
@@ -32,34 +32,34 @@
 
                 <b-list-group-item class="pl-0 pr-0">
                     <b-form-group label="Border Style : " label-cols="6" class="mb-0">
-                        <b-form-select v-model="borderStyle" :options="borderStyleOptions" size="sm"></b-form-select>
+                        <b-form-select v-model="eleObj.borderStyle" :options="borderStyleOptions" size="sm"></b-form-select>
 
                     </b-form-group>
                 </b-list-group-item>
 
                 <b-list-group-item class="pl-0 pr-0">
                     <b-form-group label="ID : " label-cols="6" class="mb-0">
-                        <b-input v-model="id" size="sm" />
+                        <b-input v-model="eleObj.id" size="sm" />
                     </b-form-group>
                 </b-list-group-item>
                 <!-- Class -->
                 <b-list-group-item class="pl-0 pr-0">
                     <b-form-group label="Class : " label-cols="6" class="mb-0">
-                        <b-input v-model="classname" size="sm" />
+                        <b-input v-model="eleObj.class" size="sm" />
                     </b-form-group>
                 </b-list-group-item>
 
                 <!-- disabled -->
                 <b-list-group-item class="pl-0 pr-0">
                     <b-form-group label="Disabled : " label-cols="6" class="mb-0">
-                        <b-form-checkbox v-model="disabled" class="float-right" name="check-button" switch></b-form-checkbox>
+                        <b-form-checkbox v-model="eleObj.disabled" class="float-right" name="check-button" switch></b-form-checkbox>
                     </b-form-group>
                 </b-list-group-item>
 
                 <!-- size -->
                 <b-list-group-item class="pl-0 pr-0">
                     <b-form-group label="Size : " label-cols="6" class="mb-0">
-                        <b-select v-model="size" size="sm" :options="sizeOptions" />
+                        <b-select v-model="eleObj.size" size="sm" :options="sizeOptions" />
                     </b-form-group>
                 </b-list-group-item>
 
@@ -67,21 +67,21 @@
                 <b-list-group-item class="pl-0 pr-0">
                     <b-form-group label="Href : " label-cols="6" class="mb-0">
 
-                        <b-input v-model="href" size="sm" />
+                        <b-input v-model="eleObj.href" size="sm" />
                     </b-form-group>
                 </b-list-group-item>
 
                 <!-- disabled -->
                 <b-list-group-item class="pl-0 pr-0">
                     <b-form-group label="Block : " label-cols="6" class="mb-0">
-                        <b-form-checkbox v-model="block" class="float-right" name="check-button" switch></b-form-checkbox>
+                        <b-form-checkbox v-model="eleObj.block" class="float-right" name="check-button" switch></b-form-checkbox>
                     </b-form-group>
                 </b-list-group-item>
 
                 <!-- order -->
                 <b-list-group-item class="pl-0 pr-0">
                     <b-form-group label="Order : " label-cols="6" class="mb-0">
-                        <b-input v-model="order" size="sm" type="number" min="1" />
+                        <b-input v-model="eleObj.order" size="sm" type="number" min="1" />
                     </b-form-group>
                 </b-list-group-item>
 
@@ -238,46 +238,7 @@ export default {
             }
         },
 
-        id: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.id;
-                }
-
-            },
-            set(val) {
-
-                this.$store.commit('editObj', {
-                    id: val
-                })
-            }
-        },
-        text: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.text;
-                }
-
-            },
-            set(val) {
-
-                this.$store.commit('editObj', {
-                    text: val
-                })
-            }
-        },
-        name: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.name;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    name: val
-                })
-            }
-        },
+       
         borderStyle: {
             get() {
                 if (this.eleObj != undefined) {
@@ -333,128 +294,9 @@ export default {
                 }
             }
         },
-        type: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.type;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    type: val
-                })
-            }
-        },
-        variant: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.variant;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    variant: val
-                })
-            }
-        },
-        block: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.block;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    block: val
-                })
-            }
-        },
-        href: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.href;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    href: val
-                })
-            }
-        },
-        rel: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.rel;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    rel: val
-                })
-            }
-        },
-        target: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.target;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    target: val
-                })
-            }
-        },
-        classname: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.class;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    class: val
-                })
-            }
-        },
+ 
 
-        disabled: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.disabled;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    disabled: val
-                })
-            }
-        },
-
-        size: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.size;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    size: val
-                })
-            }
-        },
-        order: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.order;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    order: val
-                })
-            }
-        },
+        
 
     },
     methods: {

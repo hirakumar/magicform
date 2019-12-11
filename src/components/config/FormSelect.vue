@@ -34,7 +34,7 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-input v-model="name" size="sm" />
+                  <b-input v-model="eleObj.name" size="sm" />
                </b-form-group>
             </b-list-group-item>
             <template v-if="expandlevel>0">
@@ -45,7 +45,7 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-input v-model="id" size="sm" />
+                  <b-input v-model="eleObj.id" size="sm" />
                </b-form-group>
             </b-list-group-item>
             <!-- Class -->
@@ -55,7 +55,7 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-input v-model="classname" size="sm" />
+                  <b-input v-model="eleObj.class" size="sm" />
                </b-form-group>
             </b-list-group-item>
             <!-- disabled -->
@@ -65,7 +65,7 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-form-checkbox v-model="disabled" class="float-right"  name="check-button" switch></b-form-checkbox>
+                  <b-form-checkbox v-model="eleObj.disabled" class="float-right"  name="check-button" switch></b-form-checkbox>
                </b-form-group>
             </b-list-group-item>
             <!-- required -->
@@ -75,7 +75,7 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-form-checkbox v-model="required" class="float-right"  name="check-button" switch></b-form-checkbox>
+                  <b-form-checkbox v-model="eleObj.required" class="float-right"  name="check-button" switch></b-form-checkbox>
                </b-form-group>
             </b-list-group-item>
             <!-- size -->
@@ -85,7 +85,7 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-select v-model="size" size="sm" :options="sizeOptions" />
+                  <b-select v-model="eleObj.size" size="sm" :options="sizeOptions" />
                </b-form-group>
             </b-list-group-item>
             <b-list-group-item class="pl-0 pr-0">
@@ -95,7 +95,7 @@
                   class="mb-0"
                   >
                
-                   <b-form-checkbox v-model="multiple" class="float-right"  name="check-button" switch></b-form-checkbox>
+                   <b-form-checkbox v-model="eleObj.multiple" class="float-right"  name="check-button" switch></b-form-checkbox>
                </b-form-group>
             </b-list-group-item>
             <b-list-group-item v-if="multiple" class="pl-0 pr-0">
@@ -104,7 +104,7 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-input type="number" size="sm" v-model="selectSize"  min="1" />
+                  <b-input type="number" size="sm" v-model="eleObj['select-size']"  min="1" />
                   
                </b-form-group>
 
@@ -179,140 +179,7 @@ export default {
           }
         },
 
-        id: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.id;
-                }
-
-            },
-            set(val) {
-                console.log("ID");
-                this.$store.commit('editObj', {
-                    id: val
-                })
-            }
-        },
-        name: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.name;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    name: val
-                })
-            }
-        },
-        classname: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.class;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    class: val
-                })
-            }
-        },
-        disabled: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.disabled;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    disabled: val
-                })
-            }
-        },
-        required: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.required;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    required: val
-                })
-            }
-        },
-        size: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.size;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    size: val
-                })
-            }
-        },
-        value: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.value;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    value: val
-                })
-            }
-        },
-        plaintext: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.plaintext;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    plaintext: val
-                })
-            }
-        },
-        autocomplete: {
-            get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.autocomplete;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    autocomplete: val
-                })
-            }
-        },
-        multiple:{
-          get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj.multiple;
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    multiple: val
-                })
-            }
-        },
-        selectSize:{
-          get() {
-                if (this.eleObj != undefined) {
-                    return this.eleObj['select-size'];
-                }
-            },
-            set(val) {
-                this.$store.commit('editObj', {
-                    'select-size': val
-                })
-            }
-        }
+        
   
   },
   components:{

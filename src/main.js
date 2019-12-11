@@ -10,6 +10,9 @@ import BootstrapVue from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import ckeditor from '@ckeditor/ckeditor5-vue';
+
+// Vue.use( ckeditor );
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret,faUser,faUndo,faChevronDown,faChevronUp,faTrashAlt,faCode, faFont,faHeading, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'

@@ -1,5 +1,8 @@
 <template>
-	<div><button @click="creatContainer">Create New Container</button></div>
+	<div>
+	<b-button @click="creatContainer">Create New Container</b-button> 
+	<!-- <b-button @click="creatForm">Create Form</b-button> -->
+	</div>
 </template>
 <script>
 
@@ -20,6 +23,9 @@ export default {
   methods:{
   	creatContainer : function(){
   		this.$store.commit('addContainer',{action:'addAtLast'});
+	  },
+	creatForm : function(){
+  		 this.$store.dispatch('createEle',{ele : 'form'});
   	}
   },
   components:{

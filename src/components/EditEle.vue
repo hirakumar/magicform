@@ -5,16 +5,21 @@
         <div class="row">
             <div class="col">
  <!-- Container -->
+                
                 <template v-if="isContainer">
                     <b-button @click="addRow">Add Row</b-button>
+                    <b-dropdown right text="Add Container">
+                      <b-dropdown-item @click="addContainerBefore">   Before Container </b-dropdown-item>
+                      <b-dropdown-item @click="addContainerAfter">   After Container </b-dropdown-item>
+                    </b-dropdown>
                 </template>
 
                 <template v-if="isRow">
                   <b-button-group>
                     <b-button @click="addCol">Add Col</b-button>
                     <b-dropdown right text="Add Row">
-                      <b-dropdown-item @click="addRowBefore">Add Before</b-dropdown-item>
-                      <b-dropdown-item @click="addRowAfter">Add After</b-dropdown-item>
+                      <b-dropdown-item @click="addRowBefore"> Before Row</b-dropdown-item>
+                      <b-dropdown-item @click="addRowAfter"> After Row</b-dropdown-item>
                     </b-dropdown>
 
                   </b-button-group>
@@ -29,8 +34,6 @@
                      <b-dropdown right text="Buttons">
                        <b-dropdown-item @click="createButton">Button</b-dropdown-item>
                        <b-dropdown-item @click="createButtonGroup">Button Groups</b-dropdown-item>
-                       
-                   
                      </b-dropdown>
                     <b-button @click="createRadioGroup">Radio Button Group</b-button>
                     
@@ -40,6 +43,7 @@
                         <b-dropdown-item @click="addColBefore">Before Column</b-dropdown-item>
                         <b-dropdown-item  @click="addColAfter">After Column</b-dropdown-item>
                     </b-dropdown>
+                    <b-button @click="createHTML">HTML</b-button>
                     </b-button-group>
                      
                 </template>
@@ -66,6 +70,7 @@
                 <app-config-file v-if="isFile" :data="data" />
                 <app-button v-if="isButton" :data="data"  />
                 <app-button-group v-if="isButtonGroup" :data="data" />
+                <app-divele v-if="isDivEle" :data="data" />
 
 
                     
@@ -93,6 +98,7 @@ import ConfigTextarea from '@/components/config/FormTextarea.vue'
 import ConfigFile from '@/components/config/FormFile.vue'
 import ConfigButton from '@/components/config/Button.vue'
 import ConfigButtonGroup from '@/components/config/ButtonGroups.vue'
+import ConfigDivEle from '@/components/config/DivEle.vue'
 export default {
   name: 'editele',
   props:{
@@ -165,6 +171,19 @@ export default {
       addRowAfter: function(){
           this.$store.commit("addEle",{action:'addAfter',eno:this.data});
       },
+      createHTML: function(){
+        this.$store.dispatch('createEle',{ele:'div'});
+      },
+       addContainerBefore() {
+            this.$store.commit('addContainer', {
+                action: 'addBefore'
+            });
+        },
+        addContainerAfter() {
+            this.$store.commit('addContainer', {
+                action: 'addAfter'
+            });
+        }
    
   },
   computed:{
@@ -270,7 +289,13 @@ export default {
             }
           }
       },
-      
+       isDivEle:{
+          get(){
+            if(this.eleObj != undefined){
+              return (this.eleObj.ele=="div" ? true : false);
+            }
+          }
+      },
      
       label:{
           get(){
@@ -353,7 +378,8 @@ export default {
        'app-config-textarea' : ConfigTextarea,
        'app-config-file' : ConfigFile,
        'app-button' : ConfigButton,
-       'app-button-group' : ConfigButtonGroup
+       'app-button-group' : ConfigButtonGroup,
+       'app-divele' : ConfigDivEle
     }
 }
 </script>
