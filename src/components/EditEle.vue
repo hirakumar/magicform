@@ -10,7 +10,14 @@
                 </template>
 
                 <template v-if="isRow">
+                  <b-button-group>
                     <b-button @click="addCol">Add Col</b-button>
+                    <b-dropdown right text="Add Row">
+                      <b-dropdown-item @click="addRowBefore">Add Before</b-dropdown-item>
+                      <b-dropdown-item @click="addRowAfter">Add After</b-dropdown-item>
+                    </b-dropdown>
+
+                  </b-button-group>
                 </template>
 
                 <template v-if="isCol">
@@ -29,8 +36,12 @@
                     
                     <b-button @click="createTextarea">Textarea</b-button>
                     <b-button @click="createFile">File</b-button>
-                    
+                     <b-dropdown right text="Add Column">
+                        <b-dropdown-item @click="addColBefore">Before Column</b-dropdown-item>
+                        <b-dropdown-item  @click="addColAfter">After Column</b-dropdown-item>
+                    </b-dropdown>
                     </b-button-group>
+                     
                 </template>
             </div>
         </div>
@@ -135,7 +146,25 @@ export default {
       },
       addRow(){
         this.$store.dispatch('createEle',{ele:'row'});
-      }
+      },
+      addColBefore: function() {
+          this.$store.commit("addEle", {
+              action: 'addBefore',
+              eno: this.data
+          });
+      },
+      addColAfter: function() {
+          this.$store.commit("addEle", {
+              action: 'addAfter',
+              eno: this.data
+          });
+      },
+      addRowBefore : function(){
+        this.$store.commit("addEle",{action:'addBefore',eno:this.data});
+      },
+      addRowAfter: function(){
+          this.$store.commit("addEle",{action:'addAfter',eno:this.data});
+      },
    
   },
   computed:{

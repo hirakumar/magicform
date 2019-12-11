@@ -25,16 +25,7 @@
                     <b-form-input id="class" type="text" size="sm" v-model="classname" trim></b-form-input>
                 </b-form-group>
             </b-list-group-item>
-            <!-- Add Column -->
-            <b-list-group-item>
-                <b-button-group>
-                    <b-dropdown right text="Add Column" size="sm">
-                        <b-dropdown-item @click="addBefore">Before Column</b-dropdown-item>
-                        <b-dropdown-item @click="addAfter">After Column</b-dropdown-item>
-                    </b-dropdown>
-                </b-button-group>
-
-            </b-list-group-item>
+          
             <template v-if="expandlevel>0">
 
                 <b-list-group-item>
@@ -395,18 +386,6 @@ export default {
     methods: {
 
 
-        addBefore: function() {
-            this.$store.commit("addEle", {
-                action: 'addBefore',
-                eno: this.data
-            });
-        },
-        addAfter: function() {
-            this.$store.commit("addEle", {
-                action: 'addAfter',
-                eno: this.data
-            });
-        },
         remove: function() {
             this.$store.dispatch("removeObj");
         },

@@ -30,12 +30,7 @@
 
              </b-list-group-item>
                 <b-list-group-item>
-        <b-button-group>
-        <b-button size='sm' @click="addBefore">Add Before</b-button>
-        <b-button size='sm' @click="addAfter">Add After</b-button>
-        
-
-        </b-button-group>
+       
 
        
         
