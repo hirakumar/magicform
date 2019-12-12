@@ -50,7 +50,7 @@ export default {
 }
 .showEditor{
 .rowHolder,.eleHolder{
-		min-height:20px;
+		height:16px;
 		width:100%;
 	}
 
@@ -75,14 +75,14 @@ export default {
 		}
 	}
 
-
+.buttonGroup,.formGroupBlock{
+		position:relative
+	}
 .container,.container-fluid{
 	border:dashed 1px #ccc;
 	
 	
-	.buttonGroup,{
-		position:relative
-	}
+	
 	
 	.row{
 		border:dashed 1px #999;

@@ -52,6 +52,12 @@
 
                     </b-form-group>
                 </b-list-group-item>
+                 <b-list-group-item> 
+                   <b-form-group label="Order :" label-cols="6" class="mb-0">
+                      <b-input type="number" min="1" v-model="eleObj.order" size="sm" />
+                   </b-form-group>                
+                
+            </b-list-group-item>
             </template>
         </b-list-group>
         <div class="float-right">

@@ -17,6 +17,11 @@
             <b-list-group-item> Fluid Width :
                 <b-form-checkbox v-model="eleObj.fluid" class="float-right" name="check-button" switch></b-form-checkbox>
             </b-list-group-item>
+            <b-list-group-item> 
+                   <b-form-group label="Order :" label-cols="6" class="mb-0">
+                      <b-input type="number" min="1" v-model="eleObj.order" size="sm" />
+                   </b-form-group>                
+            </b-list-group-item>
           
         </b-list-group>
     </b-card>

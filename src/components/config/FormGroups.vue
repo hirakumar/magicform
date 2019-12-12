@@ -26,6 +26,11 @@
                 </b-form-group>
             </b-list-group-item>
             <template v-if="expandlevel>0">
+              <b-list-group-item> 
+                   <b-form-group label="Order :" label-cols="6" class="mb-0">
+                      <b-input type="number" min="1" v-model="eleObj.order" size="sm" />
+                   </b-form-group>                
+            </b-list-group-item>
                 <b-list-group-item>
 
                     <!-- Label Class -->

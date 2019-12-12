@@ -320,8 +320,13 @@ if(payload.action=="addAfter"){
     
       let activeObj = context.getters.getActiveObj;
       let lasteno = context.getters.getLastEno;  
+      let order=1;      
+      // Find last child element and find order
+      if(context.getters.getLastChild != false){
+          order= context.getters.getLastChild.order+1;
+      }
       
-      let formgroupObj = {eno : lasteno+1, ele:'form-group', 'label-for' :`label${lasteno+1}`, label:'Sample Label Text', description:'Sample short description', parent:activeObj.eno}
+      let formgroupObj = {eno : lasteno+1, ele:'form-group', 'label-for' :`label${lasteno+1}`, label:'Sample Label Text', description:'Sample short description', parent:activeObj.eno, order:order}
       context.commit('addElement',formgroupObj);
 
       let inputObj;
@@ -332,7 +337,7 @@ if(payload.action=="addAfter"){
         break;
 
         case 'form-select':
-        inputObj = {eno:lasteno+2, ele:'form-select',  parent:lasteno+1, id : `label${lasteno+1}`, options:[], disabled:false, required:false, autofocus: false, size:'md', plain : false, value:'', multiple:false, 'select-size':0,'aria-invalid':false};
+        inputObj = {eno:lasteno+2, ele:'form-select',  parent:lasteno+1, id : `label${lasteno+1}`, options:[], disabled:false, required:false, autofocus: false, size:'md', plain : false, value:'', multiple:false, 'select-size':0,'aria-invalid':false, };
         break;
 
         case 'form-textarea':

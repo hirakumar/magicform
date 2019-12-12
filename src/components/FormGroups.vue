@@ -1,6 +1,7 @@
 <template>
-    <div class="formGroupBlock" 
-      @click="clickEvent">
+    <div class="formGroupBlock" @click ="clickEvent"
+     >
+      <app-infoele :data="data"  v-if="isEditMode"></app-infoele>
     <div v-html="data.before" class="before"></div>
     <b-form-group
       :id="data.id"
@@ -47,6 +48,7 @@ import FormFile from '@/components/FormFile.vue'
 import FormSelect from '@/components/FormSelect.vue'
 import FormTextarea from '@/components/FormTextarea.vue'
 import FormCheckbox from '@/components/FormCheckbox.vue'
+import InfoEle from '@/components/InfoEle.vue'
 
 export default {
   name: 'form_groups',
@@ -132,7 +134,8 @@ export default {
     'app-formfile' : FormFile,
     'app-formselect' : FormSelect,
     'app-formtextarea' : FormTextarea,
-    'app-formcheckbox' : FormCheckbox
+    'app-formcheckbox' : FormCheckbox,
+    'app-infoele' : InfoEle
   }
 }
 </script>
