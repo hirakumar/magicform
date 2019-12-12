@@ -2,7 +2,9 @@
     <div class="formGroupBlock" @click ="clickEvent"
      >
       <app-infoele :data="data"  v-if="isEditMode"></app-infoele>
-    <div v-html="data.before" class="before"></div>
+      <template v-if="data.before!=undefined">
+      <div v-html="data.before" class="before" ></div>
+    </template>
     <b-form-group
       :id="data.id"
       :description="data.description"
@@ -35,7 +37,9 @@
     <app-formtextarea v-for="textarea in formTextareas" :data="textarea" :key="textarea.eno" />
     
   </b-form-group>
-  <div v-html="data.after" class="after"></div>
+  <template v-if="data.after!=undefined">
+  <div v-html="data.after" class="after" ></div>
+</template>
   </div>
 </template>
 
