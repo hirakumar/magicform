@@ -49,7 +49,10 @@ export default {
 	}
 }
 .showEditor{
-
+.rowHolder,.eleHolder{
+		min-height:20px;
+		width:100%;
+	}
 
 .buttonGroup,.formEle{
 				border:dashed 1px gray;
@@ -76,10 +79,7 @@ export default {
 .container,.container-fluid{
 	border:dashed 1px #ccc;
 	
-	.rowHolder,.eleHolder{
-		min-height:20px;
-		width:100%;
-	}
+	
 	.buttonGroup,{
 		position:relative
 	}
@@ -108,7 +108,6 @@ export default {
 		}
 	}
 }
-
 
 }
 
