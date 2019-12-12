@@ -80,27 +80,7 @@ if(state.elements.length>0){
   lastContainer = allEleOrder[allEleOrder.length-1];
 }
 
-/* Adding Container At Last */
-if(payload.action == "addAtLast") {
-  if(state.elements.length==0){
-    
-    state.elements.push({ eno:1, ele:'container', order:1,  })
-    state.elements.push({eno:2, parent:1, ele:'row', order:1})
-    state.elements.push({eno:3, parent:2, ele:'col',  order:1})
-    state.lasteno=3;
-  }else{
- 
-    let lasteno=state.lasteno;  
-    lasteno++;
-    state.elements.push({ eno:lasteno, ele:'container', order:lastContainer.order+1 })
-    lasteno++;
-    state.elements.push({eno:lasteno, parent:lasteno-1, ele:'row', order:1})
-    lasteno++;
-    state.elements.push({eno:lasteno, parent:lasteno-1, ele:'col',  order:1})
-    state.lasteno=lasteno;
 
-  }
-}
 
 /* Add Container Before Targeted Container */
 if(payload.action=="addBefore"){
@@ -174,7 +154,6 @@ if(payload.action=="addAfter"){
             }
           })
 
-
           }
 
           if(payload.action=="addAfter"){
@@ -190,8 +169,7 @@ if(payload.action=="addAfter"){
               if(item.order>obj.order){
                 item.order+=1;
               }
-            })
-            
+            })            
                  
           } 
       }catch(err){
@@ -210,6 +188,12 @@ if(payload.action=="addAfter"){
     addElement(state,payload){
       state.elements.push(payload);
       state.lasteno=payload.eno;
+      if(state.activeEno == null){
+          state.activeEno=1;
+      }
+      if(state.editMode == false){
+        state.editMode=true;
+      }
     },
     addSelectBoxOption(state,payload){
       
@@ -275,8 +259,12 @@ if(payload.action=="addAfter"){
       switch(payload.ele){
         case 'form': 
       
-        obj = {eno : lasteno+1, order:order, parent:activeObj.eno, ele:'form', inline:false, novalidate:false, validated:false};
-        console.log(obj);
+        obj = {eno : lasteno+1, order:order,  ele:'form', inline:false, novalidate:false, validated:false};
+        
+        if(activeObj!=undefined){
+          obj.parent=activeObj.eno
+        }
+       
         context.commit('addElement',obj);
         break;
 
@@ -302,8 +290,20 @@ if(payload.action=="addAfter"){
         obj = {eno : lasteno+1, parent:activeObj.eno, ele:'div', order:order, text:'<b>Sample Text</b>' }
         context.commit('addElement',obj);
         break;
+
+        case 'container':
+        let containerObj = {eno : lasteno+1, parent:activeObj.eno, ele:'container', order:order }
+        context.commit('addElement',containerObj);
+
+        let rowObj1 = {eno:lasteno+2, parent:containerObj.eno, ele:'row', order:1}
+        context.commit('addElement',rowObj1);
+
+        let colObj = {eno:lasteno+3, parent:rowObj1.eno, ele:'col', order:1}
+        context.commit('addElement',colObj);
+        break;
       }
       //context.commit('addElement',obj);
+      
       
     },
     createButtonGroup(context,payload){
@@ -354,12 +354,11 @@ if(payload.action=="addAfter"){
         case 'form-file':
         inputObj = {eno:lasteno+2, ele:'form-file', name:`label${lasteno+1}`, parent:lasteno+1, id : `label${lasteno+1}`,  disabled:false, size:'sm', required:false, autofocus: false, capture : false, multiple:false, accept:'', plain:false, 'browse-text':'Browse', directory:false,'no-traverse':false,'no-drop':false, 'placeholder' :'No File choosen', 'drop-placeholder' : 'Drop files here' };
         break;
-
         
       }
      
       context.commit('addElement',inputObj);
-
+     
 
     },
 removeObj(context){
@@ -473,6 +472,11 @@ removeObj(context){
   	getContainers: state => {
       let containers = state.elements.filter(item=>item.ele==='container');
       return containers.sort((a,b)=> { return a.order - b.order} );
+    },
+    getMainParents: state => {
+      let eles = state.elements.filter(item=> item.hasOwnProperty('parent')==false || item.parent==null );
+      console.log(eles);
+      return eles.sort((a,b)=> { return a.order - b.order} );
     },
     getObj: (state) => (eno) => {
       return state.elements.find(item=>item.eno===eno);

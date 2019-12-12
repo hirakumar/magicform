@@ -1,24 +1,60 @@
 <template>
-  <div class="about">
-    
-    <InfoEle v-if="isConfigEle" />
-    <EditEle v-if="isEditMode==true" :data="activeEno" />
-    
-    <b-form >
-        <app-container :data="container" v-for="container in containers" :key="container.id" />
-    </b-form>
-    <app-creator></app-creator>
-    
+<div>
+   <b-container class="about" fluid>
+      <b-row>
+          <b-col>
+             <b-form-checkbox v-model="isEditMode" class="float-right" name="check-button" switch></b-form-checkbox>
+          </b-col>
+      </b-row>
+   </b-container>
+  <b-container class="about" fluid>
+      <b-row>
+        <b-col cols="2" >  <app-tools :data="activeEno" v-if="isEditMode" /> </b-col>
+        <b-col cols="7"> <div :class="['formEditor',showEditor]">
+      <app-elements :data="mainParent" v-for="mainParent in mainParents" />
+    </div> 
+     <app-creator ></app-creator>
+    </b-col>
+         <b-col cols="3" ><app-panel :data="activeEno" v-if="isEditMode"></app-panel> </b-col>
+        </b-col>
+      </b-row>   
+  </b-container>
   </div>
 </template>
 <script>
 import Container from '@/components/Container.vue';
-import InfoEle from '@/components/InfoEle.vue';
-import EditEle from '@/components/EditEle.vue';
+
 import FormCreator from '@/components/FormCreator.vue';
+import Elements from '@/components/Elements.vue';
+import Tools from '@/components/Tools.vue';
+import Panel from '@/components/Panel.vue';
 export default {
   name: 'About',
+  data:function(){
+    return {
+     
+    }
+  },
   computed:{
+    isEditMode:{
+      get(){
+        return this.$store.getters.isEditMode;
+      },
+      set(val){
+         console.log("Editmode :", val)
+         return this.$store.commit('setEditMode',val);
+        
+      }
+    },
+  showEditor:{
+    get(){
+      if(this.isEditMode){
+        return "showEditor";
+      }else{
+        return "hideEditor";
+      }
+    }
+  },
   	containers:{
   		get(){
        return this.$store.getters.getContainers;
@@ -48,17 +84,20 @@ export default {
         return this.$store.getters.activeObj;
       }
     },
-    isEditMode:{
-          get(){
-              return this.$store.getters.isEditMode;
-          }
+
+      mainParents:{
+        get(){
+          return this.$store.getters.getMainParents;
+        }
       }
   },
   components:{
     'app-container' : Container,
-    InfoEle,
-    EditEle,
-    'app-creator':FormCreator
+   
+       'app-creator':FormCreator,
+    'app-elements' : Elements,
+    'app-tools' : Tools,
+    'app-panel' : Panel
   }
   
 }

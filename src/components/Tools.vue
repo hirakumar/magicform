@@ -1,11 +1,7 @@
 <template>
-    <div class="container">
+  <div>
 
-  
-        <div class="row">
-            <div class="col">
- <!-- Container -->
-                
+      <b-btn-group :vertical="true" >
                 <template v-if="isContainer">
                     <b-button @click="addRow">Add Row</b-button>
                     <b-dropdown right text="Add Container">
@@ -15,19 +11,37 @@
                 </template>
 
                 <template v-if="isRow">
-                  <b-button-group>
+                 
                     <b-button @click="addCol">Add Col</b-button>
                     <b-dropdown right text="Add Row">
                       <b-dropdown-item @click="addRowBefore"> Before Row</b-dropdown-item>
                       <b-dropdown-item @click="addRowAfter"> After Row</b-dropdown-item>
                     </b-dropdown>
 
-                  </b-button-group>
+                
                 </template>
-
+                <template v-if="isForm">
+                   <b-button @click="createFormGroup">Text Box</b-button>
+                    <b-button @click="createFormSelectBox">Select Box</b-button>
+                    <b-button @click="createCheckBoxGroup">Check Box</b-button>
+                     <b-dropdown right text="Buttons">
+                       <b-dropdown-item @click="createButton">Button</b-dropdown-item>
+                       <b-dropdown-item @click="createButtonGroup">Button Groups</b-dropdown-item>
+                     </b-dropdown>
+                    <b-button @click="createRadioGroup">Radio Button Group</b-button>
+                    
+                    <b-button @click="createTextarea">Textarea</b-button>
+                    <b-button @click="createFile">File</b-button>
+                     <b-dropdown right text="Add Column">
+                        <b-dropdown-item @click="addColBefore">Before Column</b-dropdown-item>
+                        <b-dropdown-item  @click="addColAfter">After Column</b-dropdown-item>
+                    </b-dropdown>
+                    <b-button @click="createHTML">HTML</b-button>
+                     <b-button @click="createContainer">Container</b-button>
+                </template>
                 <template v-if="isCol">
-                    <b-button-group>
                    
+                     
                     <b-button @click="createFormGroup">Input</b-button>
                     <b-button @click="createFormSelectBox">Select Box</b-button>
                     <b-button @click="createCheckBoxGroup">Check Box</b-button>
@@ -44,86 +58,29 @@
                         <b-dropdown-item  @click="addColAfter">After Column</b-dropdown-item>
                     </b-dropdown>
                     <b-button @click="createHTML">HTML</b-button>
-                    </b-button-group>
+                    
                      
                 </template>
-            </div>
-        </div>
-   
-        <div class="row">
-                
-              <div class="col-6">             
-               
-                <b-form>          
-
-
-               
-                <app-configContainer v-if="isContainer" :data="data" />
-                <app-configCols v-if="isCol" :data="data" />
-                <app-configRow v-if="isRow" :data="data" />
-                <app-configFormGroup v-if="isFormGroup" :data="data" />
-                <app-configInput v-if="isInput" :data="data" />
-                <app-config-form-select v-if="isFormSelect" :data="data"></app-config-form-select>          
-                <app-config-checkbox-group v-if="isCheckBoxGroup" :data="data"></app-config-checkbox-group>
-                <app-config-radio-group v-if="isRadioGroup" :data="data" />
-                <app-config-textarea v-if="isTextarea" :data="data" />
-                <app-config-file v-if="isFile" :data="data" />
-                <app-button v-if="isButton" :data="data"  />
-                <app-button-group v-if="isButtonGroup" :data="data" />
-                <app-divele v-if="isDivEle" :data="data" />
-
-
-                    
-
-
-
-   </b-form>
-  
-
-    </div>
-    </div>
-    </div>
-    
+                </b-btn-group>
+  </div>
 </template>
+
 <script>
-import ConfigCols from '@/components/config/Cols.vue'
-import ConfigContainer from '@/components/config/Container.vue'
-import ConfigRow from '@/components/config/Row.vue'
-import ConfigFormGroups from '@/components/config/FormGroups.vue'
-import ConfigInput from '@/components/config/Input.vue'
-import ConfigSelect from '@/components/config/FormSelect.vue'
-import ConfigCheckboxGroup from '@/components/config/FormCheckboxGroup.vue'
-import ConfigRadioGroup from '@/components/config/FormRadioGroup.vue'
-import ConfigTextarea from '@/components/config/FormTextarea.vue'
-import ConfigFile from '@/components/config/FormFile.vue'
-import ConfigButton from '@/components/config/Button.vue'
-import ConfigButtonGroup from '@/components/config/ButtonGroups.vue'
-import ConfigDivEle from '@/components/config/DivEle.vue'
+// @ is an alias to /src
+//import HelloWorld from '@/components/HelloWorld.vue'
+
 export default {
-  name: 'editele',
+  name: 'Tools',
   props:{
-      data:Number
+  	data:Number
   },
   data:function(){
       return {
-        alignOptions : [
-            {value:'left', text:'Left'},
-            {value:'center', text:'Center'},
-            {value:'right', text:'Right'}
-        ],
-        colOptions:[1,2,3,4,5,6,7,8,9,10,11,12],
-        sampleCheckBoxOptions:['Sample Checkbox Option 1'],
-        typeOptions:['text','number','email','password','search','url','tel','date','time','range','color'],
-        containerAddOptions:['At First','Before','After','At Last'],
-      
+          true : true
       }
   },
   methods:{
-      changeVal(val){
-        
-        this.$store.commit('changeColVal',val)
-      },
-      createFormGroup(){
+    createFormGroup(){
           this.$store.dispatch('createFormGroup',{formType : 'input'});
       },
       createFormSelectBox(){
@@ -174,6 +131,9 @@ export default {
       createHTML: function(){
         this.$store.dispatch('createEle',{ele:'div'});
       },
+      createContainer:function(){
+          this.$store.dispatch('createEle',{ele:'container'});
+      },
        addContainerBefore() {
             this.$store.commit('addContainer', {
                 action: 'addBefore'
@@ -184,11 +144,14 @@ export default {
                 action: 'addAfter'
             });
         }
-   
   },
-  computed:{
-
-      eno:{
+  computed: {
+      showTrue:{
+          get(){
+              return true;
+          }
+      },
+     eno:{
           get(){
              return this.data; 
           }
@@ -196,7 +159,10 @@ export default {
      
       eleObj:{
         get(){
-            return this.$store.getters.getObj(this.eno);
+            console.log(this.data);
+            if(this.data != undefined){
+                return this.$store.getters.getObj(this.data);
+            }
   		},
   		set(val){
   			return val;
@@ -229,6 +195,13 @@ export default {
           get(){
             if(this.eleObj != undefined){
               return (this.eleObj.ele=="form-select" ? true : false);
+            }
+          }
+      },
+      isForm:{
+          get(){
+            if(this.eleObj != undefined){
+              return (this.eleObj.ele=="form" ? true : false);
             }
           }
       },
@@ -296,93 +269,6 @@ export default {
             }
           }
       },
-     
-      label:{
-          get(){
-            if(this.eleObj != undefined){
-                return this.eleObj.label;
-              }
-            },set(val){
-                this.$store.commit('editObj',{label:val})
-            }
-      },
-      description:{
-           get(){
-            if(this.eleObj != undefined){
-                return this.eleObj.description;
-              }
-            },set(val){
-                 this.$store.commit('editObj',{description:val})
-            }
-      },
-      labelAlign:{
-           get(){
-            if(this.eleObj != undefined){
-                return this.eleObj.label_align;
-              }
-            },set(val){
-                this.$store.commit('editObj',{label_align:val})
-            }
-      },
-      labelClass:{
-           get(){
-                return this.eleObj.label_class;
-            },set(val){
-                 this.$store.commit('editObj',{label_class:val})
-            }
-      },
-      srOnly:{
-          get(){
-                return this.eleObj.label_sr_only;
-            },set(val){
-                
-                this.$store.commit('editObj',{label_sr_only:val})
-            }
-      },
-      labelCols :{
-           get(){
-                return this.eleObj.label_cols;
-            },set(val){
-                this.$store.commit('editObj',{label_cols:val})
-            }
-      },
-      before:{
-           get(){
-                return this.eleObj.before;
-            },set(val){
-                this.$store.commit('editObj',{before:val})
-            }
-      },
-      after:{
-           get(){
-                return this.eleObj.after;
-            },set(val){
-                this.$store.commit('editObj',{after:val})
-            }
-      },
-      
-      
-  
-      
-
-  },
-  components:{
-       'app-configCols' : ConfigCols,
-       'app-configContainer' : ConfigContainer,
-       'app-configRow' : ConfigRow,
-       'app-configFormGroup' : ConfigFormGroups,
-       'app-configInput' : ConfigInput,
-       'app-config-form-select' : ConfigSelect,
-       'app-config-checkbox-group' : ConfigCheckboxGroup,
-       'app-config-radio-group' : ConfigRadioGroup,
-       'app-config-textarea' : ConfigTextarea,
-       'app-config-file' : ConfigFile,
-       'app-button' : ConfigButton,
-       'app-button-group' : ConfigButtonGroup,
-       'app-divele' : ConfigDivEle
-    }
+  }
 }
 </script>
-<style scoped>
-
-</style>

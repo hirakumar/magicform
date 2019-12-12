@@ -49,6 +49,12 @@
                         <b-form-checkbox v-model="eleObj.col" class="float-right" name="check-button" switch></b-form-checkbox>
                     </b-form-group>
                 </b-list-group-item>
+                 <b-list-group-item>
+                    <!-- Col -->
+                    <b-form-group id="col" label="Class : " label-for="col" label-cols="4" class="mb-0">
+                       <b-form-input id="cols" type="text" size="sm" v-model="eleObj.class" trim></b-form-input>
+                    </b-form-group>
+                </b-list-group-item>
                 <b-list-group-item>
                     <b-form-group id="col" label="sm: " label-for="col" label-cols="4" class="mb-0">
                         <b-form-input id="cols" type="number" min="0" max="12" size="sm" v-model="eleObj.sm" trim></b-form-input>

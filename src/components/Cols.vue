@@ -20,10 +20,11 @@
 		:id = "data.id"
 		:align-self = "data['align-self']"
 		:tag = "data.tag"
+		:class= "data.class"
 		
 		
     >
-<app-infoele :data="data" @click ="clickCol"></app-infoele>
+	<app-infoele :data="data" @click ="clickCol" v-if="isEditMode"></app-infoele>
 
 	<app-elements v-for="child in childs" :key="child.eno" :data="child" :parentID="colID" />
     </b-col>
@@ -54,7 +55,11 @@ export default {
 			  return this.$store.getters.getChilds(this.colID);
 		  }
 	  },
-	  
+	isEditMode:{
+		get(){
+			return this.$store.getters.isEditMode;
+		},      
+    },
    
 	
   },

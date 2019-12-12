@@ -1,12 +1,16 @@
 <template>
- <app-formgroups v-if="isFormGroup" :data="data" />
- <app-buttongroup v-else-if="isButtonGroup" :data="data" />
- <app-form v-else-if="isForm" :data="data" />
+<div class="parentEle">
+
+  <app-formgroups v-if="isFormGroup" :data="data" />
+  <app-buttongroup v-else-if="isButtonGroup" :data="data" />
+  <app-form v-else-if="isForm" :data="data" ></app-form>
+  <app-row v-else-if="isRow" :data="data" />
+  <app-col v-else-if="isCol" :data="data" />
+  <app-container v-else-if="isContainer" :data="data" />
+</div>
 </template>
 <script>
-import FormGroups from '@/components/FormGroups.vue'
-import ButtonGroups from '@/components/ButtonGroups.vue'
-import FormEle from '@/components/FormEle.vue'
+
 export default {
  name: 'ParentElement',
   props:{
@@ -27,12 +31,39 @@ export default {
       get(){
         return (this.data.ele=='form' ? true : false);
       }
-    }
+    },
+     isRow :{
+      get(){
+        return (this.data.ele=='row' ? true : false);
+      }
+    },
+     isCol :{
+      get(){
+        return (this.data.ele=='col' ? true : false);
+      }
+    },
+     isContainer :{
+      get(){
+        return (this.data.ele=='container' ? true : false);
+      }
+    },
+    hasChild:{
+        get(){
+            if(this.objID != undefined){
+                return this.$store.getters.hasChild(this.objID);
+            }
+            
+        }
+    }  
   },
   components:{
-    'app-formgroups' : FormGroups,
-    'app-buttongroup' : ButtonGroups,
-    'app-form' : FormEle
+    'app-formgroups' : () => import('@/components/FormGroups.vue'),
+    'app-buttongroup' : () => import('@/components/ButtonGroups.vue'),
+    'app-form' : () => import('@/components/FormEle.vue'),
+    'app-row' : () => import('@/components/Row.vue'),
+    'app-col' : () => import('@/components/Cols.vue'),
+    'app-container' : () => import('@/components/Container.vue')
+    
   }
 }
 </script>

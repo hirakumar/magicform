@@ -1,7 +1,7 @@
 <template>
 	<div>
 	<b-button @click="creatContainer">Create New Container</b-button> 
-	<!-- <b-button @click="creatForm">Create Form</b-button> -->
+	<b-button @click="creatForm">Create Form</b-button>
 	</div>
 </template>
 <script>
@@ -22,10 +22,10 @@ export default {
   },
   methods:{
   	creatContainer : function(){
-  		this.$store.commit('addContainer',{action:'addAtLast'});
+  		this.$store.dispatch('createEle',{ele:'container'});
 	  },
 	creatForm : function(){
-  		 this.$store.dispatch('createEle',{ele : 'form'});
+  		 this.$store.dispatch('createEle',{ele :'form'});
   	}
   },
   components:{
@@ -34,17 +34,34 @@ export default {
 }
 </script>
 <style lang="scss">
-form{
-.container,.container-fluid{
-	border:dashed 1px #ccc;
-	.eleinfo{
+.configBlock{
+	.card-title{text-transform: uppercase; font-size:14px}
+	.list-group-item {
+		padding:3px 0;
+		font-size:12px;
+		.form-row{
+			legend{
+				padding-top:3px;
+				padding-bottom:3px;
+			}
+		}
+		
+	}
+}
+.showEditor{
+
+
+.buttonGroup,.formEle{
+				border:dashed 1px gray;
+}
+.eleinfo{
 		padding: 1px;
 		font-size: 10px;
 		line-height: 12px;
 		border-radius: 0px; 
 		position:relative; 
-		top:-6px; 
-		left:-15px;
+		top:-5px; 
+		left:0px;
 		background:#ccc;
 		border:#ccc;
 		&:after{
@@ -53,23 +70,34 @@ form{
 			width:100%;
 			height:1px;
 		}
-	};
+	}
+
+
+.container,.container-fluid{
+	border:dashed 1px #ccc;
+	
+	.rowHolder,.eleHolder{
+		min-height:20px;
+		width:100%;
+	}
+	.buttonGroup,{
+		position:relative
+	}
+	
 	.row{
 		border:dashed 1px #999;
-		.eleinfo{
-			left:0px;
-			top:0px;
-			height:16px;
-			background:#999;
-			border:#999;
-		}
-		.col,.col-1,.col-2,.col-3,.col-4,.col-5,.col-6,.col-7,.col-8,.col-9,.col-10,.col-11,.col-12{
+		
+		.col,.col,.col-1,.col-2,.col-3,.col-4,.col-5,.col-6,.col-7,.col-8,.col-9,.col-10,.col-11,.col-12{
 			border:dashed 1px #333;
+			min-height:20px;
 			.eleinfo{
 				left:-15px;
 				top:-5px;
 				background:#333;
 				border:#333;
+				position:absolute;
+				top:0px;
+				left:0px;
 			}
 			.buttonGroup{
 				border:dashed 1px gray;
@@ -81,8 +109,8 @@ form{
 	}
 }
 
-}
 
+}
 
 
 

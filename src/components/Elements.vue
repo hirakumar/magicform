@@ -1,6 +1,8 @@
 <template>
+    
     <app-parentelement :data="data" v-if="hasChild" />
     <app-childelement :data="data" v-else />
+   
 </template>
 <script>
 
@@ -11,7 +13,7 @@ export default {
  name: 'Elements',
   props:{
       data:Object,
-      parentID:Number
+     
   },
   
   computed:{

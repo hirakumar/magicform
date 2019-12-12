@@ -1,9 +1,9 @@
 <template>
     
-    <div class="buttonGroup" 
-      >
-     
-      <b-button @click="clickEvent" class="btn eleinfo btn-secondary btn-sm active" >Button Group</b-button>
+    <div class="buttonGroup" >
+      <div class="eleHolder" v-if="isEditMode" >
+        <b-button @click="clickEvent" class="btn eleinfo btn-secondary btn-sm active" >Button Group</b-button>
+      </div>
     <div v-html="data.before" class="before"></div>
    
     <b-btn-group
@@ -34,14 +34,6 @@ export default {
   	data:Object
   },
   methods:{
-    mouseEnter:function(){
-     // console.log("Mouse Enter :" + this.data.eno);
-      this.$store.commit('changeEle',this.data.eno);
-      
-    },
-    mouseLeave:function(){
-     // console.log("Mouse Leave")
-    },
     clickEvent:function(event){
       console.log("Clicked :" + this.data.eno);
       this.$store.commit('setActiveEno',this.data.eno);
@@ -53,6 +45,11 @@ export default {
   
   },
   computed:{
+    isEditMode:{
+      get(){
+        return this.$store.getters.isEditMode;
+      },      
+    },
     hasChild:{
         get(){
             

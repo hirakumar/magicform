@@ -1,5 +1,8 @@
 <template>
- <b-button href="#" class="eleinfo" size="sm" @click ="clickCol">{{data.ele}} : {{data.eno}} / {{data.order}}  </b-button>
+<div class="eleHolder">
+ 
+ <b-button href="#" :class="['eleinfo',myClass]" size="sm" @click ="clickCol">{{data.ele}} : {{data.eno}} / {{data.order}}  </b-button>
+ </div>
 </template>
 <script>
 
@@ -10,11 +13,19 @@ export default {
   },
   data:function(){
       return {
-          
+         
+         
       }
   },
-  components:{
-  
+  computed:{
+    myClass:{
+      get(){
+          if(this.data != undefined){
+            return this.data.ele+"Ele";
+          }
+         
+      }
+    }
   },
   methods:{
     clickCol : function(event){
@@ -25,13 +36,11 @@ export default {
       event.stopPropagation();
     }
   },
-  computed:{
-  
-  
 
-  }
 }
 </script>
 <style scoped>
-
+.eleinfo.containerEle{
+  left:-15px;
+}
 </style>
