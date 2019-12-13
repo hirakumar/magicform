@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.89b55089ec9aacd55e2c3dfb3b297f3e.js"
+  "/precache-manifest.d11b636eb6fc8327f98c60e2e352cb53.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "formninja"});

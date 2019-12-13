@@ -1,6 +1,6 @@
 <template>
 <div>
-   <b-container class="about" fluid>
+   <b-container  fluid>
       <b-row>
           <b-col>
              <b-form-checkbox v-model="isEditMode" class="float-right" name="check-button" switch></b-form-checkbox>
@@ -13,7 +13,7 @@
         <b-col cols="7"> <div :class="['formEditor',showEditor]">
       <app-elements :data="mainParent" v-for="mainParent in mainParents" />
     </div> 
-     <app-creator ></app-creator>
+     <app-creator v-if="startStatus" ></app-creator>
     </b-col>
          <b-col cols="3" ><app-panel :data="activeEno" v-if="isEditMode"></app-panel> </b-col>
         </b-col>
@@ -44,6 +44,12 @@ export default {
          console.log("Editmode :", val)
          return this.$store.commit('setEditMode',val);
         
+      }
+    },
+    startStatus:{
+      get(){
+    
+        return (this.$store.getters.getTotalElements>0 ? false : true)
       }
     },
   showEditor:{
