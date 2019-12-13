@@ -35,7 +35,12 @@
     <app-formradiogroup v-for="radio in formradiogroups" :data="radio" :key="radio.eno" />
     <app-formfile v-for="file in formfiles" :data="file" :key="file.eno" /> 
     <app-formtextarea v-for="textarea in formTextareas" :data="textarea" :key="textarea.eno" />
-    
+     <b-form-invalid-feedback >
+        Your user ID must be 5-12 characters long.
+      </b-form-invalid-feedback>
+      <b-form-valid-feedback >
+        Looks Good.
+      </b-form-valid-feedback>
   </b-form-group>
   <template v-if="data.after!=undefined">
   <div v-html="data.after" class="after" ></div>

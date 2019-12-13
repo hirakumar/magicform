@@ -50,7 +50,7 @@
                label-cols="6"
                class="mb-0"
                >
-               <b-input v-model="placeholder" size="sm" />
+               <b-input v-model="eleObj.placeholder" size="sm" />
             </b-form-group>
          </b-list-group-item>
          <template v-if="expandlevel>0">
@@ -61,7 +61,7 @@
                   label-cols="6"
                   class="mb-0"
                   >
-                  <b-input v-model="name" size="sm" />
+                  <b-input v-model="eleObj.name" size="sm" />
                </b-form-group>
             </b-list-group-item>
             <!-- ID -->
@@ -135,7 +135,8 @@
                   <b-form-checkbox v-model="eleObj['aria-invalid']" class="float-right"  name="check-button" switch></b-form-checkbox>
                </b-form-group>
             </b-list-group-item>
-            <b-list-group-item>
+      
+              <b-list-group-item>
                <b-form-group 
                   label="Plain Text : "
                   label-cols="6"

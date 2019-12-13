@@ -77,6 +77,24 @@
                         <b-form-select id="labelSize" v-model="eleObj['label-size']" :options="size" size="sm"></b-form-select>
                     </b-form-group>
                 </b-list-group-item>
+                      <b-list-group-item>
+               <b-form-group 
+                  label="Valid Feedback : "
+                  label-cols="6"
+                  class="mb-0"
+                  >
+                  <b-input type="text" size="sm" v-model="eleObj['valid-feedback']" />
+               </b-form-group>
+            </b-list-group-item>
+             <b-list-group-item>
+               <b-form-group 
+                  label="Invalid Feedback : "
+                  label-cols="6"
+                  class="mb-0"
+                  >
+                  <b-input type="text" size="sm" v-model="eleObj['invalid-feedback']" />
+               </b-form-group>
+            </b-list-group-item>
             </template>
             <template v-if="expandlevel>1">
 

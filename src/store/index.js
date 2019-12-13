@@ -326,7 +326,7 @@ if(payload.action=="addAfter"){
           order= context.getters.getLastChild.order+1;
       }
       
-      let formgroupObj = {eno : lasteno+1, ele:'form-group', 'label-for' :`label${lasteno+1}`, label:'Sample Label Text', description:'Sample short description', parent:activeObj.eno, order:order}
+      let formgroupObj = {eno : lasteno+1, ele:'form-group', 'label-for' :`label${lasteno+1}`, label:'Sample Label Text', description:'Sample short description', parent:activeObj.eno, order:order,'invalid-feedback':'','valid-feedback':''}
       context.commit('addElement',formgroupObj);
 
       let inputObj;

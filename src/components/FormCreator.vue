@@ -1,6 +1,6 @@
 <template>
 	<div>
-	<b-button @click="creatContainer">Create New Container</b-button> 
+
 	<b-button @click="creatForm">Create Form</b-button>
 	</div>
 </template>
