@@ -95,6 +95,12 @@
                   <b-input type="text" size="sm" v-model="eleObj['invalid-feedback']" />
                </b-form-group>
             </b-list-group-item>
+              <b-list-group-item>
+                    <!-- Label Sr Only -->
+                    <b-form-group label="State : " label-for="state" label-cols="6" class="mb-0">
+                        <b-form-checkbox id="state" v-model="eleObj['state']" switch />
+                    </b-form-group>
+                </b-list-group-item>
             </template>
             <template v-if="expandlevel>1">
 

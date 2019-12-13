@@ -25,6 +25,7 @@
       :label-sr-only = "data['label-sr-only']"
       :data-eno="data.eno"
       :disabled="data.disabled"
+      :state="data.state"
       
     >
     

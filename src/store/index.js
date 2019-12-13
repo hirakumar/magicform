@@ -10,7 +10,7 @@ export default new Vuex.Store({
      activeEno : null,
       editMode : false,
       lasteno: null,
-  	  elements:[]
+  	  elements:[ { "eno": 1, "order": 1, "ele": "form", "inline": false, "novalidate": true, "validated": false, "parent": null }, { "eno": 2, "ele": "form-group", "label-for": "label2", "label": "Name", "description": "Sample short description", "parent": 1, "order": 1, "invalid-feedback": "", "valid-feedback": "" }, { "eno": 3, "ele": "form-input", "type": "text", "parent": 2, "id": "label2", "required": true }, { "eno": 4, "order": 2, "text": "Submit", "border-style": null, "ele": "button", "parent": 1, "id": "label4", "name": "label4", "active": false, "disabled": false, "append": false, "replace": false, "active-class": "active", "exact": false, "exact-active-class": "", "router-tag": "a", "block": false, "size": "md", "variant": "secondary", "type": "submit", "tag": "button", "pill": false, "squared": false } ] 
   },
   mutations: { 
     changeEle (state, payload) {
@@ -326,7 +326,7 @@ if(payload.action=="addAfter"){
           order= context.getters.getLastChild.order+1;
       }
       
-      let formgroupObj = {eno : lasteno+1, ele:'form-group', 'label-for' :`label${lasteno+1}`, label:'Sample Label Text', description:'Sample short description', parent:activeObj.eno, order:order,'invalid-feedback':'','valid-feedback':''}
+      let formgroupObj = {eno : lasteno+1, ele:'form-group', 'label-for' :`label${lasteno+1}`, label:'Sample Label Text', description:'Sample short description', parent:activeObj.eno, order:order,'invalid-feedback':'','valid-feedback':'', state:false}
       context.commit('addElement',formgroupObj);
 
       let inputObj;
@@ -540,6 +540,9 @@ removeObj(context){
       let obj = state.elements.find(item => item.eno === eno);      
       let list = state.elements.filter(item=>item.parent===obj.eno);
       return list.sort((a,b)=> { return a.order - b.order} );
+    },
+    getRawElements: state =>{
+      return state.elements;
     },
     getInputs: (state) => (eno) => {
       let obj = state.elements.find(item => item.eno === eno);      

@@ -54,8 +54,8 @@ export default {
      clickedEle:function(event){
        this.$store.commit("setActiveEno",this.data.eno);
        this.$store.commit("setEditMode",true);
-       event.preventDefault();
-       event.stopPropagation();
+      // event.preventDefault();
+      // event.stopPropagation();
     }
   }
   
