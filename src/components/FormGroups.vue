@@ -1,10 +1,14 @@
 <template>
-    <div class="formGroupBlock" @click ="clickEvent"
+    <div class="formGroupBlock" @click ="clickEvent" @mouseenter="mouseEnter" @mouseleave="mouseLeave"
      >
       <app-infoele :data="data"  v-if="isEditMode"></app-infoele>
       <template v-if="data.before!=undefined">
-      <div v-html="data.before" class="before" ></div>
-    </template>
+        <div v-html="data.before" class="before" ></div>
+      </template>
+      <div class="buttonGroup" v-if="shortConfigStatus" >
+        <b-button size="sm" @click="setOrderUp"> <font-awesome-icon  :icon="['fas','chevron-up']"  /></b-button>
+        <b-button size="sm" @click="setOrderDown"> <font-awesome-icon :icon="['fas','chevron-down']"  /></b-button>
+      </div>
     <b-form-group
       :id="data.id"
       :description="data.description"
@@ -65,14 +69,26 @@ export default {
   props:{
   	data:Object
   },
-  methods:{
-    mouseEnter:function(){
-     // console.log("Mouse Enter :" + this.data.eno);
-      this.$store.commit('changeEle',this.data.eno);
+  data:function(){
+    return {
       
+      shortConfigStatus : false
+    }
+  },
+  methods:{
+    setOrderUp: function(){
+      console.log("Set Order Up");
+      this.$store.dispatch('setOrderUp',this.data);
+    },
+    setOrderDown : function(){
+      console.log("Set Order Down");
+    },
+    mouseEnter:function(){
+     this.shortConfigStatus = true;
     },
     mouseLeave:function(){
      // console.log("Mouse Leave")
+     this.shortConfigStatus = false;
     },
     clickEvent:function(event){
       try{

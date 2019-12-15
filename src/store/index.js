@@ -229,7 +229,24 @@ if(payload.action=="addAfter"){
     }
     
   },
+  /* *********************************************************** 
+     *                                                         *
+     *                          ACTION                         *
+     *                                                         *
+     *********************************************************** 
+  */
   actions: { 
+    setOrderUp(context,payload){
+      console.log(JSON.stringify(payload));
+      let eno = payload.eno;
+      //console.log("Eno",eno);
+      let allParentChilds = context.getters.getChilds(payload.parent);
+      let allChidsWithOrder = allParentChilds.sort((a,b)=> { return a.order - b.order} );
+      console.log("obj", allChidsWithOrder.find((item)=>item.eno==eno));
+      let myindex = allChidsWithOrder.indexOf(allChidsWithOrder.find((item)=>item.eno==eno));
+      console.log(myindex);
+
+    },
     addOption(context,payload){
       let eno = context.getters.getActiveEno;
       let index = context.getters.getIndexByEno(eno);
@@ -438,6 +455,7 @@ removeObj(context){
     getTotalElements : state =>{
       return state.elements.length;
     },
+
     hasProperty: (state) => (obj)=>{
       if(obj.ele.hasOwnProperty(obj.propery)){
         return true;
@@ -548,6 +566,7 @@ removeObj(context){
     getRawElements: state =>{
       return state.elements;
     },
+    
     getInputs: (state) => (eno) => {
       let obj = state.elements.find(item => item.eno === eno);      
       let list = state.elements.filter(item=>item.parent===obj.eno);
