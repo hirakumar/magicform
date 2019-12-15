@@ -75,11 +75,16 @@ export default {
      // console.log("Mouse Leave")
     },
     clickEvent:function(event){
-      console.log("Clicked :" + this.data.eno);
-      this.$store.commit('setActiveEno',this.data.eno);
-      this.$store.commit('setEditMode',true);
-      event.preventDefault();
-      event.stopPropagation();
+      try{
+        console.log("clickEvent :" + this.data.eno);
+        this.$store.commit('setActiveEno',this.data.eno);
+        this.$store.commit('setEditMode',true);
+        /*event.preventDefault();
+        event.stopPropagation();*/
+      }catch(error){
+        console.log("Error on clickEvent");
+      }
+      
     }
   },
   computed:{

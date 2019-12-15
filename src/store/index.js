@@ -10,7 +10,9 @@ export default new Vuex.Store({
      activeEno : null,
       editMode : false,
       lasteno: null,
-  	  elements:[ { "eno": 1, "order": 1, "ele": "form", "inline": false, "novalidate": true, "validated": false, "parent": null }, { "eno": 2, "ele": "form-group", "label-for": "label2", "label": "Name", "description": "Sample short description", "parent": 1, "order": 1, "invalid-feedback": "", "valid-feedback": "" }, { "eno": 3, "ele": "form-input", "type": "text", "parent": 2, "id": "label2", "required": true }, { "eno": 4, "order": 2, "text": "Submit", "border-style": null, "ele": "button", "parent": 1, "id": "label4", "name": "label4", "active": false, "disabled": false, "append": false, "replace": false, "active-class": "active", "exact": false, "exact-active-class": "", "router-tag": "a", "block": false, "size": "md", "variant": "secondary", "type": "submit", "tag": "button", "pill": false, "squared": false } ] 
+  	  elements:[ 
+        { "eno": 1, "order": 1, "ele": "form", "inline": false, "novalidate": true, "validated": false, "parent": null }, 
+        { "eno": 2, "ele": "form-group", "label-for": "label2", "label": "Name", "description": "Sample short description", "parent": 1, "order": 1, "invalid-feedback": "", "valid-feedback": "" }, { "eno": 3, "ele": "form-input", "type": "text", "parent": 2, "id": "label2", "required": true }, { "eno": 4, "order": 2, "text": "Submit", "border-style": null, "ele": "button", "parent": 1, "id": "label4", "name": "label4", "active": false, "disabled": false, "append": false, "replace": false, "active-class": "active", "exact": false, "exact-active-class": "", "router-tag": "a", "block": false, "size": "md", "variant": "secondary", "type": "submit", "tag": "button", "pill": false, "squared": false } ] 
   },
   mutations: { 
     changeEle (state, payload) {
@@ -452,12 +454,13 @@ removeObj(context){
     getConfigEle: state => {     
       return state.configEle;
     },
-    getLastEno : state =>{
-     
-      if(state.lasteno!=undefined){
+    getLastEno : state =>{      
+      if(state.lasteno>0 ){        
         return state.lasteno;
-      }
-      
+      }else{        
+        let list = state.elements.sort((a,b)=> { return a.eno - b.eno} );
+        return list[list.length-1].eno;
+      }      
     },
     isConfigEle: state => {     
       return (state.configEle >0 ? true : false);
@@ -509,6 +512,7 @@ removeObj(context){
     },
     hasChild: (state) => (eno) => {
       try{
+        console.log(eno);
         let obj = state.elements.find(item => item.eno === eno);
         let list = state.elements.filter(item => item.parent === obj.eno);
         return (list.length>0 ? true : false);

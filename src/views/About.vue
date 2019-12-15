@@ -11,7 +11,7 @@
       <b-row>
         <b-col cols="2" >  <app-tools :data="activeEno" v-if="isEditMode" /> </b-col>
         <b-col cols="7"> <div :class="['formEditor',showEditor]">
-      <app-elements :data="mainParent" v-for="mainParent in mainParents" />
+      <app-elements :data="mainParent" v-for="mainParent in mainParents" :key="mainParent.eno" />
     </div> 
      <app-creator v-if="startStatus" ></app-creator>
     </b-col>

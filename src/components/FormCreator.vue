@@ -11,7 +11,10 @@ export default {
   props:{
   	data:Object
   },
-  
+  created(){
+  	console.log("Form Creator created");
+  	console.log(this.$store.getters.getLastEno);
+  },
   computed:{    
     hasContainer:{
     	get(){

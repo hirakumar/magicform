@@ -1,6 +1,6 @@
 <template>
    <div class="formEle">     
-      <app-infoele :data="data" @click ="clickedEle" v-if="isEditMode"></app-infoele>
+      <app-infoele :data="data" v-if="isEditMode"></app-infoele>
       {{getElements}}
       <b-form @submit="onSubmit" @reset="onReset" :class="data.class" :id="data.id" :inline="data.inline" :novalidate="data.novalidate" :validated="data.validated" >
         <app-elements :data="child" v-for="child in myChilds" />
@@ -53,10 +53,12 @@ export default {
   },
     methods:{
      clickedEle:function(event){
+
        this.$store.commit("setActiveEno",this.data.eno);
        this.$store.commit("setEditMode",true);
-       //event.preventDefault();
-       //event.stopPropagation();
+       
+       event.preventDefault();
+       event.stopPropagation();
     },
      onSubmit: function(){
       console.log("Submiting Form");
