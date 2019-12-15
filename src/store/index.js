@@ -255,7 +255,7 @@ if(payload.action=="addAfter"){
       
       // Find last child element and find order
       if(context.getters.getLastChild != false){
-          order= context.getters.getLastChild.order+1;
+          order= parseInt(context.getters.getLastChild.order)+1;
       }
        
       switch(payload.ele){
@@ -325,7 +325,7 @@ if(payload.action=="addAfter"){
       let order=1;      
       // Find last child element and find order
       if(context.getters.getLastChild != false){
-          order= context.getters.getLastChild.order+1;
+          order= parseInt(context.getters.getLastChild.order)+1;
       }
       
       let formgroupObj = {eno : lasteno+1, ele:'form-group', 'label-for' :`label${lasteno+1}`, label:'Sample Label Text', description:'Sample short description', parent:activeObj.eno, order:order,'invalid-feedback':'','valid-feedback':'', state:false}
@@ -335,7 +335,7 @@ if(payload.action=="addAfter"){
      
       switch(payload.formType){
         case 'input':
-        inputObj = {eno:lasteno+2, ele:'form-input', type:'text', parent:lasteno+1, id : `label${lasteno+1}`};
+        inputObj = {eno:lasteno+2, order:order, ele:'form-input', type:'text', parent:lasteno+1, id : `label${lasteno+1}`};
         break;
 
         case 'form-select':
