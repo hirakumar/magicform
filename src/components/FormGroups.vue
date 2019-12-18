@@ -95,8 +95,8 @@ export default {
         console.log("clickEvent :" + this.data.eno);
         this.$store.commit('setActiveEno',this.data.eno);
         this.$store.commit('setEditMode',true);
-        /*event.preventDefault();
-        event.stopPropagation();*/
+        event.preventDefault();
+        event.stopPropagation();
       }catch(error){
         console.log("Error on clickEvent");
       }
