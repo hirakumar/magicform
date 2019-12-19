@@ -40,10 +40,8 @@ export default {
       get(){
         return this.$store.getters.isEditMode;
       },
-      set(val){
-         console.log("Editmode :", val)
-         return this.$store.commit('setEditMode',val);
-        
+      set(val){         
+         return this.$store.commit('setEditMode',val);        
       }
     },
     startStatus:{

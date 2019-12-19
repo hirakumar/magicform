@@ -21,7 +21,7 @@
               <b-col cols="2"><b-button size="sm" @click="addOption"><font-awesome-icon :icon="['fas','plus']" /> </b-button></b-col>
           </b-row>
         
-          <b-row v-for="(opt,index) in options">
+          <b-row v-for="(opt,index) in options" :key="opt.id">
               <b-col cols="5"> {{opt.text}} </b-col>
               <b-col cols="5">{{opt.value}}</b-col>
               <b-col cols="2"><b-button size="sm" @click="removeOption(index)"><font-awesome-icon :icon="['fas','trash-alt']" /> </b-button></b-col>
@@ -98,7 +98,7 @@
                    <b-form-checkbox v-model="eleObj.multiple" class="float-right"  name="check-button" switch></b-form-checkbox>
                </b-form-group>
             </b-list-group-item>
-            <b-list-group-item v-if="multiple" class="pl-0 pr-0">
+            <b-list-group-item v-if="eleObj.multiple" class="pl-0 pr-0">
                <b-form-group 
                   label="Select Size : "
                   label-cols="6"
@@ -135,18 +135,22 @@ export default {
       text:'',
       value:'',
       sizeOptions: [{
+                    id:0,
                     text: 'None',
                     value: false
                 },
                 {
+                    id:1,
                     text: 'Small',
                     value: 'sm'
                 },
                 {
+                    id:2,
                     text: 'Medium',
                     value: 'md'
                 },
                 {
+                    id:3,
                     text: 'Large',
                     value: 'lg'
                 },
@@ -200,25 +204,24 @@ export default {
       console.log(index);
       this.$store.dispatch('removeSelectOption',{index:index});
     },
-     increaselevel: function() {
-            try {
-                this.expandlevel += 1;
-            } catch (err) {
-                console.log("Error on increaselevel :", err)
-            }
-
-        },
-        decreaselevel: function() {
-            try {
-                this.expandlevel -= 1;
-            } catch (err) {
-                console.log("Error on decreaselevel :", err)
-            }
-        }
-
-  },
-   remove: function() {
+    increaselevel: function() {
+      try {
+          this.expandlevel += 1;
+      } catch (err) {
+          console.log("Error on increaselevel :", err)
+      }
+    },
+    decreaselevel: function() {
+      try {
+          this.expandlevel -= 1;
+      } catch (err) {
+          console.log("Error on decreaselevel :", err)
+      }
+    },
+    remove: function() {
             this.$store.dispatch("removeObj");
         },
+  },
+  
 }
 </script>

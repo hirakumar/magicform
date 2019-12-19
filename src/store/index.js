@@ -10,9 +10,8 @@ export default new Vuex.Store({
      activeEno : null,
       editMode : false,
       lasteno: null,
-  	  elements:[ 
-        { "eno": 1, "order": 1, "ele": "form", "inline": false, "novalidate": true, "validated": false, "parent": null }, 
-        { "eno": 2, "ele": "form-group", "label-for": "label2", "label": "Name", "description": "Sample short description", "parent": 1, "order": 1, "invalid-feedback": "", "valid-feedback": "" }, { "eno": 3, "ele": "form-input", "type": "text", "parent": 2, "id": "label2", "required": true }, { "eno": 4, "order": 2, "text": "Submit", "border-style": null, "ele": "button", "parent": 1, "id": "label4", "name": "label4", "active": false, "disabled": false, "append": false, "replace": false, "active-class": "active", "exact": false, "exact-active-class": "", "router-tag": "a", "block": false, "size": "md", "variant": "secondary", "type": "submit", "tag": "button", "pill": false, "squared": false } ] 
+      // elements:[ { "eno": 1, "order": 1, "ele": "form", "inline": false, "novalidate": true, "validated": true, "parent": null }, { "eno": 2, "ele": "form-group", "label-for": "label2", "label": "Name", "description": "Sample short description", "parent": 1, "order": 1, "invalid-feedback": "", "valid-feedback": "" }, { "eno": 3, "ele": "form-input", "type": "text", "parent": 2, "id": "label2", "required": true }, { "eno": 4, "order": "4", "text": "Submit", "border-style": null, "ele": "button", "parent": 1, "id": "label4", "name": "label4", "active": false, "disabled": false, "append": false, "replace": false, "active-class": "active", "exact": false, "exact-active-class": "", "router-tag": "a", "block": false, "size": "md", "variant": "secondary", "type": "submit", "tag": "button", "pill": false, "squared": false }, { "eno": 5, "ele": "form-group", "label-for": "label5", "label": "Country", "description": "Sample short description", "parent": 1, "order": 3, "invalid-feedback": "", "valid-feedback": "", "state": false }, { "eno": 6, "ele": "form-select", "parent": 5, "id": "label5", "options": [ { "text": "Nepal", "value": "nepal" }, { "text": "Bhutan", "value": "bhutan" }, { "text": "Srilanka", "value": "srilanka" } ], "disabled": false, "required": true, "autofocus": false, "size": "md", "plain": false, "value": "", "multiple": false, "select-size": 0, "aria-invalid": false } ] 
+      elements:[]
   },
   mutations: { 
     changeEle (state, payload) {
@@ -35,7 +34,17 @@ export default new Vuex.Store({
        state.elements.splice(payload.index,1);
     },
     
-
+    editOrderByEno(state,payload){
+      try{
+        if(payload.eno !=undefined){
+          let obj = state.elements.find(item=>item.eno===payload.eno);
+          obj.order=payload.order;
+        }
+      }catch(error){
+        console.log("Error on editObjByEno :", error);
+      }
+    },
+    /* Input {order:3} */
     editObj(state,payload){
       try{
       
@@ -229,7 +238,51 @@ if(payload.action=="addAfter"){
     }
     
   },
+  /* *********************************************************** 
+     *                                                         *
+     *                         ACTION                          *
+     *                                                         *
+     *********************************************************** 
+  */
   actions: { 
+    setOrder(context,payload){
+      try{
+        // console.log(JSON.stringify(payload));
+      let activeObj = context.getters.getObj(payload.activeEno);
+      let eno = activeObj.eno;
+    
+      let allParentChilds = context.getters.getChilds(activeObj.parent);
+      let allChidsWithOrder = allParentChilds.sort((a,b)=> { return a.order - b.order} );
+     
+      
+      let arry=[];
+      arry.push(activeObj.order);
+
+      let fromEle = allChidsWithOrder.find(item=>item.eno===eno);
+     
+      let fromEleIndex = allChidsWithOrder.indexOf(fromEle);
+      
+      if(payload.action=="up"){
+        let toEle = allChidsWithOrder[fromEleIndex-1];
+        arry.push(parseInt(toEle.order));        
+        context.commit('editOrderByEno',{eno:eno,order:arry[1]});
+        context.commit('editOrderByEno',{eno:toEle.eno,order:arry[0]});
+      }
+
+      if(payload.action=="down"){
+        let toEle = allChidsWithOrder[fromEleIndex+1];
+        arry.push(parseInt(toEle.order));        
+        context.commit('editOrderByEno',{eno:eno,order:arry[1]});
+        context.commit('editOrderByEno',{eno:toEle.eno,order:arry[0]});
+      }
+     
+      
+      }catch(err){
+        console.log("Error on Action setOrder", err);
+      }
+      
+
+    },
     addOption(context,payload){
       let eno = context.getters.getActiveEno;
       let index = context.getters.getIndexByEno(eno);
@@ -249,7 +302,7 @@ if(payload.action=="addAfter"){
       if(lasteno == undefined){
         lasteno=0;
       }
-      console.log("Last eno ", lasteno);
+      
       let obj;
       let order=1;
       
@@ -426,6 +479,22 @@ removeObj(context){
     },
    },
   getters: {
+    isFirstOrder: (state) => (eno) => {
+     
+      let obj= state.elements.find(item=>item.eno===eno);
+      let list = state.elements.filter(item => item.parent===obj.parent);
+      let orderList = list.sort((a,b)=> { return a.order - b.order} );
+      
+      return (obj.order == orderList[0].order ? true : false);
+    },
+    isLastOrder: (state) => (eno) => {
+      
+      let obj= state.elements.find(item=>item.eno===eno);
+      let list = state.elements.filter(item => item.parent===obj.parent);
+      let orderList = list.sort((a,b)=> { return a.order - b.order} );
+      
+      return (obj.order == orderList[orderList.length-1].order ? true : false);
+    },
     hasContainer: state =>{
       return (state.elements.length>0 ? true : false);
     },
@@ -438,6 +507,7 @@ removeObj(context){
     getTotalElements : state =>{
       return state.elements.length;
     },
+
     hasProperty: (state) => (obj)=>{
       if(obj.ele.hasOwnProperty(obj.propery)){
         return true;
@@ -457,6 +527,8 @@ removeObj(context){
     getLastEno : state =>{      
       if(state.lasteno>0 ){        
         return state.lasteno;
+      }else if(state.lasteno==null){
+        return null; 
       }else{        
         let list = state.elements.sort((a,b)=> { return a.eno - b.eno} );
         return list[list.length-1].eno;
@@ -483,7 +555,6 @@ removeObj(context){
     },
     getMainParents: state => {
       let eles = state.elements.filter(item=> item.hasOwnProperty('parent')==false || item.parent==null );
-      console.log(eles);
       return eles.sort((a,b)=> { return a.order - b.order} );
     },
     getObj: (state) => (eno) => {
@@ -501,9 +572,7 @@ removeObj(context){
 
     },
     getChilds: (state) => (eno) => {
-      
       let obj = state.elements.find(item => item.eno === eno);
-
       if(obj != undefined){
         let list = state.elements.filter(item => item.parent===obj.eno);
         let final = list.sort((a,b) => { return a.order - b.order} );
@@ -512,7 +581,7 @@ removeObj(context){
     },
     hasChild: (state) => (eno) => {
       try{
-        console.log(eno);
+        
         let obj = state.elements.find(item => item.eno === eno);
         let list = state.elements.filter(item => item.parent === obj.eno);
         return (list.length>0 ? true : false);
@@ -530,7 +599,7 @@ removeObj(context){
     getLastChild: state => {
       let activeObj = state.elements.find(item=>item.eno===state.activeEno);
       let list = state.elements.filter(item=>item.parent===activeObj.eno);
-      console.log("Childs :" ,list.length)
+      
       if(list.length>0){
         let sortedList = list.sort((a,b)=> { return a.order - b.order} );
         return sortedList[sortedList.length-1];
@@ -548,6 +617,7 @@ removeObj(context){
     getRawElements: state =>{
       return state.elements;
     },
+    
     getInputs: (state) => (eno) => {
       let obj = state.elements.find(item => item.eno === eno);      
       let list = state.elements.filter(item=>item.parent===obj.eno);

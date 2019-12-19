@@ -1,7 +1,7 @@
 <template>
 
     <b-card title="Form Group">
-
+        
         <b-button variant="link" size="md" class="trash" @click="remove">
             <font-awesome-icon :icon="['fas','trash-alt']" />
         </b-button>

@@ -43,11 +43,10 @@ export default {
   },
   methods:{
     clickInput:function(event){
-       console.log("ENO :" +this.data.eno);
-       this.$store.commit("setActiveEno",this.data.eno);
-       this.$store.commit("setEditMode",true);
-        event.preventDefault();
-        event.stopPropagation();
+      this.$store.commit("setActiveEno",this.data.eno);
+      this.$store.commit("setEditMode",true);
+      event.preventDefault();
+      event.stopPropagation();
     }
   },
   components: {
