@@ -1,14 +1,15 @@
 <template>
-    <div class="formGroupBlock" @click ="clickEvent" @mouseenter="mouseEnter" @mouseleave="mouseLeave"
-     >
+    <div class="formGroupBlock" @mouseenter="mouseEnter" @mouseleave="mouseLeave">
       <app-infoele :data="data"  v-if="isEditMode"></app-infoele>
+     
+      <b-button-group v-if="orderBtn" class="orderBtn">
+        <b-button size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-button>
+      <b-button size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-button>
+      </b-button-group>
+      
       <template v-if="data.before!=undefined">
         <div v-html="data.before" class="before" ></div>
       </template>
-      <div class="buttonGroup" v-if="shortConfigStatus" >
-        <b-button size="sm" @click="setOrderUp"> <font-awesome-icon  :icon="['fas','chevron-up']"  /></b-button>
-        <b-button size="sm" @click="setOrderDown"> <font-awesome-icon :icon="['fas','chevron-down']"  /></b-button>
-      </div>
     <b-form-group
       :id="data.id"
       :description="data.description"
@@ -29,8 +30,7 @@
       :label-sr-only = "data['label-sr-only']"
       :data-eno="data.eno"
       :disabled="data.disabled"
-      :state="data.state"
-      
+      :state="data.state"      
     >
     
     <app-formcheckbox v-for="checkbox in checkboxes" :data="checkbox" :key="checkbox.eno" :data-eno="checkbox.eno" />
@@ -71,43 +71,60 @@ export default {
   },
   data:function(){
     return {
-      
-      shortConfigStatus : false
+     orderBtn: false
     }
   },
   methods:{
-    setOrderUp: function(){
-      console.log("Set Order Up");
-      this.$store.dispatch('setOrderUp',this.data);
-    },
-    setOrderDown : function(){
-      console.log("Set Order Down");
-    },
     mouseEnter:function(){
-     this.shortConfigStatus = true;
+    // this.$store.commit('changeEle',this.data.eno);
+    if(this.isEditMode){
+      this.orderBtn=true;
+    }
+    
     },
     mouseLeave:function(){
-     // console.log("Mouse Leave")
-     this.shortConfigStatus = false;
+      this.orderBtn=false;
     },
     clickEvent:function(event){
       try{
-        console.log("clickEvent :" + this.data.eno);
         this.$store.commit('setActiveEno',this.data.eno);
         this.$store.commit('setEditMode',true);
-        event.preventDefault();
-        event.stopPropagation();
       }catch(error){
         console.log("Error on clickEvent");
+      }      
+    },
+    setOrderUp : function(event){
+      try{
+        
+        this.$store.dispatch('setOrder',{activeEno:this.data.eno,action:'up'})
+      }catch(error){
+        console.log("Error on setOrderUp", error);
       }
-      
+    },
+    setOrderDown : function(event){
+      try{
+        
+        this.$store.dispatch('setOrder',{activeEno:this.data.eno,action:'down'})
+      }catch(error){
+        console.log("Error on setOrderDown", error);
+      }
     }
   },
   computed:{
     isEditMode:{
-		get(){
-			return this.$store.getters.isEditMode;
-		},      
+      get(){
+        return this.$store.getters.isEditMode;
+      },      
+    },
+    isfirstOrder:{
+      get(){
+        return this.$store.getters.isFirstOrder(this.data.eno);
+      }
+    },
+    isLastOrder:{
+      get(){
+        return this.$store.getters.isLastOrder(this.data.eno);
+      }
     },
     formGroupID : {
       get(){

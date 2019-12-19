@@ -159,7 +159,7 @@ export default {
      
       eleObj:{
         get(){
-            console.log(this.data);
+            
             if(this.data != undefined){
                 return this.$store.getters.getObj(this.data);
             }

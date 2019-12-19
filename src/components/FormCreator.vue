@@ -12,8 +12,7 @@ export default {
   	data:Object
   },
   created(){
-  	console.log("Form Creator created");
-  	console.log(this.$store.getters.getLastEno);
+  
   },
   computed:{    
     hasContainer:{
@@ -37,6 +36,7 @@ export default {
 }
 </script>
 <style lang="scss">
+
 .configBlock{
 	.card-title{text-transform: uppercase; font-size:14px}
 	.list-group-item {
@@ -59,6 +59,9 @@ export default {
 
 .buttonGroup,.formEle{
 				border:dashed 1px gray;
+}
+.formGroupBlock,.btnEle{position:relative;
+	.orderBtn{position:absolute; top:0px; right:0px;}
 }
 .eleinfo{
 		padding: 1px;
