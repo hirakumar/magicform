@@ -1,35 +1,35 @@
 <template>
 <div>
-   <b-container  >
-      <b-row v-if="hasElements">
-          <b-col cols="11">
+  <div class="border-bottom">
+   <b-container >
+      <b-row v-if="hasElements" >
+          <b-col class="pt-2 pb-2">
             
             <b-form inline>
-            <b-select v-model="selectedDevice" :options="deviceOptions" size="sm" @change="changeDevice"></b-select>
-            <b-input type="text" placeholder="width" v-model="device.width" size="sm" /> x <b-input type="text" v-model="device.height" placeholder="height" size="sm" />
+            <b-select class="mr-1" v-model="selectedDevice" :options="deviceOptions" size="sm" @change="changeDevice"></b-select>
+            <b-input class="mr-1" type="text" placeholder="width" v-model="device.width" size="sm" /> <span class="pr-1">x</span> <b-input class="mr-1" type="text" v-model="device.height" placeholder="height" size="sm" />
             <b-button size="sm" @click="rotate">  Rotate</b-button>
             </b-form>
           </b-col>
-          <b-col cols="1">
-              <b-form-checkbox v-model="isEditMode" class="float-right" name="check-button" switch></b-form-checkbox>
-          </b-col>
+         
       </b-row>
    </b-container>
+ </div>
     <app-tools :data="activeEno" v-if="isEditMode" />
     <app-panel :data="activeEno" v-if="isEditMode"></app-panel>
-  <b-container class="about" >
-      <b-row>
+  <b-container class="about" v-if="!hasElements">
+      <b-row align-v="center" align-h="center" align-content="center">
        
-        <b-col cols="12"> 
+        <b-col cols="12" class="pt-3" > 
            
-            <app-creator v-if="!hasElements" ></app-creator>
+            <app-creator  ></app-creator>
     </b-col>
       
         </b-col>
       </b-row>   
   </b-container>
-   <div :class="['formEditor',showEditor]" >
-      <div class="device" :style="editorStyle">
+   <div :class="['formEditor pt-3',showEditor]" >
+      <div class="device " :style="editorStyle" v-if="hasElements" >
               <app-elements :data="mainParent" v-for="mainParent in mainParents" :key="mainParent.eno" />
       </div>
    </div> 
@@ -174,6 +174,9 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+.vh{
+  height:100vh;
+}
 .formEditor{
   display:flex;
   flex-direction:row;

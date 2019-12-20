@@ -1,8 +1,8 @@
 <template>
-	<div>
-
-	<b-button @click="creatForm">Create Form</b-button>
-	</div>
+	
+ 
+	<b-button @click="creatForm" size="lg" >Create Form</b-button>
+	
 </template>
 <script>
 

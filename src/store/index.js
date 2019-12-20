@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-	 state: {
+   state: {
      count:100,
      configEle : 0,
      activeEno : null,
@@ -559,7 +559,7 @@ removeObj(context,payload){
      
       return obj.cols;
     },
-  	getContainers: state => {
+    getContainers: state => {
       let containers = state.elements.filter(item=>item.ele==='container');
       return containers.sort((a,b)=> { return a.order - b.order} );
     },
