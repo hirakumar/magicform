@@ -475,7 +475,7 @@ removeObj(context,payload){
 
       // Setting active and edit mode false
       context.commit('setActiveEno',null);
-      context.commit('setEditMode',false);
+      //context.commit('setEditMode',false);
           
       
        }catch(err){
@@ -484,6 +484,9 @@ removeObj(context,payload){
     },
    },
   getters: {
+    hasElements: state =>{
+      return (state.elements.length>0 ? true : false);
+    },
     isFirstOrder: (state) => (eno) => {
      
       let obj= state.elements.find(item=>item.eno===eno);

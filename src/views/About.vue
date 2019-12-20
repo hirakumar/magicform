@@ -1,24 +1,38 @@
 <template>
 <div>
-   <b-container  fluid>
-      <b-row>
-          <b-col>
-             <b-form-checkbox v-model="isEditMode" class="float-right" name="check-button" switch></b-form-checkbox>
+   <b-container  >
+      <b-row v-if="hasElements">
+          <b-col cols="11">
+            
+            <b-form inline>
+            <b-select v-model="selectedDevice" :options="deviceOptions" size="sm" @change="changeDevice"></b-select>
+            <b-input type="text" placeholder="width" v-model="device.width" size="sm" /> x <b-input type="text" v-model="device.height" placeholder="height" size="sm" />
+            <b-button size="sm" @click="rotate">  Rotate</b-button>
+            </b-form>
+          </b-col>
+          <b-col cols="1">
+              <b-form-checkbox v-model="isEditMode" class="float-right" name="check-button" switch></b-form-checkbox>
           </b-col>
       </b-row>
    </b-container>
-  <b-container class="about" fluid>
+    <app-tools :data="activeEno" v-if="isEditMode" />
+    <app-panel :data="activeEno" v-if="isEditMode"></app-panel>
+  <b-container class="about" >
       <b-row>
-        <b-col cols="2" >  <app-tools :data="activeEno" v-if="isEditMode" /> </b-col>
-        <b-col cols="7"> <div :class="['formEditor',showEditor]">
-      <app-elements :data="mainParent" v-for="mainParent in mainParents" :key="mainParent.eno" />
-    </div> 
-     <app-creator v-if="startStatus" ></app-creator>
+       
+        <b-col cols="12"> 
+           
+            <app-creator v-if="!hasElements" ></app-creator>
     </b-col>
-         <b-col cols="3" ><app-panel :data="activeEno" v-if="isEditMode"></app-panel> </b-col>
+      
         </b-col>
       </b-row>   
   </b-container>
+   <div :class="['formEditor',showEditor]" >
+      <div class="device" :style="editorStyle">
+              <app-elements :data="mainParent" v-for="mainParent in mainParents" :key="mainParent.eno" />
+      </div>
+   </div> 
   </div>
 </template>
 <script>
@@ -32,10 +46,33 @@ export default {
   name: 'About',
   data:function(){
     return {
-     
+      selectedDevice:'desktop',
+     deviceOptions:[
+       {text:'Mobile Device', value:'mobile' },
+       {text:'Tablet Device', value:'tablet' },
+       {text:'Laptop', value:'laptop' },
+       {text:'Desktop', value:'desktop' }
+     ],
+     landscape : true,
+     device:{
+       'width':1140,
+       'height':500
+     },
+     showTrue : true
     }
   },
   computed:{
+    editorStyle:{
+      get(){
+        return `width:${this.device.width}px;height:${this.device.height}px`
+      }
+      
+    },
+    hasElements :{
+      get(){
+        return this.$store.getters.hasElements;
+      }
+    },
     isEditMode:{
       get(){
         return this.$store.getters.isEditMode;
@@ -95,10 +132,40 @@ export default {
         }
       }
   },
+  methods:{
+    changeDevice:function(val){
+      switch(val){
+        case 'mobile':
+        this.device.width=375;
+        this.device.height=667;
+        break;
+
+        case 'tablet':
+        this.device.width=768;
+        this.device.height=1024;
+        break;
+
+        case 'laptop':
+        this.device.width=1280;
+        this.device.height=800;
+        break;
+
+        case 'desktop':
+        this.device.width=1280;
+        this.device.height=800;
+        break;
+
+      }
+    },
+    rotate:function(){
+      let deviceClone = Object.assign({},this.device);
+      this.device.width=deviceClone.height;
+      this.device.height=deviceClone.width;
+    }
+  },
   components:{
     'app-container' : Container,
-   
-       'app-creator':FormCreator,
+    'app-creator':FormCreator,
     'app-elements' : Elements,
     'app-tools' : Tools,
     'app-panel' : Panel
@@ -106,3 +173,15 @@ export default {
   
 }
 </script>
+<style scoped lang="scss">
+.formEditor{
+  display:flex;
+  flex-direction:row;
+  justify-content: center;
+  .device{
+    display: block;
+    border:solid 1px black;
+    
+  }
+}
+</style>

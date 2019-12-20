@@ -12,10 +12,7 @@
     	:order-xl = "data['order-xl']" 
     	:order-lg = "data['order-lg']"   
     	:cols = "data.cols" 
-    	:md = "data.md" 
-    	:sm = "data.sm" 
-    	:lg = "data.lg" 
-    	:xl = "data.xl"
+    	
 		:data-eno = "data.eno"
 		:id = "data.id"
 		:align-self = "data['align-self']"

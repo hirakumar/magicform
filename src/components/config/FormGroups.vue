@@ -107,25 +107,25 @@
                 <b-list-group-item>
                     <!-- Label Cols -->
                     <b-form-group label="Label Cols sm : " label-for="labelColSm" label-cols="6" class="mb-0">
-                        <b-form-select id="labelColSm" v-model="eleObj['label-col-sm']" :options="colOptions" size="sm"></b-form-select>
+                        <b-form-select id="labelColSm" v-model="eleObj['label-cols-sm']" :options="colOptions" size="sm"></b-form-select>
                     </b-form-group>
                 </b-list-group-item>
                 <b-list-group-item>
                     <!-- Label Cols -->
                     <b-form-group label="Label Cols md : " label-for="labelColMd" label-cols="6" class="mb-0">
-                        <b-form-select id="labelColMd" v-model="eleObj['label-col-md']" :options="colOptions" size="sm"></b-form-select>
+                        <b-form-select id="labelColMd" v-model="eleObj['label-cols-md']" :options="colOptions" size="sm"></b-form-select>
                     </b-form-group>
                 </b-list-group-item>
                 <b-list-group-item>
                     <!-- Label Cols -->
                     <b-form-group label="Label Cols lg : " label-for="labelColLg" label-cols="6" class="mb-0">
-                        <b-form-select id="labelColLg" v-model="eleObj['label-col-lg']" :options="colOptions" size="sm"></b-form-select>
+                        <b-form-select id="labelColLg" v-model="eleObj['label-cols-lg']" :options="colOptions" size="sm"></b-form-select>
                     </b-form-group>
                 </b-list-group-item>
                 <b-list-group-item>
                     <!-- Label Cols -->
                     <b-form-group label="Label Cols xl : " label-for="labelColXl" label-cols="6" class="mb-0">
-                        <b-form-select id="labelColXl" v-model="eleObj['label-col-xl']" :options="colOptions" size="sm"></b-form-select>
+                        <b-form-select id="labelColXl" v-model="eleObj['label-cols-xl']" :options="colOptions" size="sm"></b-form-select>
                     </b-form-group>
                 </b-list-group-item>
                 <b-list-group-item>

@@ -51,7 +51,10 @@ export default {
 		
 	}
 }
+	.toolsEle{position:absolute; left:15px; top:80px;}
+	.configBlock{position:absolute; width:350px ; right:15px; top:80px;}
 .showEditor{
+
 .rowHolder,.eleHolder{
 		height:16px;
 		width:100%;
