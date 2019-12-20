@@ -5,6 +5,7 @@
       <b-button-group v-if="orderBtn" class="orderBtn">
         <b-button size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-button>
       <b-button size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-button>
+      <b-button size="sm" @click="remove" v-if="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-button>
       </b-button-group>
       
       <template v-if="data.before!=undefined">
@@ -82,6 +83,9 @@ export default {
     }
     
     },
+    remove: function() {
+            this.$store.dispatch("removeObj",{obj:this.data});
+        },
     mouseLeave:function(){
       this.orderBtn=false;
     },

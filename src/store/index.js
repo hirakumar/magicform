@@ -421,12 +421,17 @@ if(payload.action=="addAfter"){
      
 
     },
-removeObj(context){
+removeObj(context,payload){
 
       try{
 
        
-      let obj = context.getters.getActiveObj
+      let obj;
+      if(payload!=undefined){
+        obj=payload.data;
+      }else{
+        obj=context.getters.getActiveObj
+      }
      
       var removeEle=[];
 
