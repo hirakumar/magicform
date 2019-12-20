@@ -60,8 +60,8 @@ export default {
 .buttonGroup,.formEle{
 				border:dashed 1px gray;
 }
-.formGroupBlock,.btnEle{position:relative;
-	.orderBtn{position:absolute; top:0px; right:0px;}
+.formGroupBlock,.btnEle,.divEle{position:relative;
+	.orderBtn{position:absolute; top:0px; right:0px; z-index:99}
 }
 .eleinfo{
 		padding: 1px;

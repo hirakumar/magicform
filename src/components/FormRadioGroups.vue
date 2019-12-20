@@ -1,5 +1,6 @@
 <template>
-<div  @click="clickedSelectBox">
+<div >
+   <app-infoele :data="data" v-if="isEditMode"></app-infoele>
     <b-form-radio-group 
         :options = "data.options"
         :stacked = "data.stacked"
@@ -22,7 +23,7 @@
  
 </template>
 <script>
-
+import InfoEle from '@/components/InfoEle.vue'
 export default {
  name: 'FormRadioGroups',
   props:{
@@ -36,18 +37,18 @@ export default {
          return (this.data.buttons ? true : false);
        }
      },
+    isEditMode:{
+      get(){
+        return this.$store.getters.isEditMode;
+      },      
+    },
   
   },
   components:{
-    
+    'app-infoele' : InfoEle
   },
   methods:{
-    clickedSelectBox:function(event){
-       this.$store.commit("setActiveEno",this.data.eno);
-       this.$store.commit("setEditMode",true);
-       event.preventDefault();
-       event.stopPropagation();
-    }
+ 
   }
 }
 </script>

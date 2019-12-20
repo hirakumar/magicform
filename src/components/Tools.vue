@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="toolsEle">
 
       <b-btn-group :vertical="true" >
                 <template v-if="isContainer">

@@ -1,5 +1,6 @@
 <template>
-<div  @click="clickedSelectBox">
+<div  >
+  <app-infoele :data="data" v-if="isEditMode"></app-infoele>
     <b-form-checkbox-group 
         :options = "data.options"
         :stacked = "data.stacked"
@@ -12,12 +13,10 @@
         :disabled = "data.disabled"
         :class = "data.class"
         :id = "data.id"
-        :required = "data.required" 
-       
+        :required = "data.required"       
         
      />
-     </div>
-    
+     </div>   
    
 
     
@@ -25,7 +24,7 @@
  
 </template>
 <script>
-
+import InfoEle from '@/components/InfoEle.vue'
 export default {
  name: 'FormCheckBoxGroups',
   props:{
@@ -38,6 +37,11 @@ export default {
          return true;
        }
      },
+      isEditMode:{
+      get(){
+        return this.$store.getters.isEditMode;
+      },      
+    },
      isButton:{
        get(){
          return (this.data.buttons ? true : false);
@@ -50,16 +54,10 @@ export default {
      }
   },
    methods:{
-    clickedSelectBox:function(event){
-       console.log("ENO :" +this.data.eno);
-       this.$store.commit("setActiveEno",this.data.eno);
-       this.$store.commit("setEditMode",true);
-        event.preventDefault();
-        event.stopPropagation();
-    }
+    
   },
   components:{
-    
+    'app-infoele' : InfoEle
   }
 }
 </script>

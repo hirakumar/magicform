@@ -1,5 +1,6 @@
 <template>
    <div  @click="clickedEle">
+     
     <b-form-file
       :placeholder = "data.placeholder"
       :drop-placeholder = "data['drop-placeholder']"
@@ -37,7 +38,11 @@ export default {
   
   computed:{
      
-    
+      isEditMode:{
+      get(){
+        return this.$store.getters.isEditMode;
+      },      
+    },
   
   },
   components:{
@@ -45,10 +50,13 @@ export default {
   },
   methods:{
      clickedEle:function(event){
-       this.$store.commit("setActiveEno",this.data.eno);
-       this.$store.commit("setEditMode",true);
-       event.preventDefault();
-       event.stopPropagation();
+       if(this.isEditMode){
+        this.$store.commit("setActiveEno",this.data.eno);
+        this.$store.commit("setEditMode",true);
+        event.preventDefault();
+        event.stopPropagation();
+       }
+       
     }
   }
 }

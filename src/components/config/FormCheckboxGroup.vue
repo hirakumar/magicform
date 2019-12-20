@@ -189,7 +189,7 @@ export default {
 
             },
             set(val) {
-                console.log(val);
+                
                 switch (val) {
                     case "switches":
                         this.$store.commit('editObj', {
@@ -236,7 +236,6 @@ export default {
             })
         },
         removeOption: function(index) {
-            console.log(index);
             this.$store.dispatch('removeSelectOption', {
                 index: index
             });
@@ -260,8 +259,6 @@ export default {
             this.$store.dispatch("removeObj");
         },
         changeText: function(e) {
-            console.log("Changing Text");
-            console.log(e);
             this.options[e.target.dataset.index].text = e.target.value;
             this.options[e.target.dataset.index].value = e.target.value.replace(/\s/g, '_').toLowerCase();
             this.$store.commit('editObj', {

@@ -35,6 +35,14 @@
                     <b-input type="text" v-model="eleObj.class" />
                </b-form-group>
           </b-list-group-item>
+                <b-list-group-item class="pl-0 pr-0" >
+               <b-form-group                        
+                       label="Order"
+                       label-cols="6" class="mb-0"
+                    >
+                    <b-input type="text" v-model="eleObj.order" />
+               </b-form-group>
+          </b-list-group-item>
         </b-list-group>
     </b-card>
 </template>

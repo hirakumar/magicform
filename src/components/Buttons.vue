@@ -32,10 +32,12 @@
        
      >{{data.text}}</b-button>
      
-      <b-button-group v-if="orderBtn" class="orderBtn">
-        <b-button size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-button>
-      <b-button size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-button>
-      </b-button-group>
+        <b-button-group v-if="orderBtn && isEditMode" class="orderBtn">
+          <b-button size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-button>
+          <b-button size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-button>
+          <b-button size="sm" @click="remove" >  <font-awesome-icon :icon="['fas','trash-alt']" /></b-button>
+        </b-button-group>
+     
     </div>
 
 </template>
@@ -74,11 +76,11 @@ export default {
     'app-infoele' : InfoEle
   },
   methods:{
-     clickedEle:function(event){
-       this.$store.commit("setActiveEno",this.data.eno);
-       this.$store.commit("setEditMode",true);
-      // event.preventDefault();
-      // event.stopPropagation();
+    clickedEle:function(event){
+      if(this.isEditMode){
+        this.$store.commit("setActiveEno",this.data.eno);
+        this.$store.commit("setEditMode",true);
+      }
     },
     mouseEnter : function(){
       if(this.isEditMode){
@@ -88,20 +90,24 @@ export default {
       }
       
     },
-     mouseLeave : function(){
-      this.orderBtn=false;
+    remove: function() {
+      this.$store.dispatch("removeObj",{obj:this.data});
+    },
+    mouseLeave : function(){
+      if(this.isEditMode){
+        this.orderBtn=false;
+      }
+      
     },
     setOrderUp : function(event){
-      try{
-        
+      try{        
         this.$store.dispatch('setOrder',{activeEno:this.data.eno,action:'up'})
       }catch(error){
         console.log("Error on setOrderUp", error);
       }
     },
     setOrderDown : function(event){
-      try{
-        
+      try{        
         this.$store.dispatch('setOrder',{activeEno:this.data.eno,action:'down'})
       }catch(error){
         console.log("Error on setOrderDown", error);

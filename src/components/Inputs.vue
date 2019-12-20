@@ -1,7 +1,6 @@
-<template>
-  
+<template> 
    
-     
+     <div @click = "clickInput">
      <b-form-input 
       :disabled = "data.disabled"
       :required = "data.required"
@@ -26,8 +25,9 @@
       :id = "data.id"
       :class = "data.class"
       :data-eno = "data.eno"
-      @click = "clickInput"
+      
      ></b-form-input>
+     </div>
      
 
 </template>
@@ -43,14 +43,23 @@ export default {
   },
   methods:{
     clickInput:function(event){
-      this.$store.commit("setActiveEno",this.data.eno);
-      this.$store.commit("setEditMode",true);
-      event.preventDefault();
-      event.stopPropagation();
+        if(this.isEditMode){
+          this.$store.commit("setActiveEno",this.data.eno);
+          this.$store.commit("setEditMode",true);
+          event.preventDefault();
+          event.stopPropagation();
+        }     
     }
   },
+  computed:{
+    isEditMode:{
+      get(){          
+          return this.$store.getters.isEditMode;
+      } 
+    },
+  },
   components: {
-    
+   
   }
 }
 </script>

@@ -81,8 +81,7 @@ export default {
 	  }
   },
   components:{
-	 
-	  'app-elements' : Elements,
+	'app-elements' : Elements,
     'app-infoele' : InfoEle
   }
 }

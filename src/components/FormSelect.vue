@@ -33,17 +33,21 @@ export default {
   },
   methods:{
     clickedSelectBox:function(event){
-       console.log("ENO :" +this.data.eno);
-       this.$store.commit("setActiveEno",this.data.eno);
-       this.$store.commit("setEditMode",true);
+       if(this.isEditMode){
+        this.$store.commit("setActiveEno",this.data.eno);
+        this.$store.commit("setEditMode",true);
         event.preventDefault();
         event.stopPropagation();
+       }
+      
     }
   },
   computed:{
-     
-    
-  
+    isEditMode:{
+      get(){
+        return this.$store.getters.isEditMode;
+      },   
+    }
   },
   components:{
     

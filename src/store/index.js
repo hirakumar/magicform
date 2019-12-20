@@ -504,7 +504,9 @@ removeObj(context,payload){
       return (state.elements.length>0 ? true : false);
     },
     isEditMode : state =>{
-      return state.editMode;
+      if(state.editMode != undefined){
+        return state.editMode;
+      }      
     },
     getActiveEno : state => {     
       return state.activeEno;

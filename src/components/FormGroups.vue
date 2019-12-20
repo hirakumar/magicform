@@ -83,9 +83,7 @@ export default {
     }
     
     },
-    remove: function() {
-            this.$store.dispatch("removeObj",{obj:this.data});
-        },
+   
     mouseLeave:function(){
       this.orderBtn=false;
     },
@@ -112,7 +110,10 @@ export default {
       }catch(error){
         console.log("Error on setOrderDown", error);
       }
-    }
+    },
+    remove: function() {
+            this.$store.dispatch("removeObj",{obj:this.data});
+        },
   },
   computed:{
     isEditMode:{

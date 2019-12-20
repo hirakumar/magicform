@@ -3,7 +3,7 @@
       <app-infoele :data="data" v-if="isEditMode"></app-infoele>
       
       <b-form @submit="onSubmit" @reset="onReset" :class="data.class" :id="data.id" :inline="data.inline" :novalidate="data.novalidate" :validated="data.validated" >
-        <app-elements :data="child" v-for="child in myChilds" />
+        <app-elements :data="child" v-for="child in myChilds" :key="child.eno" />
       </b-form>
    </div>
 </template>
@@ -16,6 +16,11 @@ export default {
   },
   
   computed:{
+     isEditMode:{
+      get(){
+        return this.$store.getters.isEditMode;
+      },      
+    },
     getElements:{
       get(){
         return this.$store.getters.getRawElements;
@@ -53,21 +58,26 @@ export default {
   },
     methods:{
      clickedEle:function(event){
+       if(this.isEditMode){
+          this.$store.commit("setActiveEno",this.data.eno);
+          this.$store.commit("setEditMode",true);
 
-       this.$store.commit("setActiveEno",this.data.eno);
-       this.$store.commit("setEditMode",true);
+          event.preventDefault();
+          event.stopPropagation();
+       }
        
-       event.preventDefault();
-       event.stopPropagation();
     },
      onSubmit: function(){
-      console.log("Submiting Form");
-      this.data.validated=true;
-      event.preventDefault();
-      event.stopPropagation();
+       if(!this.isEditMode){
+        this.data.validated=true;
+        event.preventDefault();
+        event.stopPropagation();
+       }
     },
     onReset: function(){
-      console.log("Reseting Form");
+      if(!this.isEditMode){
+        console.log("Reseting Form");
+      }
     }
      
   }
