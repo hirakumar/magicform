@@ -11,7 +11,14 @@ export default new Vuex.Store({
       editMode : false,
       lasteno: null,
       // elements:[ { "eno": 1, "order": 1, "ele": "form", "inline": false, "novalidate": true, "validated": true, "parent": null }, { "eno": 2, "ele": "form-group", "label-for": "label2", "label": "Name", "description": "Sample short description", "parent": 1, "order": 1, "invalid-feedback": "", "valid-feedback": "" }, { "eno": 3, "ele": "form-input", "type": "text", "parent": 2, "id": "label2", "required": true }, { "eno": 4, "order": "4", "text": "Submit", "border-style": null, "ele": "button", "parent": 1, "id": "label4", "name": "label4", "active": false, "disabled": false, "append": false, "replace": false, "active-class": "active", "exact": false, "exact-active-class": "", "router-tag": "a", "block": false, "size": "md", "variant": "secondary", "type": "submit", "tag": "button", "pill": false, "squared": false }, { "eno": 5, "ele": "form-group", "label-for": "label5", "label": "Country", "description": "Sample short description", "parent": 1, "order": 3, "invalid-feedback": "", "valid-feedback": "", "state": false }, { "eno": 6, "ele": "form-select", "parent": 5, "id": "label5", "options": [ { "text": "Nepal", "value": "nepal" }, { "text": "Bhutan", "value": "bhutan" }, { "text": "Srilanka", "value": "srilanka" } ], "disabled": false, "required": true, "autofocus": false, "size": "md", "plain": false, "value": "", "multiple": false, "select-size": 0, "aria-invalid": false } ] 
-      elements:[]
+      elements:[],
+      deviceOptions:[
+       {text:'Mobile Device', value:'mobile', landscape:false, status:false, width:375, height:667 },
+       {text:'Tablet Device', value:'tablet', landscape:true, status:false,width:1024, height:768 },
+       {text:'Laptop', value:'laptop', landscape:true, status:false,width:1200, height:600    },
+       {text:'Desktop', value:'desktop', landscape:true, status:true, width:1280, height:800  }
+     ],
+      selectedDevice:'desktop'
   },
   mutations: { 
     changeEle (state, payload) {
@@ -235,6 +242,9 @@ if(payload.action=="addAfter"){
     },
     removeSelectBoxOption(state,payload){
       state.elements[payload.objIndex].options.splice(payload.optionIndex,1);
+    },
+    setSelectedDevice(state,payload){
+      state.selectedDevice=payload;
     }
     
   },
@@ -245,6 +255,13 @@ if(payload.action=="addAfter"){
      *********************************************************** 
   */
   actions: { 
+    setSelectedDevice(context,payload){
+      try{
+          context.commit('setSelectedDevice',payload)
+      }catch(error){
+          console.log("Error on action setSelectedDevice :", error);
+      }
+    },
     setOrder(context,payload){
       try{
         // console.log(JSON.stringify(payload));
@@ -687,6 +704,12 @@ removeObj(context,payload){
       let list = state.elements.filter(item=>item.parent===obj.eno);     
       let allList =  list.filter(item=>item.ele=='h');
       return allList.sort((a,b)=> { return a.order - b.order} );
+    },
+    getDeviceOptions: state =>{
+       return state.deviceOptions;
+    },
+    getSelectedDevice : state =>{
+       return state.selectedDevice;
     },
    
   }

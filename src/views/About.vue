@@ -4,10 +4,10 @@
    <b-container >
       <b-row v-if="hasElements" >
           <b-col class="pt-2 pb-2">
-            
+           
             <b-form inline>
-            <b-select class="mr-1" v-model="selectedDevice" :options="deviceOptions" size="sm" @change="changeDevice"></b-select>
-            <b-input class="mr-1" type="text" placeholder="width" v-model="device.width" size="sm" /> <span class="pr-1">x</span> <b-input class="mr-1" type="text" v-model="device.height" placeholder="height" size="sm" />
+            <b-select class="mr-1" v-model="selectedDevice" :options="deviceOptions" size="sm" ></b-select>
+            <b-input class="mr-1 " type="text" placeholder="width" v-model="selectedDeviceObj.width" size="sm" /> <span class="pr-1">x</span> <b-input class="mr-1" type="text" v-model="selectedDeviceObj.height" placeholder="height" size="sm" />
             <b-button size="sm" @click="rotate">  Rotate</b-button>
             </b-form>
           </b-col>
@@ -46,25 +46,35 @@ export default {
   name: 'About',
   data:function(){
     return {
-      selectedDevice:'desktop',
-     deviceOptions:[
-       {text:'Mobile Device', value:'mobile' },
-       {text:'Tablet Device', value:'tablet' },
-       {text:'Laptop', value:'laptop' },
-       {text:'Desktop', value:'desktop' }
-     ],
-     landscape : true,
-     device:{
-       'width':1140,
-       'height':500
-     },
      showTrue : true
     }
   },
   computed:{
+    selectedDevice:{
+       get(){
+          return this.$store.getters.getSelectedDevice;
+       },
+       set(val){
+        console.log(val);
+        var obj = this.$store.getters.getDeviceOptions.find(item=>item.value===val);
+        console.log(JSON.stringify(obj));
+          this.$store.dispatch('setSelectedDevice',obj.value);
+       }        
+    },
+    selectedDeviceObj:{
+       get(){
+          
+          return this.$store.getters.getDeviceOptions.find(item=>item.value===this.selectedDevice);
+       },
+    },
+    deviceOptions: {
+       get(){
+          return this.$store.getters.getDeviceOptions;
+       }
+    },
     editorStyle:{
       get(){
-        return `width:${this.device.width}px;height:${this.device.height}px`
+        return `width:${this.selectedDeviceObj.width}px;height:${this.selectedDeviceObj.height}px;`
       }
       
     },
@@ -133,34 +143,11 @@ export default {
       }
   },
   methods:{
-    changeDevice:function(val){
-      switch(val){
-        case 'mobile':
-        this.device.width=375;
-        this.device.height=667;
-        break;
 
-        case 'tablet':
-        this.device.width=768;
-        this.device.height=1024;
-        break;
-
-        case 'laptop':
-        this.device.width=1280;
-        this.device.height=800;
-        break;
-
-        case 'desktop':
-        this.device.width=1280;
-        this.device.height=800;
-        break;
-
-      }
-    },
     rotate:function(){
-      let deviceClone = Object.assign({},this.device);
-      this.device.width=deviceClone.height;
-      this.device.height=deviceClone.width;
+      let deviceClone = Object.assign({},this.selectedDeviceObj);
+      this.selectedDeviceObj.width=deviceClone.height;
+      this.selectedDeviceObj.height=deviceClone.width;
     }
   },
   components:{
