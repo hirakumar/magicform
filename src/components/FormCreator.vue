@@ -56,14 +56,14 @@ export default {
 .showEditor{
 
 .rowHolder,.eleHolder{
-		height:16px;
+		min-height:16px;
 		width:100%;
 	}
 
 .buttonGroup,.formEle{
 				border:dashed 1px gray;
 }
-.formGroupBlock,.btnEle,.divEle{position:relative;
+.formGroupBlock,.btnEle,.divEle,.rowHolder{position:relative;
 	.orderBtn{position:absolute; top:0px; right:0px; z-index:99}
 }
 .eleinfo{
@@ -89,8 +89,6 @@ export default {
 	}
 .container,.container-fluid{
 	border:dashed 1px #ccc;
-	
-	
 	
 	
 	.row{
