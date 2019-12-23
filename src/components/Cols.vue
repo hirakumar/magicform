@@ -11,8 +11,7 @@
     	:order-md = "data['order-md']" 
     	:order-xl = "data['order-xl']" 
     	:order-lg = "data['order-lg']"   
-    	:cols = "data.cols" 
-    	
+    	:cols = "mycols"
 		:data-eno = "data.eno"
 		:id = "data.id"
 		:align-self = "data['align-self']"
@@ -21,6 +20,8 @@
 		
 		
     >
+	{{device}}
+	{{data}}
 	<app-infoele :data="data" @click ="clickCol" v-if="isEditMode"></app-infoele>
 
 	<app-elements v-for="child in childs" :key="child.eno" :data="child" :parentID="colID" />
@@ -56,7 +57,31 @@ export default {
 		get(){
 			return this.$store.getters.isEditMode;
 		},      
-    },
+	},
+	
+	device :{
+            get(){
+                return this.$store.getters.getDeviceObj;
+            }
+		}, 
+	mycols:{
+		get(){
+			
+			if(this.device.width>=1200){
+				return this.data.xl;
+			}else if(this.device.width>=992){
+				return this.data.lg;
+			}else if(this.device.width>=768){
+				return this.data.md;
+			} else if(this.device.width>=576){
+				return this.data.sm;
+			}else if(this.device.width<576){
+				return this.data.cols
+			}
+		},
+		
+		
+	},
    
 	
   },

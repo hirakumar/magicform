@@ -1,7 +1,7 @@
 <template>
 
     <b-card title="Column">
-
+        {{device}}
         <b-button variant="link" size="md" class="trash" @click="remove">
             <font-awesome-icon :icon="['fas','trash-alt']" />
         </b-button>
@@ -9,10 +9,18 @@
         <b-list-group flush>
             <!-- Cols -->
             <b-list-group-item>
+                <b-form-group id="cols" :label="colsLabel" label-for="cols" label-cols="4" class="mb-0">
+                    <b-form-input id="cols" min="0" max="12" type="range" size="sm" v-model="mycols" trim></b-form-input>
+                </b-form-group>
+            </b-list-group-item>
+            <!-- Cols -->
+            <!--
+            <b-list-group-item>
                 <b-form-group id="cols" label="Cols : " label-for="cols" label-cols="4" class="mb-0">
                     <b-form-input id="cols" min="0" max="12" type="range" size="sm" v-model="eleObj.cols" trim></b-form-input>
                 </b-form-group>
             </b-list-group-item>
+            -->
             <!-- Label -->
             <b-list-group-item>                
                 <b-form-group label="ID : " label-for="id" label-cols="6" class="mb-0">
@@ -49,8 +57,9 @@
                         <b-form-checkbox v-model="eleObj.col" class="float-right" name="check-button" switch></b-form-checkbox>
                     </b-form-group>
                 </b-list-group-item>
+                <!--
                  <b-list-group-item>
-                    <!-- Col -->
+                   
                     <b-form-group id="col" label="Class : " label-for="col" label-cols="4" class="mb-0">
                        <b-form-input id="cols" type="text" size="sm" v-model="eleObj.class" trim></b-form-input>
                     </b-form-group>
@@ -61,6 +70,7 @@
 
                     </b-form-group>
                 </b-list-group-item>
+                
                 <b-list-group-item>
                     <b-form-group id="col" label="md: " label-for="md" label-cols="4" class="mb-0">
                         <b-form-input id="md" type="number" min="0" max="12" size="sm" v-model="eleObj.md" trim></b-form-input>
@@ -77,7 +87,7 @@
                         <b-form-input id="md" type="number" min="0" max="12" size="xl" v-model="eleObj.lg" trim></b-form-input>
                     </b-form-group>
                 </b-list-group-item>
-
+                -->
                 <b-list-group-item>
                     <b-form-group id="col" label="offset sm: " label-for="offsset-sm" label-cols="4" class="mb-0">
                         <b-form-input id="offset-sm" type="number" min="0" max="12" size="sm" v-model="eleObj['offset-sm']" trim></b-form-input>
@@ -164,7 +174,7 @@ export default {
                 return this.data;
             }
         },
-
+       
         eleObj: {
             get() {
                 return this.$store.getters.getObj(this.eno);
@@ -173,12 +183,57 @@ export default {
                 return val;
             }
         },
+       
         isCol: {
             get() {
                 return (this.eleObj.ele == "col" ? true : false);
             }
-        },      
-
+        },
+        device :{
+            get(){
+                return this.$store.getters.getDeviceObj;
+            }
+        },
+       
+        mycols:{
+		get(){
+            
+			if(this.device.width>=992){
+				return this.eleObj.lg;
+			} else if(this.device.width>=1200){
+                return this.eleObj.xl;
+            } else if(this.device.width>=992){
+				return this.eleObj.lg;
+			}else if(this.device.width>=768){
+				return this.eleObj.md;
+			}else if(this.device.width>=576){
+				return this.eleObj.sm;
+            }else if(this.device.width<576){
+				return this.eleObj.cols
+			}
+		},
+		set(val){
+            
+			if(this.device.width>=1200){
+				this.$store.commit('editObj',{xl:val})
+			}else if(this.device.width>=992){
+				this.$store.commit('editObj',{lg:val})
+			}else if(this.device.width>=768){
+				this.$store.commit('editObj',{md:val})
+			}else if(this.device.width>=576){
+                this.$store.commit('editObj',{sm:val})
+            }else if(this.device.width<576){
+                this.$store.commit('editObj',{cols:val})
+				
+			}
+		}
+		
+	},    
+ colsLabel:{
+            get(){
+                return "Cols : "+this.mycols;
+            }
+        },
 
     },
     components: {
@@ -186,7 +241,7 @@ export default {
     },
     methods: {
 
-
+        
         remove: function() {
             this.$store.dispatch("removeObj");
         },

@@ -4,11 +4,11 @@
    <b-container >
       <b-row v-if="hasElements" >
           <b-col class="pt-2 pb-2">
-           
+          
             <b-form inline>
             <b-select class="mr-1" v-model="selectedDevice" :options="deviceOptions" size="sm" ></b-select>
             <b-input class="mr-1 " type="text" placeholder="width" v-model="selectedDeviceObj.width" size="sm" /> <span class="pr-1">x</span> <b-input class="mr-1" type="text" v-model="selectedDeviceObj.height" placeholder="height" size="sm" />
-            <b-button size="sm" @click="rotate">  Rotate</b-button>
+            <b-button size="sm" @click="rotate" v-if="rotateStatus">  Rotate</b-button>
             </b-form>
           </b-col>
          
@@ -60,6 +60,15 @@ export default {
         console.log(JSON.stringify(obj));
           this.$store.dispatch('setSelectedDevice',obj.value);
        }        
+    },
+    rotateStatus:{
+      get(){        
+        if(this.selectedDevice == "laptop" || this.selectedDevice == "desktop"){
+          return false;
+        }else{
+          return true;
+        }
+      }
     },
     selectedDeviceObj:{
        get(){

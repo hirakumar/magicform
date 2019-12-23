@@ -711,6 +711,9 @@ removeObj(context,payload){
     getSelectedDevice : state =>{
        return state.selectedDevice;
     },
+    getDeviceObj : state =>{
+      return state.deviceOptions.find(item=>item.value=== state.selectedDevice);
+    }
    
   }
 })
