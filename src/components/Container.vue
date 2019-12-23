@@ -9,8 +9,7 @@
 // @ is an alias to /src
 import Row from '@/components/Row.vue'
 import InfoEle from '@/components/InfoEle.vue'
-var words = ['Rock', 'Paper', 'Scissors','asdfasd','sdds'];
-var word = words[Math.floor(Math.random() * words.length - 1)];
+
 export default {
   name: 'container',
   props:{

@@ -50,12 +50,12 @@ export default {
   },
   components:{
     
-	  'app-button'  : () => import('@/components/Buttons.vue'),	 
-    'app-div' : () => import('@/components/DivEle.vue'),
-    'app-form' : () => import('@/components/FormEle.vue'),
-    'app-row' : () => import('@/components/Row.vue'),
-    'app-col' : () => import('@/components/Cols.vue'),
-    'app-container' : () => import('@/components/Container.vue')
+	  'app-button'  : () => import('@/components/generator/Buttons.vue'),	 
+    'app-div' : () => import('@/components/generator/DivEle.vue'),
+    'app-form' : () => import('@/components/generator/FormEle.vue'),
+    'app-row' : () => import('@/components/generator/Row.vue'),
+    'app-col' : () => import('@/components/generator/Cols.vue'),
+    'app-container' : () => import('@/components/generator/Container.vue')
     
       
   }

@@ -36,7 +36,6 @@
   </div>
 </template>
 <script>
-import Container from '@/components/Container.vue';
 
 import FormCreator from '@/components/FormCreator.vue';
 import Elements from '@/components/Elements.vue';
@@ -160,7 +159,7 @@ export default {
     }
   },
   components:{
-    'app-container' : Container,
+    
     'app-creator':FormCreator,
     'app-elements' : Elements,
     'app-tools' : Tools,

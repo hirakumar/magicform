@@ -1,9 +1,8 @@
 <template>
-   <div class="formEle">   
-      <app-infoele :data="data" v-if="isEditMode"></app-infoele>
-      <b-form @submit="onSubmit" @reset="onReset" :class="data.class" :id="data.id" :inline="data.inline" :novalidate="data.novalidate" :validated="data.validated" >
+   <div class="formEle"> 
+    <b-form @submit="onSubmit" @reset="onReset" :class="data.class" :id="data.id" :inline="data.inline" :novalidate="data.novalidate" :validated="data.validated" >
         <app-elements :data="child" v-for="child in myChilds" :key="child.eno" />
-      </b-form>
+    </b-form>
    </div>
 </template>
 <script>
@@ -15,11 +14,7 @@ export default {
   },
   
   computed:{
-     isEditMode:{
-      get(){
-        return this.$store.getters.isEditMode;
-      },      
-    },
+   
     getElements:{
       get(){
         return this.$store.getters.getRawElements;
@@ -51,21 +46,11 @@ export default {
   },
 
   components:{
-    'app-elements' :  () => import('@/components/Elements.vue'),
-    'app-infoele' : () => import('@/components/InfoEle.vue'),
+    'app-elements' :  () => import('@/components/generator/Elements.vue'),    
      
   },
     methods:{
-     clickedEle:function(event){
-       if(this.isEditMode){
-          this.$store.commit("setActiveEno",this.data.eno);
-          this.$store.commit("setEditMode",true);
 
-          event.preventDefault();
-          event.stopPropagation();
-       }
-       
-    },
      onSubmit: function(){
        if(!this.isEditMode){
         this.data.validated=true;

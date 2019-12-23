@@ -54,12 +54,12 @@ export default {
     }  
   },
   components:{
-    'app-formgroups' : () => import('@/components/FormGroups.vue'),
-    'app-buttongroup' : () => import('@/components/ButtonGroups.vue'),
-    'app-form' : () => import('@/components/FormEle.vue'),
-    'app-row' : () => import('@/components/Row.vue'),
-    'app-col' : () => import('@/components/Cols.vue'),
-    'app-container' : () => import('@/components/Container.vue')
+    'app-formgroups' : () => import('@/components/generator/FormGroups.vue'),
+    'app-buttongroup' : () => import('@/components/generator/ButtonGroups.vue'),
+    'app-form' : () => import('@/components/generator/FormEle.vue'),
+    'app-row' : () => import('@/components/generator/Row.vue'),
+    'app-col' : () => import('@/components/generator/Cols.vue'),
+    'app-container' : () => import('@/components/generator/Container.vue')
     
   }
 }

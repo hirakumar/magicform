@@ -1,5 +1,6 @@
 <template> 
-
+   
+     <div @click = "clickInput">
      <b-form-input 
       :disabled = "data.disabled"
       :required = "data.required"
@@ -26,7 +27,7 @@
       :data-eno = "data.eno"
       
      ></b-form-input>
-   
+     </div>
      
 
 </template>
