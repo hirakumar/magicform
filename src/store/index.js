@@ -15,7 +15,7 @@ export default new Vuex.Store({
       deviceOptions:[
        {text:'Mobile Device', value:'mobile', landscape:false, status:false, width:375, height:667 },
        {text:'Tablet Device', value:'tablet', landscape:true, status:false,width:1024, height:768 },
-       {text:'Laptop', value:'laptop', landscape:true, status:false,width:1200, height:600    },
+       {text:'Laptop', value:'laptop', landscape:true, status:false,width:992, height:500    },
        {text:'Desktop', value:'desktop', landscape:true, status:true, width:1280, height:800  }
      ],
       selectedDevice:'desktop'

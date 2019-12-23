@@ -1,16 +1,10 @@
 <template>
   
     <b-col 
-    	:offset = "data.offset" 
-    	:offset-sm = "data['offset-sm']" 
-    	:offset-md = "data['offset-md']" 
-    	:offset-xl = "data['offset-xl']" 
-    	:offset-lg = "data['offset-lg']"
-    	:order = "data.order" 
-    	:order-sm = "data['order-sm']" 
-    	:order-md = "data['order-md']" 
-    	:order-xl = "data['order-xl']" 
-    	:order-lg = "data['order-lg']"   
+    	:offset = "myoffset" 
+
+    	:order = "myorder" 
+    	
     	:cols = "mycols"
 		:data-eno = "data.eno"
 		:id = "data.id"
@@ -20,8 +14,7 @@
 		
 		
     >
-	{{device}}
-	{{data}}
+
 	<app-infoele :data="data" @click ="clickCol" v-if="isEditMode"></app-infoele>
 
 	<app-elements v-for="child in childs" :key="child.eno" :data="child" :parentID="colID" />
@@ -40,7 +33,7 @@ export default {
   	data:Object
   },
   computed: {
-  	colID : {
+  	colID : { 
   		get(){
   			return this.data.eno;
   		},	
@@ -78,10 +71,40 @@ export default {
 			}else if(this.device.width<576){
 				return this.data.cols
 			}
-		},
-		
-		
+		},	
 	},
+	myoffset:{
+		get(){
+			
+			if(this.device.width>=1200){
+				return this.data['offset-xl'];
+			}else if(this.device.width>=992){
+				return this.data['offset-lg'];
+			}else if(this.device.width>=768){
+				return this.data['offset-md'];
+			} else if(this.device.width>=576){
+				return this.data['offset-sm'];
+			}else if(this.device.width<576){
+				return this.data.offset
+			}
+		},
+	},
+	myorder:{
+		get(){
+			
+			if(this.device.width>=1200){
+				return this.data['order-xl'];
+			}else if(this.device.width>=992){
+				return this.data['order-lg'];
+			}else if(this.device.width>=768){
+				return this.data['order-md'];
+			} else if(this.device.width>=576){
+				return this.data['order-sm'];
+			}else if(this.device.width<576){
+				return this.data.order
+			}
+		},
+	}
    
 	
   },

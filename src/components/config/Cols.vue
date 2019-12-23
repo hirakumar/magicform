@@ -1,7 +1,7 @@
 <template>
 
     <b-card title="Column">
-        {{device}}
+        
         <b-button variant="link" size="md" class="trash" @click="remove">
             <font-awesome-icon :icon="['fas','trash-alt']" />
         </b-button>
@@ -9,34 +9,34 @@
         <b-list-group flush>
             <!-- Cols -->
             <b-list-group-item>
-                <b-form-group id="cols" :label="colsLabel" label-for="cols" label-cols="4" class="mb-0">
+                <b-form-group id="nycols" label="Cols" label-for="cols" label-cols="4" class="mb-0">
                     <b-form-input id="cols" min="0" max="12" type="range" size="sm" v-model="mycols" trim></b-form-input>
                 </b-form-group>
             </b-list-group-item>
-            <!-- Cols -->
-            <!--
+            <!-- Offset -->
             <b-list-group-item>
-                <b-form-group id="cols" label="Cols : " label-for="cols" label-cols="4" class="mb-0">
-                    <b-form-input id="cols" min="0" max="12" type="range" size="sm" v-model="eleObj.cols" trim></b-form-input>
+                <b-form-group id="myoffset" label="Offset" label-for="cols" label-cols="4" class="mb-0">
+                    <b-form-input id="cols" min="0" max="12" type="range" size="sm" v-model="myoffset" trim></b-form-input>
                 </b-form-group>
-            </b-list-group-item>
-            -->
-            <!-- Label -->
-            <b-list-group-item>                
-                <b-form-group label="ID : " label-for="id" label-cols="6" class="mb-0">
-                    <b-form-input id="id" type="text" size="sm" v-model="eleObj.id" trim></b-form-input>
+            </b-list-group-item>         
+            <!-- Offset -->
+            <b-list-group-item>
+                <b-form-group id="myoffset" label="Order" label-for="cols" label-cols="4" class="mb-0">
+                    <b-form-input id="cols" min="0" max="12" type="range" size="sm" v-model="myorder" trim></b-form-input>
                 </b-form-group>
-            </b-list-group-item>
-            <!-- Label -->
+            </b-list-group-item>   
+           
            
           
             <template v-if="expandlevel>0">
-
-                <b-list-group-item>
-                    <b-form-group id="col" label="offset: " label-for="offsset" label-cols="4" class="mb-0">
-                        <b-form-input id="offset" type="range" min="0" max="12" size="xl" v-model="eleObj.offset" trim></b-form-input>
+                 <!-- Label -->
+                <b-list-group-item>                
+                    <b-form-group label="ID : " label-for="id" label-cols="6" class="mb-0">
+                        <b-form-input id="id" type="text" size="sm" v-model="eleObj.id" trim></b-form-input>
                     </b-form-group>
                 </b-list-group-item>
+                <!-- Label -->
+               
 
                 <b-list-group-item>
                     <b-form-group id="col" label="Align self: " label-for="align-self" label-cols="4" class="mb-0">
@@ -51,19 +51,20 @@
                 </b-list-group-item>
             </template>
             <template v-if="expandlevel>1">
-                <b-list-group-item>
-                    <!-- Col -->
-                    <b-form-group id="col" label="Col : " label-for="col" label-cols="4" class="mb-0">
-                        <b-form-checkbox v-model="eleObj.col" class="float-right" name="check-button" switch></b-form-checkbox>
-                    </b-form-group>
-                </b-list-group-item>
-                <!--
+                
                  <b-list-group-item>
                    
                     <b-form-group id="col" label="Class : " label-for="col" label-cols="4" class="mb-0">
                        <b-form-input id="cols" type="text" size="sm" v-model="eleObj.class" trim></b-form-input>
                     </b-form-group>
                 </b-list-group-item>
+                 <!-- Cols -->
+            
+            <b-list-group-item>
+                <b-form-group id="cols" label="Cols : " label-for="cols" label-cols="4" class="mb-0">
+                    <b-form-input id="cols" min="0" max="12" type="range" size="sm" v-model="eleObj.cols" trim></b-form-input>
+                </b-form-group>
+            </b-list-group-item>
                 <b-list-group-item>
                     <b-form-group id="col" label="sm: " label-for="col" label-cols="4" class="mb-0">
                         <b-form-input id="cols" type="number" min="0" max="12" size="sm" v-model="eleObj.sm" trim></b-form-input>
@@ -87,7 +88,11 @@
                         <b-form-input id="md" type="number" min="0" max="12" size="xl" v-model="eleObj.lg" trim></b-form-input>
                     </b-form-group>
                 </b-list-group-item>
-                -->
+                 <b-list-group-item>
+                    <b-form-group id="col" label="offset: " label-for="offsset" label-cols="4" class="mb-0">
+                        <b-form-input id="offset" type="range" min="0" max="12" size="xl" v-model="eleObj.offset" trim></b-form-input>
+                    </b-form-group>
+                </b-list-group-item>
                 <b-list-group-item>
                     <b-form-group id="col" label="offset sm: " label-for="offsset-sm" label-cols="4" class="mb-0">
                         <b-form-input id="offset-sm" type="number" min="0" max="12" size="sm" v-model="eleObj['offset-sm']" trim></b-form-input>
@@ -197,10 +202,7 @@ export default {
        
         mycols:{
 		get(){
-            
-			if(this.device.width>=992){
-				return this.eleObj.lg;
-			} else if(this.device.width>=1200){
+            if(this.device.width>=1200){
                 return this.eleObj.xl;
             } else if(this.device.width>=992){
 				return this.eleObj.lg;
@@ -215,23 +217,95 @@ export default {
 		set(val){
             
 			if(this.device.width>=1200){
-				this.$store.commit('editObj',{xl:val})
+                
+                this.$store.commit('editObj',{xl:val})               
 			}else if(this.device.width>=992){
 				this.$store.commit('editObj',{lg:val})
 			}else if(this.device.width>=768){
 				this.$store.commit('editObj',{md:val})
 			}else if(this.device.width>=576){
                 this.$store.commit('editObj',{sm:val})
-            }else if(this.device.width<576){
-                this.$store.commit('editObj',{cols:val})
-				
+            } else if(this.device.width<576){
+				 this.$store.commit('editObj',{cols:val})
 			}
+            
+				
+			
 		}
 		
-	},    
+    }, 
+    myoffset:{
+		get(){
+            if(this.device.width>=1200){
+                return this.eleObj['offset-xl'];
+            } else if(this.device.width>=992){
+				return this.eleObj['offset-lg'];
+			}else if(this.device.width>=768){
+				return this.eleObj['offset-md'];
+			}else if(this.device.width>=576){
+				return this.eleObj['offset-sm'];
+            }else if(this.device.width<576){
+				return this.eleObj.offset
+			}
+		},
+		set(val){
+            
+			if(this.device.width>=1200){
+                
+                this.$store.commit('editObj',{'offset-xl':val})               
+			}else if(this.device.width>=992){
+				this.$store.commit('editObj',{'offset-lg':val})
+			}else if(this.device.width>=768){
+				this.$store.commit('editObj',{'offset-md':val})
+			}else if(this.device.width>=576){
+                this.$store.commit('editObj',{'offset-sm':val})
+            } else if(this.device.width<576){
+				 this.$store.commit('editObj',{offset:val})
+			}		
+			
+		}
+		
+    },  
+    myorder:{
+		get(){
+            if(this.device.width>=1200){
+                return this.eleObj['order-xl'];
+            } else if(this.device.width>=992){
+				return this.eleObj['order-lg'];
+			}else if(this.device.width>=768){
+				return this.eleObj['order-md'];
+			}else if(this.device.width>=576){
+				return this.eleObj['order-sm'];
+            }else if(this.device.width<576){
+				return this.eleObj.order
+			}
+		},
+		set(val){
+            
+			if(this.device.width>=1200){
+                
+                this.$store.commit('editObj',{'order-xl':val})               
+			}else if(this.device.width>=992){
+				this.$store.commit('editObj',{'order-lg':val})
+			}else if(this.device.width>=768){
+				this.$store.commit('editObj',{'order-md':val})
+			}else if(this.device.width>=576){
+                this.$store.commit('editObj',{'order-sm':val})
+            } else if(this.device.width<576){
+				 this.$store.commit('editObj',{order:val})
+			}		
+			
+		}
+		
+	},  
  colsLabel:{
             get(){
-                return "Cols : "+this.mycols;
+                if(this.mycols!=undefined){
+                    return "Cols : "+this.mycols;
+                }else{
+                    return "Cols : ";
+                }
+                
             }
         },
 
