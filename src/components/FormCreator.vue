@@ -37,7 +37,7 @@ export default {
 </script>
 <style lang="scss">
 
-.configBlock{
+.configBlock{ position:absolute; width:350px ; right:15px; top:80px; z-index:99;
 	.card-title{text-transform: uppercase; font-size:14px}
 	.list-group-item {
 		padding:3px 0;
@@ -51,8 +51,8 @@ export default {
 		
 	}
 }
-	.toolsEle{position:absolute; left:15px; top:80px;}
-	.configBlock{position:absolute; width:350px ; right:15px; top:80px;}
+.toolsEle{position:absolute; left: 10px; top: 114px;}
+
 .showEditor{
 
 .rowHolder,.eleHolder{

@@ -25,7 +25,7 @@
                     </b-col>
                 </b-row>
                 <template v-if="hasOptions">
-                    <b-row v-for="(opt,index) in options">
+                    <b-row v-for="(opt,index) in options" :key="index">
                         <b-col cols="1"> {{index+1}}. </b-col>
                         <b-col cols="9">
                             <b-input type="text" :value="opt.text" size="sm" :data-index="index" @keyup="changeText" />

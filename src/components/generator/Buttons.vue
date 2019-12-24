@@ -26,7 +26,7 @@
         :pill = "data.pill"
         :squared = "data.squared"
         :pressed = "data.pressed"
-        :data-eno = "data.eno"
+       
        
      >{{data.text}}</b-button>    
 

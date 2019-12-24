@@ -1,13 +1,14 @@
-<template>    
-  <!-- <app-parentelement :data="data" v-if="hasChild" />
-    <app-childelement :data="data" v-else />   
-  -->
- <h1> Parent Elements</h1>
+<template>  
+<div> 
+   
+<app-parentelement :data="data" v-if="hasChild" />
+ <app-childelement :data="data" v-else />   
+</div>
 </template>
 <script>
 
-import ParentElement from '@/components/generator/ParentElement.vue'
-import ChildElement from '@/components/generator/ChildElement.vue'
+import ParentElement from '@/components/ParentElement.vue'
+import ChildElement from '@/components/ChildElement.vue'
 
 export default {
  name: 'Elements',

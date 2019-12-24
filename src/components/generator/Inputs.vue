@@ -24,7 +24,7 @@
       :list = "data.list"
       :id = "data.id"
       :class = "data.class"
-      :data-eno = "data.eno"
+      
       
      ></b-form-input>
      </div>

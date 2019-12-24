@@ -10,7 +10,6 @@
       :state = "data.state"
       :plain = "data.plain"
       :id = "data.id"
-      :data-eno = "data.eno"
       :options = "data.options"
       :value-field = "data['value-field']"
       :text-field = "data['text-field']"

@@ -1,6 +1,6 @@
 <template>
-  <b-container :data-eno="data.eno" :fluid="data.fluid"  :tag="data.tag" :id="data.id" :class="data.class" >
-    <app-row :data="row" v-for="row in rows" :key="row.eno"  :data-eno="row.eno" />
+  <b-container :fluid="data.fluid"  :tag="data.tag" :id="data.id" :class="data.class" >
+    <app-row :data="row" v-for="row in rows" :key="row.eno"  />
  </b-container>
 </template>
 

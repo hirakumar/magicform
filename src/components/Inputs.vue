@@ -24,7 +24,7 @@
       :id = "data.id"
       :class = "data.class"
       :data-eno = "data.eno"
-      
+      @click="clickInput"
      ></b-form-input>
    
      

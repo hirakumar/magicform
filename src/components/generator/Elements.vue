@@ -1,6 +1,7 @@
-<template>    
-    <app-parentelement :data="data" v-if="hasChild" />
-    <app-childelement :data="data" v-else />   
+<template>
+   <parentelement :data="data" v-if="hasChild" />
+    <childelement :data="data" v-else />
+ 
 </template>
 <script>
 export default {
@@ -30,8 +31,8 @@ export default {
      
   },
   components:{
-      'app-childelement' :  () => import('@/components/generator/ParentElement.vue'),
-      'app-parentelement' :  () => import('@/components/generator/ChildElement.vue'),
+      'parentelement' :  () => import('@/components/generator/ParentElement.vue'),
+      'childelement' :  () => import('@/components/generator/ChildElement.vue'),
   }
   
 }

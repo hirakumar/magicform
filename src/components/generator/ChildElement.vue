@@ -1,15 +1,17 @@
 <template>
+  
   <app-button v-if="isButton" :data="data"  />
   <app-div v-else-if="isDiv" :data="data" />
   <app-form v-else-if="isForm" :data="data" />
   <app-row v-else-if="isRow" :data="data" />
   <app-col v-else-if="isCol" :data="data" />
   <app-container v-else-if="isContainer" :data="data" />
+  
 </template>
 <script>
 
 export default {
- name: 'ChildElement',
+ name: 'ChildElements',
   props:{
   	data:Object
   },

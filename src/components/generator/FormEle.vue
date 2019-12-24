@@ -1,7 +1,8 @@
 <template>
    <div class="formEle"> 
-    <b-form @submit="onSubmit" @reset="onReset" :class="data.class" :id="data.id" :inline="data.inline" :novalidate="data.novalidate" :validated="data.validated" >
-        <app-elements :data="child" v-for="child in myChilds" :key="child.eno" />
+    <b-form @submit="onSubmit" @reset="onReset" :class="data.class" :id="data.id" :inline="data.inline" :novalidate="data.novalidate" 
+    :validated="data.validated" >
+      <app-element :data="child" v-for="child in myChilds" :key="child.eno" />
     </b-form>
    </div>
 </template>
@@ -46,7 +47,7 @@ export default {
   },
 
   components:{
-    'app-elements' :  () => import('@/components/generator/Elements.vue'),    
+    'app-element' :  () => import('@/components/generator/Elements.vue'),    
      
   },
     methods:{

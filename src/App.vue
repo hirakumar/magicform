@@ -10,7 +10,7 @@
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
-        <b-form-checkbox v-model="isEditMode" class="float-right" name="check-button"  switch></b-form-checkbox>
+       
       </b-navbar-nav>
     </b-collapse>
     </b-navbar>
@@ -20,8 +20,6 @@
   </div>
 </template>
 <script>
-import Builder from '@/components/Builder.vue'
-
 export default {
   name :'App',
   computed:{
@@ -45,7 +43,7 @@ export default {
     }
   },
   components:{
-    'app-builder' : Builder
+   
   }
 
 }

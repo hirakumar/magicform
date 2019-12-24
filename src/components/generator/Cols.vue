@@ -2,15 +2,26 @@
   
 	<b-col 
 		:offset = "data.offset" 
-		:order = "data.order"     	
+		:offset-sm = "data['offset-sm']"
+		:offset-md = "data['offset-md']"
+		:offset-lg = "data['offset-lg']"
+		:offset-xl = "data['offset-xl']"
+		:order = "data.order"
+		:order-sm = "data['order-sm']"
+		:order-md = "data['order-md']"
+		:order-lg = "data['order-lg']"
+		:order-xl = "data['order-xl']"
 		:cols = "data.cols"
-		:data-eno = "data.eno"
 		:id = "data.id"
 		:align-self = "data['align-self']"
 		:tag = "data.tag"
-		:class= "data.class"		
+		:class= "data.class"
+		:sm = "data.sm"
+		:md = "data.md"
+		:lg = "data.lg"
+		:xl = "data.xl"
 	>
-		<app-elements v-for="child in childs" :key="child.eno" :data="child" :parentID="colID" />
+	<app-elements v-for="child in childs" :key="child.eno" :data="child" :parentID="colID" />
 	</b-col>
   
 </template>

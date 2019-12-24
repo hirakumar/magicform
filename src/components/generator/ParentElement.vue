@@ -1,10 +1,12 @@
 <template>
+ 
   <app-formgroups v-if="isFormGroup" :data="data" />
   <app-buttongroup v-else-if="isButtonGroup" :data="data" />
   <app-form v-else-if="isForm" :data="data" ></app-form>
   <app-row v-else-if="isRow" :data="data" />
   <app-col v-else-if="isCol" :data="data" />
   <app-container v-else-if="isContainer" :data="data" />
+
 </template>
 <script>
 

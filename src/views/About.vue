@@ -11,7 +11,10 @@
             <b-button size="sm" @click="rotate" v-if="rotateStatus">  Rotate</b-button>
             </b-form>
           </b-col>
-         
+          <b-col>
+            <b-form-checkbox v-model="isEditMode" class="float-right mt-2" name="check-button"  switch></b-form-checkbox>
+            <!-- <b-button variant="link" class="float-right"><img src="../assets/responsive.svg" width="30" height="30" /></b-button> -->
+          </b-col>
       </b-row>
    </b-container>
  </div>
@@ -21,7 +24,7 @@
       <b-row align-v="center" align-h="center" align-content="center">
        
         <b-col cols="12" class="pt-3" > 
-           
+          
             <app-creator  ></app-creator>
     </b-col>
       
@@ -30,6 +33,7 @@
   </b-container>
    <div :class="['formEditor pt-3',showEditor]" >
       <div class="device " :style="editorStyle" v-if="hasElements" >
+              {{getRawElements}}
               <app-elements :data="mainParent" v-for="mainParent in mainParents" :key="mainParent.eno" />
       </div>
    </div> 
@@ -49,13 +53,21 @@ export default {
     }
   },
   computed:{
+    getRawElements:{
+      get(){
+        if(this.$store.getters.getRawElements.length>0){
+           return this.$store.getters.getRawElements;
+        }
+      
+      }
+    },
     selectedDevice:{
        get(){
           return this.$store.getters.getSelectedDevice;
        },
        set(val){
         console.log(val);
-        var obj = this.$store.getters.getDeviceOptions.find(item=>item.value===val);
+        var obj = this.$store.getters.getDeviceOptions.find(item=>item.va3lue===val);
         console.log(JSON.stringify(obj));
           this.$store.dispatch('setSelectedDevice',obj.value);
        }        
