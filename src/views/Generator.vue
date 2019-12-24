@@ -1,9 +1,17 @@
 <template>
 <div>
-  <div id="htmlform">
+  <div class="container"><div class="row"><div class="col"><h2 class="pt-5">Generator</h2></div></div></div>
+  <b-tabs content-class="mt-3" align="center">
+    <b-tab title="Form" active>
+      <div id="htmlform">
   <app-element :data="mainParent" v-for="mainParent in mainParents" :key="mainParent.eno" ></app-element>
   </div>
-  <b-textarea id="rawHTML" :value="rawHTML"></b-textarea>
+    </b-tab>
+    <b-tab title="HTML"><b-textarea  id="rawHTML" :value="rawHTML" rows="14" size="sm"></b-textarea></b-tab>
+   
+  </b-tabs>
+  
+  
  
 </div>
 </template>
@@ -32,23 +40,39 @@
        this.$nextTick(() => {
         let htmlform = document.getElementById('htmlform');
         let rawHTML = document.getElementById('rawHTML');
-        //console.log(rawHTML.value=htmlform.innerHTML);
-        this.rawHTML=htmlform.firstChild.innerHTML;
-        /*
-        var replace =[
-          '<!---->','data-v-e81b82b8=""','id="__BVID__[0-9]"']; 
-         
-         let i=0;
-         while(i<2){
-           this.rawHTML=this.rawHTML.replace(new RegExp(replace[i],"g"),"")
-           i++;
-         }
-         console.log(this.rawHTML);
-         */
-         //console.log(/id="__BVID__[0-9]/g.(this.rawHTML));
-       this.rawHTML= this.rawHTML.replace(/data-v-e81b82b8=""/,'');
-        console.log(this.rawHTML);
+       
+        /* Removig Unnecessary Attribute */
+        let fieldsets = htmlform.querySelectorAll('fieldset');
+        console.log(fieldsets.length)
+        let i=0;
+        while(i<fieldsets.length){
+          fieldsets[i].removeAttribute('data-v-e81b82b8');
+          fieldsets[i].removeAttribute('id');
+          i++;
+        }
 
+        /* Removig Unnecessary Attribute */
+        let legends = htmlform.querySelectorAll('legend');
+        console.log(fieldsets.length)
+        let k=0;
+        while(k<legends.length){
+            legends[k].removeAttribute('id');
+          k++;
+        }
+
+        /* Removig uncecesary div */
+        let divs = htmlform.querySelectorAll('*[data-v-e81b82b8]');
+        console.log(divs.length)
+        let j=0;
+        while(j<divs.length){
+          divs[j].removeAttribute('data-v-e81b82b8');          
+          j++;
+        }
+
+        
+        htmlform.innerHTML=htmlform.innerHTML.replace(new RegExp("<!---->","g"),"");
+        this.rawHTML=htmlform.innerHTML;
+        
       });
      },1000)
       

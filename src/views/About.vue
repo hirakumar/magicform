@@ -33,7 +33,7 @@
   </b-container>
    <div :class="['formEditor pt-3',showEditor]" >
       <div class="device " :style="editorStyle" v-if="hasElements" >
-              {{getRawElements}}
+             {{getRawElements}}
               <app-elements :data="mainParent" v-for="mainParent in mainParents" :key="mainParent.eno" />
       </div>
    </div> 
@@ -67,7 +67,7 @@ export default {
        },
        set(val){
         console.log(val);
-        var obj = this.$store.getters.getDeviceOptions.find(item=>item.va3lue===val);
+        var obj = this.$store.getters.getDeviceOptions.find(item=>item.value===val);
         console.log(JSON.stringify(obj));
           this.$store.dispatch('setSelectedDevice',obj.value);
        }        
@@ -94,7 +94,7 @@ export default {
     },
     editorStyle:{
       get(){
-        return `width:${this.selectedDeviceObj.width}px;height:${this.selectedDeviceObj.height}px;`
+        return `width:${this.selectedDeviceObj.width}px;min-height:${this.selectedDeviceObj.height}px;`
       }
       
     },

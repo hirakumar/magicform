@@ -315,6 +315,7 @@ if(payload.action=="addAfter"){
       if(activeObj == undefined){
         activeObj={eno:null};
       }
+
       let lasteno = context.getters.getLastEno;
       if(lasteno == undefined){
         lasteno=0;
@@ -552,8 +553,11 @@ removeObj(context,payload){
       return state.configEle;
     },
     getLastEno : state =>{      
-      if(state.lasteno>0 ){        
-        return state.lasteno;
+      if(state.lasteno>0 ){
+
+          return state.lasteno;
+        
+        
       }else if(state.lasteno==null){
         return null; 
       }else{        
