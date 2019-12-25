@@ -124,7 +124,16 @@ if(payload.action=="addBefore"){
 /* Add Container After Targeted Container */
 if(payload.action=="addAfter"){
  
-  let lasteno = state.lasteno;
+   let lasteno = context.getters.getLastEno;  
+      if(lasteno==null){
+        // context.commit('setLastEno',{eno:obj.eno});
+
+        let list =context.getters.getRawElements.sort((a,b)=> { return a.eno - b.eno} );
+        let lasteno= list[list.length-1].eno;
+        context.commit('setLastEno',{eno:lasteno});
+      }
+      lasteno = context.getters.getLastEno; 
+      /*
   lasteno++;
   state.elements.push({ eno:lasteno, ele:'container', order:obj.order+1 })
   lasteno++;
@@ -138,6 +147,7 @@ if(payload.action=="addAfter"){
       item.order+=1;
     }
   })      
+  */                                                                                                                             
 
 }
       }catch(err){
@@ -177,7 +187,8 @@ if(payload.action=="addAfter"){
           if(payload.action=="addAfter"){
             // Creating new Object to add before targeted element
 
-            // increase order greater or equal to            
+            // increase order greater or equal to     
+
             let newObj = {eno:state.lasteno+1, ele:obj.ele,order:obj.order+1,parent:obj.parent};
             state.elements.push(newObj);
             state.lasteno=newObj.eno; 
@@ -316,10 +327,15 @@ if(payload.action=="addAfter"){
         activeObj={eno:null};
       }
 
-      let lasteno = context.getters.getLastEno;
-      if(lasteno == undefined){
-        lasteno=0;
+      let lasteno = context.getters.getLastEno;  
+      if(lasteno==null){
+        // context.commit('setLastEno',{eno:obj.eno});
+
+        let list =context.getters.getRawElements.sort((a,b)=> { return a.eno - b.eno} );
+        let lasteno= list[list.length-1].eno;
+        context.commit('setLastEno',{eno:lasteno});
       }
+      lasteno = context.getters.getLastEno; 
       
       let obj;
       let order=1;
@@ -328,7 +344,7 @@ if(payload.action=="addAfter"){
       if(context.getters.getLastChild != false){
           order= parseInt(context.getters.getLastChild.order)+1;
       }
-       
+
       switch(payload.ele){
         case 'form': 
       
@@ -352,7 +368,7 @@ if(payload.action=="addAfter"){
         break;
 
         case 'row':
-        let rowObj = {eno:lasteno+1, parent:activeObj.eno, ele:'row', order:order}
+        let rowObj = {eno:lasteno+1, parent:activeObj.parent, ele:'row', order:order}
         context.commit('addElement',rowObj);
 
         obj = {eno:lasteno+2, parent:rowObj.eno, ele:'col', order:1}
@@ -375,6 +391,7 @@ if(payload.action=="addAfter"){
         context.commit('addElement',colObj);
         break;
       }
+      
       //context.commit('addElement',obj);
       
       
@@ -393,7 +410,16 @@ if(payload.action=="addAfter"){
     
       let activeObj = context.getters.getActiveObj;
       let lasteno = context.getters.getLastEno;  
-      let order=1;      
+      if(lasteno==null){
+        // context.commit('setLastEno',{eno:obj.eno});
+
+        let list =context.getters.getRawElements.sort((a,b)=> { return a.eno - b.eno} );
+        let lasteno= list[list.length-1].eno;
+        context.commit('setLastEno',{eno:lasteno});
+      }
+      lasteno = context.getters.getLastEno; 
+      let order=1;
+
       // Find last child element and find order
       if(context.getters.getLastChild != false){
           order= parseInt(context.getters.getLastChild.order)+1;

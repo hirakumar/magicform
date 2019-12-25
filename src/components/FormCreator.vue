@@ -67,21 +67,33 @@ export default {
 	.orderBtn{position:absolute; top:0px; right:0px; z-index:99}
 }
 .eleinfo{
-		padding: 1px;
+		padding: 0px;
 		font-size: 10px;
 		line-height: 12px;
 		border-radius: 0px; 
 		position:relative; 
-		top:-5px; 
+		top:-6px; 
 		left:0px;
 		background:#ccc;
 		border:#ccc;
+		color:#fff;
+		text-decoration:none;
 		&:after{
 			content:'';
 			display:block;
 			width:100%;
 			height:1px;
 		}
+		.ele,.eno,.eno_class,.eno_id,span{
+			display: inline-block;
+			min-width: 15px;
+			min-height: 13px;			
+			text-align: center;	
+			padding-left:2px;
+			padding-right:2px;	
+			color:#fff;	
+		}
+		
 	}
 
 .buttonGroup,.formGroupBlock{

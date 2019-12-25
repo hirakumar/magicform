@@ -103,6 +103,23 @@ export default {
         remove: function() {
             this.$store.dispatch("removeObj");
         },
+         setOrderUp : function(event){
+      try{
+        
+        this.$store.dispatch('setOrder',{activeEno:this.data.eno,action:'up'})
+      }catch(error){
+        console.log("Error on setOrderUp", error);
+      }
+    },
+    setOrderDown : function(event){
+      try{
+        
+        this.$store.dispatch('setOrder',{activeEno:this.data.eno,action:'down'})
+      }catch(error){
+        console.log("Error on setOrderDown", error);
+      }
+    },
+   
   }
 }
 </script>

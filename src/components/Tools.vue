@@ -12,10 +12,8 @@
       <!-- ### Row ### -->
       <template v-if="isRow">                 
           <b-button @click="addCol">Add Col</b-button>
-          <b-dropdown right text="Add Row">
-            <b-dropdown-item @click="addRowBefore"> Before Row</b-dropdown-item>
-            <b-dropdown-item @click="addRowAfter"> After Row</b-dropdown-item>
-          </b-dropdown>                
+           <b-button @click="addRow">Add Row</b-button>
+               
       </template>
       <!-- ###  Form ### -->
       <template v-if="isForm">
@@ -173,12 +171,15 @@ export default {
               eno: this.data
           });
       },
+      /*
       addRowBefore : function(){
         this.$store.commit("addEle",{action:'addBefore',eno:this.data});
       },
       addRowAfter: function(){
           this.$store.commit("addEle",{action:'addAfter',eno:this.data});
+          
       },
+      */
       createHTML: function(){
         this.$store.dispatch('createEle',{ele:'div'});
       },

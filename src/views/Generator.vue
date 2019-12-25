@@ -7,7 +7,15 @@
   <app-element :data="mainParent" v-for="mainParent in mainParents" :key="mainParent.eno" ></app-element>
   </div>
     </b-tab>
-    <b-tab title="HTML"><b-textarea  id="rawHTML" :value="rawHTML" rows="14" size="sm"></b-textarea></b-tab>
+    <b-tab title="HTML">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+          <b-textarea  id="rawHTML" :value="rawHTML" rows="14" size="sm"></b-textarea>
+          </div>
+          </div>
+        </div>
+        </b-tab>
    
   </b-tabs>
   
@@ -43,7 +51,7 @@
        
         /* Removig Unnecessary Attribute */
         let fieldsets = htmlform.querySelectorAll('fieldset');
-        console.log(fieldsets.length)
+        
         let i=0;
         while(i<fieldsets.length){
           fieldsets[i].removeAttribute('data-v-e81b82b8');
@@ -53,7 +61,7 @@
 
         /* Removig Unnecessary Attribute */
         let legends = htmlform.querySelectorAll('legend');
-        console.log(fieldsets.length)
+        
         let k=0;
         while(k<legends.length){
             legends[k].removeAttribute('id');
@@ -62,7 +70,7 @@
 
         /* Removig uncecesary div */
         let divs = htmlform.querySelectorAll('*[data-v-e81b82b8]');
-        console.log(divs.length)
+       
         let j=0;
         while(j<divs.length){
           divs[j].removeAttribute('data-v-e81b82b8');          

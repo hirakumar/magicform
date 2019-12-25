@@ -1,8 +1,14 @@
 <template>
 <div class="eleHolder">
-  <b-button  :class="['eleinfo',myClass]" size="md" @click ="clickCol">
-    {{data.ele}} : {{data.eno}} / {{data.order}}  
-  </b-button>
+  <b-link  :class="['eleinfo',myClass]" size="md" @click ="clickCol">
+   
+    <span class="ele">&lt;{{data.ele}}</span> 
+     <span class="eno">eno="{{data.eno}}"</span>
+    <span v-if="data.hasOwnProperty('id')" class="ele_id"> id="{{data.id}}" </span> 
+    <span v-if="data.hasOwnProperty('class')" class="ele_class"> class="{{data.class}}" </span>  order="{{data.order}}" 
+    <span v-if="data.hasOwnProperty('name')" class="ele_name"> class="{{data.name}}" </span>
+    &gt; 
+  </b-link>
  </div>
 </template>
 <script>
