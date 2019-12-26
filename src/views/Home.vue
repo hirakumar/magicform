@@ -1,5 +1,8 @@
 <template>
-  <div class="home">
+<b-container>
+  <b-row>
+      <b-col>
+          <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <b-container>
@@ -7,6 +10,10 @@
     		</b-row>
     </b-container>
   </div>
+      </b-col>
+  </b-row>
+</b-container>
+
 </template>
 
 <script>

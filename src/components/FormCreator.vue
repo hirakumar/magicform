@@ -124,6 +124,18 @@ export default {
 					left:0px;
 				}
 			}
+			.orderBtn{
+				font-size:12px;
+				a{
+					display:flex;
+					justify-content: center;
+					width:20px;
+					height:20px;
+					svg{
+						font-size:10px;
+					}
+				}
+			}
 		}
 	}
 }

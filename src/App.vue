@@ -4,9 +4,10 @@
       <b-navbar-brand>MAGIC FORM</b-navbar-brand>
        <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item href="/">Home</b-nav-item>
-        <b-nav-item  @click="goFormBuilder" >Form Builder</b-nav-item>
-        <b-nav-item  @click="goGenerator" >Generator</b-nav-item>
+        <li class="nav-item"><router-link to="/" tag="a" class="nav-link">Home</router-link></li>
+       <li class="nav-item" ><router-link to="/formbuilder" tag="a" class="nav-link">Form Builder</router-link></li>
+        <li class="nav-item" @click="goGenerator"><router-link to="/generator" tag="a" class="nav-link">Generator</router-link></li>
+      
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
@@ -34,13 +35,10 @@ export default {
   },
   methods:{
     goGenerator:function(){
-      this.$router.push('/generator');
+     
       this.$store.commit('setEditMode',false);
     },
-    goFormBuilder:function(){
-      this.$router.push('/about');
-      
-    }
+   
   },
   components:{
    

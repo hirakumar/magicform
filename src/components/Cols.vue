@@ -14,7 +14,13 @@
 		
 		
     >
-
+	<!--
+	<b-button-group class="orderBtn">
+		<b-link size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-link>
+		<b-link size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-link>
+		<b-link size="sm" @click="remove" v-if="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-link>
+	</b-button-group>
+	-->
 	<app-infoele :data="data" @click ="clickCol" v-if="isEditMode"></app-infoele>
 
 	<app-elements v-for="child in childs" :key="child.eno" :data="child" :parentID="colID" />
@@ -31,6 +37,11 @@ export default {
   name: 'cols',
   props:{
   	data:Object
+  },
+  data:function(){
+	  return {
+		   orderBtn: false
+	  }
   },
   computed: {
   	colID : { 
@@ -110,19 +121,20 @@ export default {
   },
   methods:{
 	 hoverOn: function(id) {
-		  
+		  this.orderBtn=true;
 		  this.$store.commit('changeEle',id);
 		  this.$el.classList.add('hoverEle');
 	  },
 	  hoverOut :  function(){
+		  this.orderBtn=false;
 		   this.$el.classList.remove('hoverEle');
 	  },
 	  clickCol : function(event){
 		  event.currentTarget.classList.add('active');
 		  this.$store.commit('setEditMode',true);
 		  this.$store.commit('setActiveEno',this.data.eno);
-       event.preventDefault();
-      event.stopPropagation();
+			event.preventDefault();
+			event.stopPropagation();
 	  }
   },
   components:{
