@@ -88,12 +88,9 @@
           <img src="../assets/form-file.svg" />
         </b-button>       
         <b-button @click="createHTML"><img src="../assets/html.svg" /></b-button>
-        <b-button @mouseenter="showColMenu" @mouseleave="hideColMenu">
+        <b-button @click="addCol" >
          <img src="../assets/col.svg" />
-          <b-button-group right text="Add Column" v-if="colMenuStatus"  class="subBtnGroup">
-            <b-button @click="addColBefore">Before</b-button>
-            <b-button  @click="addColAfter">After</b-button>
-          </b-button-group>
+         
         </b-button>  
       </template>
     </b-btn-group>

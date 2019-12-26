@@ -8,6 +8,7 @@ export default new Vuex.Store({
      count:100,
      configEle : 0,
      activeEno : null,
+     responsiveMode:false,
       editMode : false,
       lasteno: null,
       // elements:[ { "eno": 1, "order": 1, "ele": "form", "inline": false, "novalidate": true, "validated": true, "parent": null }, { "eno": 2, "ele": "form-group", "label-for": "label2", "label": "Name", "description": "Sample short description", "parent": 1, "order": 1, "invalid-feedback": "", "valid-feedback": "" }, { "eno": 3, "ele": "form-input", "type": "text", "parent": 2, "id": "label2", "required": true }, { "eno": 4, "order": "4", "text": "Submit", "border-style": null, "ele": "button", "parent": 1, "id": "label4", "name": "label4", "active": false, "disabled": false, "append": false, "replace": false, "active-class": "active", "exact": false, "exact-active-class": "", "router-tag": "a", "block": false, "size": "md", "variant": "secondary", "type": "submit", "tag": "button", "pill": false, "squared": false }, { "eno": 5, "ele": "form-group", "label-for": "label5", "label": "Country", "description": "Sample short description", "parent": 1, "order": 3, "invalid-feedback": "", "valid-feedback": "", "state": false }, { "eno": 6, "ele": "form-select", "parent": 5, "id": "label5", "options": [ { "text": "Nepal", "value": "nepal" }, { "text": "Bhutan", "value": "bhutan" }, { "text": "Srilanka", "value": "srilanka" } ], "disabled": false, "required": true, "autofocus": false, "size": "md", "plain": false, "value": "", "multiple": false, "select-size": 0, "aria-invalid": false } ] 
@@ -256,6 +257,9 @@ if(payload.action=="addAfter"){
     },
     setSelectedDevice(state,payload){
       state.selectedDevice=payload;
+    },
+    setResponsiveMode(state,payload){
+      state.responsiveMode=payload;
     }
     
   },
@@ -363,12 +367,23 @@ if(payload.action=="addAfter"){
         break;
 
         case 'col':
-        obj = {eno:lasteno+1, parent:activeObj.eno, ele:'col', order:order}
+            if(activeObj.ele=="row"){
+              parentID=activeObj.eno;
+            }else if(activeObj.ele=="col"){
+              parentID=activeObj.parent;
+            }
+        obj = {eno:lasteno+1, parent:parentID, ele:'col', order:order}
         context.commit('addElement',obj);
         break;
 
         case 'row':
-        let rowObj = {eno:lasteno+1, parent:activeObj.parent, ele:'row', order:order}
+        let parentID;
+        if(activeObj.ele=="container"){
+          parentID=activeObj.eno;
+        }else if(activeObj.ele=="row"){
+          parentID=activeObj.parent;
+        }
+        let rowObj = {eno:lasteno+1, parent:parentID, ele:'row', order:order}
         context.commit('addElement',rowObj);
 
         obj = {eno:lasteno+2, parent:rowObj.eno, ele:'col', order:1}
@@ -526,6 +541,19 @@ removeObj(context,payload){
         console.log("Error on removeObj:", err);
       }
     },
+    setResponsiveMode(context,payload){
+      try{
+        
+        if(context.getters.isResponsiveMode){
+          context.commit('setResponsiveMode',false);
+        }else{
+          context.commit('setResponsiveMode',true);
+        }
+        
+      }catch(error){
+        console.log("Error on action setResponsiveMode :", error)
+      }
+    }
    },
   getters: {
     hasElements: state =>{
@@ -599,12 +627,12 @@ removeObj(context,payload){
       return state.elements.indexOf(obj);
     },
     getConfigEleObj : state => {     
-      return state.elements.find(item=>item.eno===state.configEle);
+      //return state.elements.find(item=>item.eno===state.configEle);
     },
     getConfigEleCols : state =>{
-      let obj= state.elements.find(item=>item.eno===state.configEle);
+     // let obj= state.elements.find(item=>item.eno===state.configEle);
      
-      return obj.cols;
+      //return obj.cols;
     },
     getContainers: state => {
       let containers = state.elements.filter(item=>item.ele==='container');
@@ -654,17 +682,23 @@ removeObj(context,payload){
  
     },
     getLastChild: state => {
-      let activeObj = state.elements.find(item=>item.eno===state.activeEno);
-      let list = state.elements.filter(item=>item.parent===activeObj.eno);
-      
-      if(list.length>0){
-        let sortedList = list.sort((a,b)=> { return a.order - b.order} );
-        return sortedList[sortedList.length-1];
-      }else{
-        return false;
+      try{
+        if(state.activeEno != null){
+          let activeObj = state.elements.find(item=>item.eno===state.activeEno);
+          let list = state.elements.filter(item=>item.parent===activeObj.eno);
+          
+          if(list.length>0){
+            let sortedList = list.sort((a,b)=> { return a.order - b.order} );
+            return sortedList[sortedList.length-1];
+          }else{
+            return false;
+          }
+        }else{
+          return false;
+        }
+      }catch(error){
+        console.log("Error on getLastChild :", error);
       }
-      
-
     },
     getElements: (state) => (eno) => {
       let obj = state.elements.find(item => item.eno === eno);      
@@ -743,6 +777,10 @@ removeObj(context,payload){
     },
     getDeviceObj : state =>{
       return state.deviceOptions.find(item=>item.value=== state.selectedDevice);
+    },
+    isResponsiveMode : state =>{
+      
+      return state.responsiveMode;
     }
    
   }

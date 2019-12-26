@@ -199,7 +199,11 @@ export default {
                 return this.$store.getters.getDeviceObj;
             }
         },
-       
+       isResponsiveMode:{
+      get(){
+        return this.$store.getters.isResponsiveMode;
+      }
+    },
         mycols:{
 		get(){
             if(this.device.width>=1200){
@@ -216,18 +220,22 @@ export default {
 		},
 		set(val){
             
-			if(this.device.width>=1200){
-                
-                this.$store.commit('editObj',{xl:val})               
-			}else if(this.device.width>=992){
-				this.$store.commit('editObj',{lg:val})
-			}else if(this.device.width>=768){
-				this.$store.commit('editObj',{md:val})
-			}else if(this.device.width>=576){
-                this.$store.commit('editObj',{sm:val})
-            } else if(this.device.width<576){
-				 this.$store.commit('editObj',{cols:val})
-			}
+            if(!this.isResponsiveMode){
+                 this.$store.commit('editObj',{cols:val})
+            }else{
+                if(this.device.width>=1200){                
+                    this.$store.commit('editObj',{xl:val})               
+                }else if(this.device.width>=992){
+                    this.$store.commit('editObj',{lg:val})
+                }else if(this.device.width>=768){
+                    this.$store.commit('editObj',{md:val})
+                }else if(this.device.width>=576){
+                    this.$store.commit('editObj',{sm:val})
+                } else if(this.device.width<576){
+                    this.$store.commit('editObj',{cols:val})
+                }
+            }
+			
             
 				
 			

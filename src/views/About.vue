@@ -4,8 +4,8 @@
    <b-container >
       <b-row v-if="hasElements" >
           <b-col class="pt-2 pb-2">
-          
-            <b-form inline>
+           
+            <b-form inline v-if="isResponsiveMode">
             <b-select class="mr-1" v-model="selectedDevice" :options="deviceOptions" size="sm" ></b-select>
             <b-input class="mr-1 " type="text" placeholder="width" v-model="selectedDeviceObj.width" size="sm" /> <span class="pr-1">x</span> <b-input class="mr-1" type="text" v-model="selectedDeviceObj.height" placeholder="height" size="sm" />
             <b-button size="sm" @click="rotate" v-if="rotateStatus">  Rotate</b-button>
@@ -13,7 +13,7 @@
           </b-col>
           <b-col>
             <b-form-checkbox v-model="isEditMode" class="float-right mt-2" name="check-button"  switch></b-form-checkbox>
-            <!-- <b-button variant="link" class="float-right"><img src="../assets/responsive.svg" width="30" height="30" /></b-button> -->
+             <b-button variant="link" @click="toggleResponsiveMode" class="float-right"><img src="../assets/responsive.svg" width="30" height="30" /></b-button>
           </b-col>
       </b-row>
    </b-container>
@@ -112,8 +112,7 @@ export default {
       }
     },
     startStatus:{
-      get(){
-    
+      get(){    
         return (this.$store.getters.getTotalElements>0 ? false : true)
       }
     },
@@ -145,8 +144,7 @@ export default {
       }
     },
     activeEno :{
-      get(){
-        
+      get(){        
         return this.$store.getters.getActiveEno;
       }
     },
@@ -155,7 +153,11 @@ export default {
         return this.$store.getters.activeObj;
       }
     },
-
+    isResponsiveMode:{
+      get(){
+        return this.$store.getters.isResponsiveMode;
+      }
+    },
       mainParents:{
         get(){
           return this.$store.getters.getMainParents;
@@ -168,6 +170,9 @@ export default {
       let deviceClone = Object.assign({},this.selectedDeviceObj);
       this.selectedDeviceObj.width=deviceClone.height;
       this.selectedDeviceObj.height=deviceClone.width;
+    },
+    toggleResponsiveMode : function(){
+      this.$store.dispatch('setResponsiveMode');
     }
   },
   components:{
