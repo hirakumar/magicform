@@ -1,27 +1,30 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {State} from './state.js'
+
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
    state: {
-     count:100,
-     configEle : 0,
-     activeEno : null,
-     responsiveMode:false,
-      editMode : false,
-      lasteno: null,
-      // elements:[ { "eno": 1, "order": 1, "ele": "form", "inline": false, "novalidate": true, "validated": true, "parent": null }, { "eno": 2, "ele": "form-group", "label-for": "label2", "label": "Name", "description": "Sample short description", "parent": 1, "order": 1, "invalid-feedback": "", "valid-feedback": "" }, { "eno": 3, "ele": "form-input", "type": "text", "parent": 2, "id": "label2", "required": true }, { "eno": 4, "order": "4", "text": "Submit", "border-style": null, "ele": "button", "parent": 1, "id": "label4", "name": "label4", "active": false, "disabled": false, "append": false, "replace": false, "active-class": "active", "exact": false, "exact-active-class": "", "router-tag": "a", "block": false, "size": "md", "variant": "secondary", "type": "submit", "tag": "button", "pill": false, "squared": false }, { "eno": 5, "ele": "form-group", "label-for": "label5", "label": "Country", "description": "Sample short description", "parent": 1, "order": 3, "invalid-feedback": "", "valid-feedback": "", "state": false }, { "eno": 6, "ele": "form-select", "parent": 5, "id": "label5", "options": [ { "text": "Nepal", "value": "nepal" }, { "text": "Bhutan", "value": "bhutan" }, { "text": "Srilanka", "value": "srilanka" } ], "disabled": false, "required": true, "autofocus": false, "size": "md", "plain": false, "value": "", "multiple": false, "select-size": 0, "aria-invalid": false } ] 
-      elements:[ { "eno": 1, "order": 1, "ele": "form", "inline": false, "novalidate": false, "validated": false, "parent": null }, { "eno": 2, "parent": 1, "ele": "container", "order": 1 }, { "eno": 3, "parent": 2, "ele": "row", "order": 1 }, { "eno": 4, "parent": 3, "ele": "col", "order": 1 }, { "eno": 5, "ele": "col", "order": 2, "parent": 3 }, { "eno": 6, "ele": "form-group", "label-for": "label6", "label": "Name", "description": "", "parent": 4, "order": 1, "invalid-feedback": "", "valid-feedback": "", "state": false }, { "eno": 7, "order": 1, "ele": "form-input", "type": "text", "parent": 6, "id": "label6" }, { "eno": 8, "ele": "form-group", "label-for": "label8", "label": "Subject", "description": "", "parent": 4, "order": 2, "invalid-feedback": "", "valid-feedback": "", "state": false }, { "eno": 9, "order": 2, "ele": "form-input", "type": "text", "parent": 8, "id": "label8" }, { "eno": 10, "ele": "form-group", "label-for": "label10", "label": "Comment", "description": "", "parent": 4, "order": 3, "invalid-feedback": "", "valid-feedback": "", "state": false }, { "eno": 11, "ele": "form-textarea", "name": "label10", "parent": 10, "id": "label10", "required": false, "size": "md", "readonly": false, "plaintext": false, "placeholder": "", "rows": "8", "max-rows": 5, "no-resize": false, "no-auto-shrink": false, "value": "" }, { "eno": 12, "order": 4, "text": "Button", "border-style": null, "ele": "button", "parent": 4, "id": "label12", "name": "label12", "active": false, "disabled": false, "append": false, "replace": false, "active-class": "active", "exact": false, "exact-active-class": "", "router-tag": "a", "block": false, "size": "md", "variant": "secondary", "type": "submit", "tag": "button", "pill": false, "squared": false } ] ,
-      deviceOptions:[
-       {text:'Mobile Device', value:'mobile', landscape:false, status:false, width:375, height:667 },
-       {text:'Tablet Device', value:'tablet', landscape:true, status:false,width:1024, height:768 },
-       {text:'Laptop', value:'laptop', landscape:true, status:false,width:992, height:500    },
-       {text:'Desktop', value:'desktop', landscape:true, status:true, width:1280, height:800  }
-     ],
-      selectedDevice:'desktop'
-  },
-  mutations: { 
+    count:100,
+    configEle : 0,
+    activeEno : null,
+    responsiveMode:false,
+     editMode : false,
+     lasteno: null,
+     // elements:[ { "eno": 1, "order": 1, "ele": "form", "inline": false, "novalidate": true, "validated": true, "parent": null }, { "eno": 2, "ele": "form-group", "label-for": "label2", "label": "Name", "description": "Sample short description", "parent": 1, "order": 1, "invalid-feedback": "", "valid-feedback": "" }, { "eno": 3, "ele": "form-input", "type": "text", "parent": 2, "id": "label2", "required": true }, { "eno": 4, "order": "4", "text": "Submit", "border-style": null, "ele": "button", "parent": 1, "id": "label4", "name": "label4", "active": false, "disabled": false, "append": false, "replace": false, "active-class": "active", "exact": false, "exact-active-class": "", "router-tag": "a", "block": false, "size": "md", "variant": "secondary", "type": "submit", "tag": "button", "pill": false, "squared": false }, { "eno": 5, "ele": "form-group", "label-for": "label5", "label": "Country", "description": "Sample short description", "parent": 1, "order": 3, "invalid-feedback": "", "valid-feedback": "", "state": false }, { "eno": 6, "ele": "form-select", "parent": 5, "id": "label5", "options": [ { "text": "Nepal", "value": "nepal" }, { "text": "Bhutan", "value": "bhutan" }, { "text": "Srilanka", "value": "srilanka" } ], "disabled": false, "required": true, "autofocus": false, "size": "md", "plain": false, "value": "", "multiple": false, "select-size": 0, "aria-invalid": false } ] 
+    // elements:[ { "eno": 1, "order": 1, "ele": "form", "inline": false, "novalidate": false, "validated": false, "parent": null }, { "eno": 2, "parent": 1, "ele": "container", "order": 1 }, { "eno": 3, "parent": 2, "ele": "row", "order": 1 }, { "eno": 4, "parent": 3, "ele": "col", "order": 1 }, { "eno": 5, "ele": "col", "order": 2, "parent": 3 }, { "eno": 6, "ele": "form-group", "label-for": "label6", "label": "Name", "description": "", "parent": 4, "order": 1, "invalid-feedback": "", "valid-feedback": "", "state": false }, { "eno": 7, "order": 1, "ele": "form-input", "type": "text", "parent": 6, "id": "label6" }, { "eno": 8, "ele": "form-group", "label-for": "label8", "label": "Subject", "description": "", "parent": 4, "order": 2, "invalid-feedback": "", "valid-feedback": "", "state": false }, { "eno": 9, "order": 2, "ele": "form-input", "type": "text", "parent": 8, "id": "label8" }, { "eno": 10, "ele": "form-group", "label-for": "label10", "label": "Comment", "description": "", "parent": 4, "order": 3, "invalid-feedback": "", "valid-feedback": "", "state": false }, { "eno": 11, "ele": "form-textarea", "name": "label10", "parent": 10, "id": "label10", "required": false, "size": "md", "readonly": false, "plaintext": false, "placeholder": "", "rows": "8", "max-rows": 5, "no-resize": false, "no-auto-shrink": false, "value": "" }, { "eno": 12, "order": 4, "text": "Button", "border-style": null, "ele": "button", "parent": 4, "id": "label12", "name": "label12", "active": false, "disabled": false, "append": false, "replace": false, "active-class": "active", "exact": false, "exact-active-class": "", "router-tag": "a", "block": false, "size": "md", "variant": "secondary", "type": "submit", "tag": "button", "pill": false, "squared": false } ] ,
+    elements:[], 
+    deviceOptions:[
+      {text:'Mobile Device', value:'mobile', landscape:false, status:false, width:375, height:667 },
+      {text:'Tablet Device', value:'tablet', landscape:true, status:false,width:1024, height:768 },
+      {text:'Laptop', value:'laptop', landscape:true, status:false,width:992, height:500    },
+      {text:'Desktop', value:'desktop', landscape:true, status:true, width:1280, height:800  }
+    ],
+     selectedDevice:'desktop'
+   },
+    mutations: { 
     changeEle (state, payload) {
       state.configEle=payload;
     },
@@ -326,20 +329,20 @@ if(payload.action=="addAfter"){
       context.commit('removeSelectBoxOption',{objIndex:index,optionIndex:payload.index})
     },
     createEle(context,payload){
+      console.log("CreateEle Payload :", payload.ele);
       let activeObj = context.getters.getActiveObj;
       if(activeObj == undefined){
         activeObj={eno:null};
       }
 
-      let lasteno = context.getters.getLastEno;  
+      var lasteno = context.getters.getLastEno;  
+      
       if(lasteno==null){
-        // context.commit('setLastEno',{eno:obj.eno});
-
-        let list =context.getters.getRawElements.sort((a,b)=> { return a.eno - b.eno} );
-        let lasteno= list[list.length-1].eno;
-        context.commit('setLastEno',{eno:lasteno});
+        context.commit('setLastEno',{eno:0});
       }
-      lasteno = context.getters.getLastEno; 
+      
+      lasteno = context.state.lasteno; 
+      //console.log("s",context.getters.lasteno);
       
       let obj;
       let order=1;
@@ -349,29 +352,31 @@ if(payload.action=="addAfter"){
           order= parseInt(context.getters.getLastChild.order)+1;
       }
 
+      if(payload.ele=="form"){
+        console.log("This is ele");
+      }
+
       switch(payload.ele){
-        case 'form': 
-      
-        obj = {eno : lasteno+1, order:order,  ele:'form', inline:false, novalidate:false, validated:false};
         
+        case 'form': 
+        obj = {eno : lasteno+1, order:order,  ele:'form', inline:false, novalidate:false, validated:false};
         if(activeObj!=undefined){
           obj.parent=activeObj.eno
         }
-       
         context.commit('addElement',obj);
         break;
-
+        
         case 'button':
         obj = {eno : lasteno+1, order:order, text:'Button', 'border-style':null, ele:'button', parent:activeObj.eno, id : `label${lasteno+1}`, name:`label${lasteno+1}`, active : false, disabled : false, append: false, replace : false, 'active-class':'active', exact: false, 'exact-active-class': '', 'router-tag':'a', block:false,size:'md',variant:'secondary', type:'button', tag:'button',pill:false,squared:false}
         context.commit('addElement',obj);
         break;
 
         case 'col':
-            if(activeObj.ele=="row"){
-              parentID=activeObj.eno;
-            }else if(activeObj.ele=="col"){
-              parentID=activeObj.parent;
-            }
+        if(activeObj.ele=="row"){
+          parentID=activeObj.eno;
+        }else if(activeObj.ele=="col"){
+          parentID=activeObj.parent;
+        }
         obj = {eno:lasteno+1, parent:parentID, ele:'col', order:order}
         context.commit('addElement',obj);
         break;
