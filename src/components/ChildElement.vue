@@ -28,7 +28,8 @@ export default {
      }, 
       isForm :{
       get(){
-        return (this.data.ele=='form' ? true : false);
+       
+       return (this.data.ele=='form' ? true : false);
       }
     },
      isRow :{

@@ -1,5 +1,5 @@
 <template>
-   <div class="formEle">   
+   <div class="formEle">  
       <app-infoele :data="data" v-if="isEditMode"></app-infoele>
       <b-form @submit="onSubmit" @reset="onReset" :class="data.class" :id="data.id" :inline="data.inline" :novalidate="data.novalidate" :validated="data.validated" >
         <app-elements :data="child" v-for="child in myChilds" :key="child.eno" />
@@ -17,19 +17,19 @@ export default {
   computed:{
      isEditMode:{
       get(){
-        return this.$store.getters.isEditMode;
+        return this.$store.getters['formBuilder/isEditMode'];
       },      
     },
     getElements:{
       get(){
-        return this.$store.getters.getRawElements;
+        return this.$store.getters['formBuilder/getRawElements'];
       }
     },
     hasChild:{
         get(){
             if(this.data != undefined){
                 
-                return this.$store.getters.hasChild(this.data.eno);
+                return this.$store.getters['formBuilder/hasChild'](this.data.eno);
             }
             
         }
@@ -37,13 +37,13 @@ export default {
     myChilds:{
       get(){
         if(this.data != undefined){
-          return this.$store.getters.getChilds(this.data.eno)
+          return this.$store.getters['formBuilder/getChilds'](this.data.eno)
         }
       }
     },
     isEditMode:{
       get(){
-        return this.$store.getters.isEditMode;
+        return this.$store.getters['formBuilder/isEditMode'];
       },
       
     },
@@ -58,8 +58,8 @@ export default {
     methods:{
      clickedEle:function(event){
        if(this.isEditMode){
-          this.$store.commit("setActiveEno",this.data.eno);
-          this.$store.commit("setEditMode",true);
+          this.$store.commit("formBuilder/setActiveEno",this.data.eno);
+          this.$store.commit("formBuilder/setEditMode",true);
 
           event.preventDefault();
           event.stopPropagation();

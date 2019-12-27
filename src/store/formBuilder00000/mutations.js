@@ -1,6 +1,4 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-export const Mutation = { 
+export const Mutations = { 
     changeEle (state, payload) {
       state.configEle=payload;
     },
@@ -113,21 +111,7 @@ if(payload.action=="addAfter"){
         context.commit('setLastEno',{eno:lasteno});
       }
       lasteno = context.getters.getLastEno; 
-      /*
-  lasteno++;
-  state.elements.push({ eno:lasteno, ele:'container', order:obj.order+1 })
-  lasteno++;
-  state.elements.push({eno:lasteno, parent:lasteno-1, ele:'row', order:1})
-  lasteno++;
-  state.elements.push({eno:lasteno, parent:lasteno-1, ele:'col', cols:12, order:1})
-  state.lasteno = lasteno;
-
-  allEleOrder.forEach(function(item){
-    if(item.order>obj.order){
-      item.order+=1;
-    }
-  })      
-  */                                                                                                                             
+                                                                                                                   
 
 }
       }catch(err){

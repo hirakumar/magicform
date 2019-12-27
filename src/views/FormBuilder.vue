@@ -45,6 +45,8 @@ import FormCreator from '@/components/FormCreator.vue';
 import Elements from '@/components/Elements.vue';
 import Tools from '@/components/Tools.vue';
 import Panel from '@/components/Panel.vue';
+
+import formBuilderStore from '../store/modules/form-builder'
 export default {
   name: 'About',
   data:function(){
@@ -52,11 +54,14 @@ export default {
      showTrue : true
     }
   },
+   created() {
+            this.$store.registerModule('formBuilder', formBuilderStore)
+        },
   computed:{
     getRawElements:{
       get(){
-        if(this.$store.getters.getRawElements.length>0){
-           return this.$store.getters.getRawElements;
+        if(this.$store.getters['formBuilder/getRawElements.length']>0){
+           return this.$store.getters['formBuilder/getRawElements'];
         }
       
       }
@@ -67,9 +72,9 @@ export default {
        },
        set(val){
         console.log(val);
-        var obj = this.$store.getters.getDeviceOptions.find(item=>item.value===val);
+        var obj = this.$store.getters['formBuilder/getDeviceOptions'].find(item=>item.value===val);
         console.log(JSON.stringify(obj));
-          this.$store.dispatch('setSelectedDevice',obj.value);
+          this.$store.dispatch('formBuilder/setSelectedDevice',obj.value);
        }        
     },
     rotateStatus:{
@@ -84,12 +89,12 @@ export default {
     selectedDeviceObj:{
        get(){
           
-          return this.$store.getters.getDeviceOptions.find(item=>item.value===this.selectedDevice);
+          return this.$store.getters['formBuilder/getDeviceOptions'].find(item=>item.value===this.selectedDevice);
        },
     },
     deviceOptions: {
        get(){
-          return this.$store.getters.getDeviceOptions;
+          return this.$store.getters['formBuilder/getDeviceOptions'];
        }
     },
     editorStyle:{
@@ -100,20 +105,20 @@ export default {
     },
     hasElements :{
       get(){
-        return this.$store.getters.hasElements;
+        return this.$store.getters['formBuilder/hasElements'];
       }
     },
     isEditMode:{
       get(){
-        return this.$store.getters.isEditMode;
+        return this.$store.getters['formBuilder/isEditMode'];
       },
       set(val){         
-         return this.$store.commit('setEditMode',val);        
+         return this.$store.commit('formBuilder/setEditMode',val);        
       }
     },
     startStatus:{
       get(){    
-        return (this.$store.getters.getTotalElements>0 ? false : true)
+        return (this.$store.getters['formBuilder/getTotalElements']>0 ? false : true)
       }
     },
   showEditor:{
@@ -127,7 +132,7 @@ export default {
   },
   	containers:{
   		get(){
-       return this.$store.getters.getContainers;
+       return this.$store.getters['formBuilder/getContainers'];
   		},
   		set(val){
   			return val;
@@ -135,32 +140,34 @@ export default {
     },
     isConfigEle:{
       get(){
-        return this.$store.getters.isConfigEle;
+        return this.$store.getters['formBuilder/isConfigEle'];
       }
     },
     enoid :{
       get(){
-        return this.$store.getters.getConfigEle;
+        return this.$store.getters['formBuilder/getConfigEle'];
       }
     },
     activeEno :{
       get(){        
-        return this.$store.getters.getActiveEno;
+        return this.$store.getters['formBuilder/getActiveEno'];
       }
     },
     activeObj:{
       get(){
-        return this.$store.getters.activeObj;
+        return this.$store.getters['formBuilder/activeObj'];
       }
     },
     isResponsiveMode:{
       get(){
-        return this.$store.getters.isResponsiveMode;
+        return this.$store.getters['formBuilder/isResponsiveMode'];
       }
     },
       mainParents:{
         get(){
-          return this.$store.getters.getMainParents;
+         
+          console.log('mainparent : ',this.$store.getters['formBuilder/getMainParents']);
+          return this.$store.getters['formBuilder/getMainParents'];
         }
       }
   },
@@ -172,7 +179,7 @@ export default {
       this.selectedDeviceObj.height=deviceClone.width;
     },
     toggleResponsiveMode : function(){
-      this.$store.dispatch('setResponsiveMode');
+      this.$store.dispatch('formBuilder/setResponsiveMode');
     }
   },
   components:{

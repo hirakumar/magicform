@@ -1,5 +1,3 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
 export const State = {
     count:100,
     configEle : 0,
@@ -17,4 +15,4 @@ export const State = {
       {text:'Desktop', value:'desktop', landscape:true, status:true, width:1280, height:800  }
     ],
      selectedDevice:'desktop'
- }
+   }

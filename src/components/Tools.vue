@@ -127,43 +127,43 @@ export default {
       this.colMenuStatus = false;
     },
     createFormGroup(){
-          this.$store.dispatch('createFormGroup',{formType : 'input'});
+          this.$store.dispatch('formBuilder/createFormGroup',{formType : 'input'});
       },
       createFormSelectBox(){
-        this.$store.dispatch('createFormGroup',{formType : 'form-select'});
+        this.$store.dispatch('formBuilder/createFormGroup',{formType : 'form-select'});
       },
       createCheckBoxGroup(){
-        this.$store.dispatch('createFormGroup',{formType : 'form-checkbox-group'});
+        this.$store.dispatch('formBuilder/createFormGroup',{formType : 'form-checkbox-group'});
       },
       createRadioGroup(){
-        this.$store.dispatch('createFormGroup',{formType : 'form-radio-group'});
+        this.$store.dispatch('formBuilder/createFormGroup',{formType : 'form-radio-group'});
       },
       createTextarea(){
-        this.$store.dispatch('createFormGroup',{formType : 'form-textarea'});
+        this.$store.dispatch('formBuilder/createFormGroup',{formType : 'form-textarea'});
       },
       createFile(){
-        this.$store.dispatch('createFormGroup',{formType : 'form-file'});
+        this.$store.dispatch('formBuilder/createFormGroup',{formType : 'form-file'});
       },
       createButton(){
-        this.$store.dispatch('createEle',{ele : 'button'});
+        this.$store.dispatch('formBuilder/createEle',{ele : 'button'});
       },
       createButtonGroup(){
-        this.$store.dispatch('createButtonGroup',{ele : 'button-group'});
+        this.$store.dispatch('formBuilder/createButtonGroup',{ele : 'button-group'});
       },
       addCol(){
-        this.$store.dispatch('createEle',{ele:'col'});
+        this.$store.dispatch('formBuilder/createEle',{ele:'col'});
       },
       addRow(){
-        this.$store.dispatch('createEle',{ele:'row'});
+        this.$store.dispatch('formBuilder/createEle',{ele:'row'});
       },
       addColBefore: function() {
-          this.$store.commit("addEle", {
+          this.$store.commit("formBuilder/addEle", {
               action: 'addBefore',
               eno: this.data
           });
       },
       addColAfter: function() {
-          this.$store.commit("addEle", {
+          this.$store.commit("formBuilder/addEle", {
               action: 'addAfter',
               eno: this.data
           });
@@ -178,18 +178,18 @@ export default {
       },
       */
       createHTML: function(){
-        this.$store.dispatch('createEle',{ele:'div'});
+        this.$store.dispatch('formBuilder/createEle',{ele:'div'});
       },
       createContainer:function(){
-          this.$store.dispatch('createEle',{ele:'container'});
+          this.$store.dispatch('formBuilder/createEle',{ele:'container'});
       },
        addContainerBefore() {
-            this.$store.commit('addContainer', {
+            this.$store.commit('formBuilder/addContainer', {
                 action: 'addBefore'
             });
         },
         addContainerAfter() {
-            this.$store.commit('addContainer', {
+            this.$store.commit('formBuilder/addContainer', {
                 action: 'addAfter'
             });
         }
@@ -210,7 +210,7 @@ export default {
         get(){
             
             if(this.data != undefined){
-                return this.$store.getters.getObj(this.data);
+                return this.$store.getters['formBuilder/getObj'](this.data);
             }
   		},
   		set(val){

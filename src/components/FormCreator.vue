@@ -17,17 +17,17 @@ export default {
   computed:{    
     hasContainer:{
     	get(){
-    		return this.$store.getters.hasContainer;
+    		return this.$store.getters['formBuilder/hasContainer'];
     	}
     }
   
   },
   methods:{
   	creatContainer : function(){
-  		this.$store.dispatch('createEle',{ele:'container'});
+  		this.$store.dispatch('formBuilder/createEle',{ele:'container'});
 	  },
 	creatForm : function(){
-  		 this.$store.dispatch('createEle',{ele :'form'});
+  		 this.$store.dispatch('formBuilder/createEle',{ele :'form'});
   	}
   },
   components:{
@@ -129,6 +129,7 @@ export default {
 				a{
 					display:flex;
 					justify-content: center;
+					
 					width:20px;
 					height:20px;
 					svg{

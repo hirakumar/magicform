@@ -53,7 +53,7 @@ export default {
      
       eleObj:{
         get(){
-            return this.$store.getters.getObj(this.data);
+            return this.$store.getters['formBuilder/getObj'](this.data);
   		},
   		set(val){
   			return val;
