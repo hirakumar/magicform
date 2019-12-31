@@ -1,5 +1,6 @@
 <template>
     <div class="formGroupBlock" @mouseenter="mouseEnter" @mouseleave="mouseLeave">
+   
       <app-infoele :data="data"  v-if="isEditMode"></app-infoele>
      
       <b-button-group v-if="orderBtn" class="orderBtn">
@@ -7,11 +8,13 @@
       <b-button size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-button>
       <b-button size="sm" @click="remove" v-if="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-button>
       </b-button-group>
-      
+     
       <template v-if="data.before!=undefined">
         <div v-html="data.before" class="before" ></div>
       </template>
-    <b-form-group
+      
+     
+       <b-form-group
       :id="data.id"
       :description="data.description"
       :label="data.label"
@@ -33,37 +36,20 @@
       :disabled="data.disabled"
       :state="data.state"      
     >
-    
-    <app-formcheckbox v-for="checkbox in checkboxes" :data="checkbox" :key="checkbox.eno" :data-eno="checkbox.eno" />
-    <app-formselect v-for="select in formSelects" :data="select" :key="select.eno" />
-    <app-input v-for="input in inputs" :data="input" :key="input.eno" />
-    <app-formcheckboxgroup v-for="checkbox in formcheckboxgroups" :data="checkbox" :key="checkbox.eno" />
-    <app-formradiogroup v-for="radio in formradiogroups" :data="radio" :key="radio.eno" />
-    <app-formfile v-for="file in formfiles" :data="file" :key="file.eno" /> 
-    <app-formtextarea v-for="textarea in formTextareas" :data="textarea" :key="textarea.eno" />
-     <b-form-invalid-feedback >
-        Your user ID must be 5-12 characters long.
-      </b-form-invalid-feedback>
-      <b-form-valid-feedback >
-        Looks Good.
-      </b-form-valid-feedback>
-  </b-form-group>
+  
+    <app-elements :data="child" v-for="child in myChilds" :key="child.eno" />
+
+      
+  </b-form-group> 
   <template v-if="data.after!=undefined">
-  <div v-html="data.after" class="after" ></div>
+    <div v-html="data.after" class="after" ></div>
 </template>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Inputs from '@/components/Inputs.vue'
-import FormCheckboxGroup from '@/components/FormCheckboxGroups.vue'
-import FormRadioGroup from '@/components/FormRadioGroups.vue'
-import FormFile from '@/components/FormFile.vue'
-import FormSelect from '@/components/FormSelect.vue'
-import FormTextarea from '@/components/FormTextarea.vue'
-import FormCheckbox from '@/components/FormCheckbox.vue'
-import InfoEle from '@/components/InfoEle.vue'
+
 
 export default {
   name: 'form_groups',
@@ -89,8 +75,8 @@ export default {
     },
     clickEvent:function(event){
       try{
-        this.$store.commit('setActiveEno',this.data.eno);
-        this.$store.commit('setEditMode',true);
+        this.$store.commit('formBuilder/setActiveEno',this.data.eno);
+        this.$store.commit('formBuilder/setEditMode',true);
       }catch(error){
         console.log("Error on clickEvent");
       }      
@@ -98,7 +84,7 @@ export default {
     setOrderUp : function(event){
       try{
         
-        this.$store.dispatch('setOrder',{activeEno:this.data.eno,action:'up'})
+        this.$store.dispatch('formBuilder/setOrder',{activeEno:this.data.eno,action:'up'})
       }catch(error){
         console.log("Error on setOrderUp", error);
       }
@@ -106,29 +92,29 @@ export default {
     setOrderDown : function(event){
       try{
         
-        this.$store.dispatch('setOrder',{activeEno:this.data.eno,action:'down'})
+        this.$store.dispatch('formBuilder/setOrder',{activeEno:this.data.eno,action:'down'})
       }catch(error){
         console.log("Error on setOrderDown", error);
       }
     },
     remove: function() {
-            this.$store.dispatch("removeObj",{obj:this.data});
+            this.$store.dispatch("formBuilder/removeObj",{obj:this.data});
         },
   },
   computed:{
     isEditMode:{
       get(){
-        return this.$store.getters.isEditMode;
+        return this.$store.getters['formBuilder/isEditMode'];
       },      
     },
     isfirstOrder:{
       get(){
-        return this.$store.getters.isFirstOrder(this.data.eno);
+        return this.$store.getters['formBuilder/isFirstOrder'](this.data.eno);
       }
     },
     isLastOrder:{
       get(){
-        return this.$store.getters.isLastOrder(this.data.eno);
+        return this.$store.getters['formBuilder/isLastOrder'](this.data.eno);
       }
     },
     formGroupID : {
@@ -139,56 +125,37 @@ export default {
         return val;
       }
     },
-    inputs:{
+   
+   hasChild:{
+        get(){
+            if(this.data != undefined){
+                
+                return this.$store.getters['formBuilder/hasChild'](this.data.eno);
+            }
+            
+        }
+    },
+      myChilds:{
       get(){
-        return this.$store.getters.getInputs(this.formGroupID);
-      },
-      set(val){
-        return val;
+        if(this.data != undefined){
+          return this.$store.getters['formBuilder/getChilds'](this.data.eno)
+        }
       }
     },
-    formcheckboxgroups :{
-      get(){
-        return this.$store.getters.getformCheckboxGroup(this.formGroupID)
-      }
-    },
-    formradiogroups :{
-      get(){
-        return this.$store.getters.getformRadioGroup(this.formGroupID)
-      }
-    },
-    formfiles:{
-       get(){
-        return this.$store.getters.getformFile(this.formGroupID)
-      }
-    },
-    formSelects:{
-      get(){
-        return this.$store.getters.getformSelect(this.formGroupID)
-        
-      }
-    },
-    formTextareas:{
-      get(){
-        return this.$store.getters.getformTextarea(this.formGroupID)
-        
-      }
-    },
-    checkboxes :{
-		get(){
-			return this.$store.getters.getformcheckboxs(this.formGroupID)
-		}
-	}
   },
+
+
+
   components: {
-    'app-input' : Inputs,
-    'app-formcheckboxgroup' : FormCheckboxGroup,
-    'app-formradiogroup' : FormRadioGroup,
-    'app-formfile' : FormFile,
-    'app-formselect' : FormSelect,
-    'app-formtextarea' : FormTextarea,
-    'app-formcheckbox' : FormCheckbox,
-    'app-infoele' : InfoEle
+    'app-input': () => import ('@/components/Inputs.vue'),
+    'app-formcheckboxgroup' : ()=> import ('@/components/FormCheckboxGroups.vue'),
+    'app-formradiogroup' : ()=> import ('@/components/FormRadioGroups.vue'),
+    'app-formfile' : ()=> import ('@/components/FormFile.vue'),
+    'app-formselect'  : ()=> import ('@/components/FormSelect.vue'),
+    'app-formtextarea' : ()=> import ('@/components/FormTextarea.vue'),
+    'app-formcheckbox' : ()=> import ('@/components/FormCheckbox.vue'),
+    'app-infoele' : ()=> import ('@/components/InfoEle.vue'),
+    'app-elements' : ()=> import ('@/components/Elements.vue'),
   }
 }
 </script>

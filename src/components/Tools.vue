@@ -1,6 +1,6 @@
 <template>
   <div class="toolsEle">
-    <b-btn-group :vertical="true" size="sm" >
+    <b-btn-group :vertical="false" size="sm" >
       <!-- ### Container ###  -->
       <template v-if="isContainer">
           <b-button @click="addRow">Add Row</b-button>

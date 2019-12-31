@@ -9,31 +9,35 @@
       :align-h="data['align-h']" 
       :align-content="data['align-content']"
        @mouseenter="mouseEnter" @mouseleave="mouseLeave"
-      >
-    <div class="rowHolder" v-if="isEditMode">
-        <app-infoele :data="data"></app-infoele>
-         <b-button-group v-if="orderBtn" class="orderBtn">
-          <b-button size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-button>
+      >  
+     <div class="rowHolder" v-if="isEditMode">
+         <app-infoele :data="data" v-if="isEditMode"></app-infoele> 
+         
+         <b-button-group class="orderBtn">
+         <!-- <b-button size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-button>
           <b-button size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-button>
-          <b-button size="sm" @click="remove" v-if="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-button>
+          <b-button size="sm" @click="remove" v-show="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-button>-->
         </b-button-group>
+       
     </div>
-  	<app-col :data="col" v-for="col in cols" :key="col.id" :data-id="col.id" />
+    <template v-if="hasChild">
+        <app-elements :data="child" v-for="child in myChilds"  :key="child.eno" />
+  </template>
+
   </b-row>  
 </template>
 
 <script>
 
-import Cols from '@/components/Cols.vue'
-import InfoEle from '@/components/InfoEle.vue'
+
 export default {
   name: 'row',
    props:{
   	data:Object
   },
   components:{
-  	'app-col' : Cols,
-    'app-infoele' : InfoEle
+    'app-elements' :  () => import('@/components/Elements.vue'),
+    'app-infoele' : () => import('@/components/InfoEle.vue'),
   },
   data:function(){
     return {
@@ -41,80 +45,87 @@ export default {
     }
   },
   computed:{
-    
-  	cols:{
-  		get(){
-  			return this.$store.getters.getCols(this.data.eno);
-  		},
-  		set(val){
-  			return val;
-  		}
-    },
-    isEditMode:{
-		get(){
-			return this.$store.getters.isEditMode;
-		},      
-    },
      isfirstOrder:{
       get(){
-        return this.$store.getters.isFirstOrder(this.data.eno);
+        if(this.data != undefined){
+          return this.$store.getters['isFirstOrder'](this.data.eno);
+        }
       }
     },
     isLastOrder:{
       get(){
-        return this.$store.getters.isLastOrder(this.data.eno);
+        if(this.data != undefined){
+        return this.$store.getters['isLastOrder'](this.data.eno);
+        }
+      }
+    },
+    isEditMode:{
+      get(){
+        return this.$store.getters['formBuilder/isEditMode'];
+      },      
+    },
+     hasChild:{
+        get(){
+            if(this.data != undefined){
+                
+                return this.$store.getters['formBuilder/hasChild'](this.data.eno);
+            }            
+        }
+    },
+    myChilds:{
+      get(){
+        if(this.data != undefined){
+          return this.$store.getters['formBuilder/getChilds'](this.data.eno)
+        }
       }
     },
   },
-    methods:{
+  methods:{
     clickCol : function(event){
       event.currentTarget.classList.add('active');
-      this.$store.commit('setEditMode',true);
-      this.$store.commit('setActiveEno',this.data.eno);
+      this.$store.commit('formBuilder/setEditMode',true);
+      this.$store.commit('formBuilder/setActiveEno',this.data.eno);
       event.preventDefault();
       event.stopPropagation();
     },
-     mouseEnter:function(){
-    // this.$store.commit('changeEle',this.data.eno);
-    if(this.isEditMode){
-      this.orderBtn=true;
-    }
-    
+    mouseEnter:function(){
+      // this.$store.commit('changeEle',this.data.eno);
+      if(this.isEditMode){
+        this.orderBtn=true;
+      }
     },
    
     mouseLeave:function(){
       this.orderBtn=false;
     },
     increaselevel: function() {
-            try {
-                this.expandlevel += 1;
-            } catch (err) {
-                console.log("Error on increaselevel :", err)
-            }
+      try {
+          this.expandlevel += 1;
+      } catch (err) {
+          console.log("Error on increaselevel :", err)
+      }
 
-        },
-        decreaselevel: function() {
-            try {
-                this.expandlevel -= 1;
-            } catch (err) {
-                console.log("Error on decreaselevel :", err)
-            }
-        },
-        remove: function() {
-            this.$store.dispatch("removeObj");
-        },
-         setOrderUp : function(event){
-      try{
-        
-        this.$store.dispatch('setOrder',{activeEno:this.data.eno,action:'up'})
+    },
+    decreaselevel: function() {
+        try {
+            this.expandlevel -= 1;
+        } catch (err) {
+            console.log("Error on decreaselevel :", err)
+        }
+    },
+    remove: function() {
+        this.$store.dispatch("formBuilder/removeObj");
+    },
+    setOrderUp : function(event){
+      try{        
+        this.$store.dispatch('formBuilder/setOrder',{activeEno:this.data.eno,action:'up'})
       }catch(error){
         console.log("Error on setOrderUp", error);
       }
     },
     setOrderDown : function(event){
-      try{
-        
-        this.$store.dispatch('setOrder',{activeEno:this.data.eno,action:'down'})
+      try{        
+        this.$store.dispatch('formBuilder/setOrder',{activeEno:this.data.eno,action:'down'})
       }catch(error){
         console.log("Error on setOrderDown", error);
       }

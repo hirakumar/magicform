@@ -181,7 +181,7 @@ const mutations = {
       },
       addElement(state,payload){
         try{
-          console.log("Add Element");
+         
         state.elements.push(payload);
         state.lasteno=payload.eno;
         if(state.activeEno == null){
@@ -191,7 +191,7 @@ const mutations = {
           state.editMode=true;
         }
         }catch(error){
-          console.log("Error on addElement :", error);
+          console.log("Error on mutation addElement :", error);
         }
         
       },

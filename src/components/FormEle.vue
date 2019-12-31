@@ -1,7 +1,9 @@
 <template>
    <div class="formEle">  
+     
       <app-infoele :data="data" v-if="isEditMode"></app-infoele>
       <b-form @submit="onSubmit" @reset="onReset" :class="data.class" :id="data.id" :inline="data.inline" :novalidate="data.novalidate" :validated="data.validated" >
+       
         <app-elements :data="child" v-for="child in myChilds" :key="child.eno" />
       </b-form>
    </div>

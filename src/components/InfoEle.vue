@@ -47,13 +47,7 @@ export default {
           }
           
           return str;
-        /*return {{data.ele}} +" id: "+
-
-         <span class="ele">&lt;{{data.ele}}</span> 
-     <span class="eno">eno="{{data.eno}}"</span>
-    <span v-if="data.hasOwnProperty('id')" class="ele_id"> id="{{data.id}}" </span> 
-    <span v-if="data.hasOwnProperty('class')" class="ele_class"> class="{{data.class}}" </span>  order="{{data.order}}" 
-    <span v-if="data.hasOwnProperty('name')" class="ele_name"> class="{{data.name}}" </span>*/
+        
       }
     }
   },

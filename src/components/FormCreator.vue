@@ -51,7 +51,7 @@ export default {
 		
 	}
 }
-.toolsEle{position:absolute; left: 10px; top: 114px;}
+.toolsEle{position:absolute; left: 10px; top: 61px;}
 
 .showEditor{
 

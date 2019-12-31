@@ -1,29 +1,22 @@
 <template>
-  
-    <b-col 
+	<b-col 
     	:offset = "myoffset" 
-
     	:order = "myorder" 
-    	
     	:cols = "mycols"
 		:data-eno = "data.eno"
 		:id = "data.id"
 		:align-self = "data['align-self']"
 		:tag = "data.tag"
 		:class= "data.class"
-		
-		
-    >
-	<!--
+    > 
 	<b-button-group class="orderBtn">
 		<b-link size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-link>
 		<b-link size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-link>
 		<b-link size="sm" @click="remove" v-if="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-link>
 	</b-button-group>
-	-->
 	<app-infoele :data="data" @click ="clickCol" v-if="isEditMode"></app-infoele>
-
-	<app-elements v-for="child in childs" :key="child.eno" :data="child" :parentID="colID" />
+	<app-elements v-for="child in myChilds" :key="child.eno" :data="child" :parentID="colID" /> 
+	
     </b-col>
   
 </template>
@@ -31,8 +24,6 @@
 <script>
 // @ is an alias to /src
 
-import Elements from '@/components/Elements.vue'
-import InfoEle from '@/components/InfoEle.vue'
 export default {
   name: 'cols',
   props:{
@@ -51,21 +42,31 @@ export default {
   		set(val){
   			return val;
   		}
-	  },
-	  childs:{
-		  get(){
-			  return this.$store.getters.getChilds(this.colID);
-		  }
-	  },
-	isEditMode:{
-		get(){
-			return this.$store.getters.isEditMode;
-		},      
 	},
-	
+	isEditMode:{
+      get(){
+        return this.$store.getters['formBuilder/isEditMode'];
+      },      
+    },
+    hasChild:{
+        get(){
+            if(this.data != undefined){
+                
+                return this.$store.getters['formBuilder/hasChild'](this.data.eno);
+            }
+            
+        }
+    },
+    myChilds:{
+      get(){
+        if(this.data != undefined){
+          return this.$store.getters['formBuilder/getChilds'](this.data.eno)
+        }
+      }
+    },
 	device :{
             get(){
-                return this.$store.getters.getDeviceObj;
+                return this.$store.getters['formBuilder/getDeviceObj'];
             }
 		}, 
 	mycols:{
@@ -86,7 +87,6 @@ export default {
 	},
 	myoffset:{
 		get(){
-			
 			if(this.device.width>=1200){
 				return this.data['offset-xl'];
 			}else if(this.device.width>=992){
@@ -122,7 +122,7 @@ export default {
   methods:{
 	 hoverOn: function(id) {
 		  this.orderBtn=true;
-		  this.$store.commit('changeEle',id);
+		  this.$store.commit('formBuilder/changeEle',id);
 		  this.$el.classList.add('hoverEle');
 	  },
 	  hoverOut :  function(){
@@ -131,15 +131,15 @@ export default {
 	  },
 	  clickCol : function(event){
 		  event.currentTarget.classList.add('active');
-		  this.$store.commit('setEditMode',true);
-		  this.$store.commit('setActiveEno',this.data.eno);
+		  this.$store.commit('formBuilder/setEditMode',true);
+		  this.$store.commit('formBuilder/setActiveEno',this.data.eno);
 			event.preventDefault();
 			event.stopPropagation();
 	  }
   },
   components:{
-	'app-elements' : Elements,
-    'app-infoele' : InfoEle
+ 	'app-elements' :  () => import('@/components/Elements.vue'),
+    'app-infoele' : () => import('@/components/InfoEle.vue'),
   }
 }
 </script>

@@ -18,7 +18,7 @@
       </b-row>
    </b-container>
  </div>
-    <app-tools :data="activeEno" v-if="isEditMode" />
+    <app-tools :data="activeEno" v-if="hasElements" />
     <app-panel :data="activeEno" v-if="isEditMode"></app-panel>
   <b-container class="about" v-if="!hasElements">
       <b-row align-v="center" align-h="center" align-content="center">
@@ -31,9 +31,14 @@
         </b-col>
       </b-row>   
   </b-container>
+  <!--  <div  > -->
    <div :class="['formEditor pt-3',showEditor]" >
-      <div class="device " :style="editorStyle" v-if="hasElements" >
-             {{getRawElements}}
+     
+      <!--  <div class="device " :style="editorStyle" v-if="hasElements" > -->
+        
+      <div class="device " :style="editorStyle"  v-if="hasElements" >
+             
+           
               <app-elements :data="mainParent" v-for="mainParent in mainParents" :key="mainParent.eno" />
       </div>
    </div> 
@@ -41,10 +46,7 @@
 </template>
 <script>
 
-import FormCreator from '@/components/FormCreator.vue';
-import Elements from '@/components/Elements.vue';
-import Tools from '@/components/Tools.vue';
-import Panel from '@/components/Panel.vue';
+
 
 import formBuilderStore from '../store/modules/form-builder'
 export default {
@@ -60,10 +62,15 @@ export default {
   computed:{
     getRawElements:{
       get(){
-        if(this.$store.getters['formBuilder/getRawElements.length']>0){
+       
+        if(this.$store.getters['formBuilder/getRawElements'].length>0){
+           
            return this.$store.getters['formBuilder/getRawElements'];
         }
       
+      },
+      set(val){
+        return val;
       }
     },
     selectedDevice:{
@@ -71,9 +78,9 @@ export default {
           return this.$store.getters.getSelectedDevice;
        },
        set(val){
-        console.log(val);
+       
         var obj = this.$store.getters['formBuilder/getDeviceOptions'].find(item=>item.value===val);
-        console.log(JSON.stringify(obj));
+       
           this.$store.dispatch('formBuilder/setSelectedDevice',obj.value);
        }        
     },
@@ -99,12 +106,19 @@ export default {
     },
     editorStyle:{
       get(){
-        return `width:${this.selectedDeviceObj.width}px;min-height:${this.selectedDeviceObj.height}px;`
+        console.log(this.selectedDeviceObj);
+        if(this.selectedDeviceObj != undefined){
+            return `width:${this.selectedDeviceObj.width}px;min-height:${this.selectedDeviceObj.height}px;`
+        }else{
+           return 'width:100%';
+        }
+        
       }
       
     },
     hasElements :{
       get(){
+       
         return this.$store.getters['formBuilder/hasElements'];
       }
     },
@@ -165,8 +179,6 @@ export default {
     },
       mainParents:{
         get(){
-         
-          console.log('mainparent : ',this.$store.getters['formBuilder/getMainParents']);
           return this.$store.getters['formBuilder/getMainParents'];
         }
       }
@@ -184,10 +196,10 @@ export default {
   },
   components:{
     
-    'app-creator':FormCreator,
-    'app-elements' : Elements,
-    'app-tools' : Tools,
-    'app-panel' : Panel
+    'app-creator':() => import('@/components/FormCreator.vue'),
+    'app-elements': () => import('@/components/Elements.vue'),
+    'app-tools' : () => import('@/components/Tools.vue'),
+    'app-panel' : () => import('@/components/Panel.vue'),
   }
   
 }

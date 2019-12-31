@@ -14,7 +14,7 @@
       :ariaRole = "data['aria-role']"        
     >    
     <template v-if="hasChild">     
-       <app-button v-for="btn in buttons" :data="btn" :key="btn.order"></app-button>
+       <app-elements :data="child" v-for="child in myChilds" :key="child.eno" />
     </template>
     
   </b-btn-group>
@@ -45,24 +45,30 @@ export default {
   computed:{
     isEditMode:{
       get(){
-        return this.$store.getters.isEditMode;
+        return this.$store.getters['formBuilder/isEditMode'];
       },      
     },
+  
     hasChild:{
         get(){
-            return this.$store.getters.hasChild(this.data.eno);
+            if(this.data != undefined){
+                
+                return this.$store.getters['formBuilder/hasChild'](this.data.eno);
+            }
+            
         }
     },
-    buttons:{
-        get(){
-            if(this.hasChild){
-                return this.$store.getters.getChilds(this.data.eno);
-            }
+    myChilds:{
+      get(){
+        if(this.data != undefined){
+          return this.$store.getters['formBuilder/getChilds'](this.data.eno)
         }
-    }
+      }
+    },
   },
   components: {
     'app-button' : Button,
+    'app-elements' :  () => import('@/components/Elements.vue'),
    
   }
 }

@@ -16,7 +16,7 @@ const actions = {
         let eno = activeObj.eno;
       
         let allParentChilds = context.getters.getChilds(activeObj.parent);
-        let allChidsWithOrder = allParentChilds.sort((a,b)=> { return a.order - b.order} );
+        var allChidsWithOrder = allParentChilds.sort((a,b)=> { return a.order - b.order} );
        
         
         let arry=[];
@@ -48,31 +48,42 @@ const actions = {
   
       },
       addOption(context,payload){
-        let eno = context.getters.getActiveEno;
-        let index = context.getters.getIndexByEno(eno);
-        context.commit('addSelectBoxOption',{index:index,options:payload});
+        try{
+          let eno = context.getters.getActiveEno;
+          let index = context.getters.getIndexByEno(eno);
+          context.commit('addSelectBoxOption',{index:index,options:payload});
+        }catch(error){
+          console.log("Error on addOption :" + error);
+        }
+        
       },
       removeSelectOption(context,payload){
-        let eno = context.getters.getActiveEno;
-        let index = context.getters.getIndexByEno(eno);
-        context.commit('removeSelectBoxOption',{objIndex:index,optionIndex:payload.index})
+        try{
+          let eno = context.getters.getActiveEno;
+          let index = context.getters.getIndexByEno(eno);
+          context.commit('removeSelectBoxOption',{objIndex:index,optionIndex:payload.index})
+        }catch(error){
+          console.log("Error on removeSelectOption :" + error);
+        }
+       
       },
       createEle(context,payload){
-        console.log("CreateEle Payload :", payload.ele);
+        try{
+        
         let activeObj = context.getters.getActiveObj;
-        console.log("Active Obj", activeObj);
+        
         if(activeObj == undefined){
           activeObj={eno:null};
         }
-        console.log("Active Obj", activeObj);
+        
         var lasteno = context.getters.getLastEno;  
-        console.log("Last Eno", lasteno);
+       
         if(lasteno==null){
           context.commit('setLastEno',{eno:0});
         }
         
         lasteno = context.state.lasteno; 
-        console.log("Last Eno", lasteno);
+      
         
         let obj;
         let order=1;
@@ -81,13 +92,13 @@ const actions = {
         if(context.getters.getLastChild != false){
             order= parseInt(context.getters.getLastChild.order)+1;
         }
-        console.log("oRDER", order);
+       
      
   
         switch(payload.ele){
   
           case 'form': 
-          console.log("This is form");
+          
           obj = {eno : lasteno+1, order:order,  ele:'form', inline:false, novalidate:false, validated:false};
           if(activeObj!=undefined){
             obj.parent=activeObj.eno
@@ -141,11 +152,14 @@ const actions = {
           break;
         }
         
-        //context.commit('addElement',obj);
+      }catch(error){
+        console.log("Error on createEle :" + error);
+      }
         
         
       },
       createButtonGroup(context,payload){
+        try{
         let activeObj = context.getters.getActiveObj;
         let lasteno = context.getters.getLastEno;  
         
@@ -154,14 +168,16 @@ const actions = {
   
         let btnObj = {eno : lasteno+2, text:'Button', order:1, 'border-style':null, ele:'button', parent:lasteno+1, id : `btn${lasteno+1}`, name:`btn${lasteno+1}`, active : false, disabled : false, append: false, replace : false, 'active-class':'active', exact: false, 'exact-active-class': '', 'router-tag':'a', block:false,size:'md',variant:'secondary', type:'button', tag:'button',pill:false,squared:false}
         context.commit('addElement',btnObj);
+        }catch(error){
+          console.log("Error on createEle :" + error);
+        }
       },
       createFormGroup(context,payload){
-      
+        try{
         let activeObj = context.getters.getActiveObj;
         let lasteno = context.getters.getLastEno;  
         if(lasteno==null){
-          // context.commit('setLastEno',{eno:obj.eno});
-  
+          
           let list =context.getters.getRawElements.sort((a,b)=> { return a.eno - b.eno} );
           let lasteno= list[list.length-1].eno;
           context.commit('setLastEno',{eno:lasteno});
@@ -212,7 +228,9 @@ const actions = {
        
         context.commit('addElement',inputObj);
        
-  
+        }catch(error){
+          console.log("Error on createFormGroup :" + error);
+        }
       },
   removeObj(context,payload){
   

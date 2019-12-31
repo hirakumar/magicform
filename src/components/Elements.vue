@@ -1,9 +1,9 @@
 <template>  
-<div> 
-   
+
+
 <app-parentelement :data="data" v-if="hasChild" />
  <app-childelement :data="data" v-else />   
-</div>
+
 </template>
 <script>
 
@@ -38,8 +38,9 @@ export default {
   },
   components:{
      
-      'app-childelement' : ChildElement,
-      'app-parentelement' : ParentElement,
+      'app-childelement' : () => import('@/components/ChildElement.vue'),
+      'app-parentelement' : () => import('@/components/ParentElement.vue'),
+
   }
 }
 </script>
