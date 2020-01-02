@@ -324,7 +324,7 @@ export default {
 <style scoped >
 .subBtnGroup{
   position:absolute;
-  top:-2px;
-  left:45px;
+  top:30px;
+  left:0px;
 }
 </style>

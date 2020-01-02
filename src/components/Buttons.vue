@@ -108,7 +108,7 @@ export default {
     },
     remove: function() {
       try{
-      this.$store.dispatch("formBuilder/removeObj",this.eleObj);
+        this.$store.dispatch("formBuilder/removeObj",this.eleObj);
        }catch(error){
         console.log("Error on remove", error);
       }
