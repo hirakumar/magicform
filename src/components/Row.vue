@@ -21,7 +21,7 @@
        
     </div>
     <template v-if="hasChild">
-        <app-elements :data="child" v-for="child in myChilds"  :key="child.eno" />
+      <app-elements :data="child" v-for="child in myChilds"  :key="child.eno" />
   </template>
 
   </b-row>  

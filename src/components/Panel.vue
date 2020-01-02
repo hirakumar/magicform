@@ -1,24 +1,22 @@
 <template>
-
-
-     <div class="configBlock" v-if="data!=undefined">
-       
-          
-                <app-configContainer v-if="isContainer" :data="data" />
-                <app-configCols v-if="isCol" :data="data" />
-                <app-configRow v-if="isRow" :data="data" />
-                <app-configFormGroup v-if="isFormGroup" :data="data" />
-                <app-configInput v-if="isInput" :data="data" />
-                <app-config-form-select v-if="isFormSelect" :data="data"></app-config-form-select>          
-                <app-config-checkbox-group v-if="isCheckBoxGroup" :data="data"></app-config-checkbox-group>
-                <app-config-radio-group v-if="isRadioGroup" :data="data" />
-                <app-config-textarea v-if="isTextarea" :data="data" />
-                <app-config-file v-if="isFile" :data="data" />
-                <app-button v-if="isButton" :data="data"  />
-                <app-button-group v-if="isButtonGroup" :data="data" />
-                <app-divele v-if="isDivEle" :data="data" />
-                <app-config-form v-if="isForm" :data="data" />
-              </div>
+<div class="configBlock" v-if="data!=undefined">
+  <app-configContainer v-if="isContainer" :data="data" />
+  <app-configCols v-if="isCol" :data="data" />
+  <app-configRow v-if="isRow" :data="data" />
+  <app-configFormGroup v-if="isFormGroup" :data="data" />
+  <app-configInput v-if="isInput" :data="data" />
+  <app-config-form-select v-if="isFormSelect" :data="data"></app-config-form-select>          
+  <app-config-checkbox-group v-if="isCheckBoxGroup" :data="data"></app-config-checkbox-group>
+  <app-config-radio-group v-if="isRadioGroup" :data="data" />
+  <app-config-textarea v-if="isTextarea" :data="data" />
+  <app-config-file v-if="isFile" :data="data" />
+  <app-button v-if="isButton" :data="data"  />
+  <app-button-group v-if="isButtonGroup" :data="data" />
+  <app-divele v-if="isDivEle" :data="data" />
+  <template v-if="isForm">
+    <app-config-form :data="data" ></app-config-form>
+  </template>
+</div>
    
 
 </template>
@@ -53,7 +51,7 @@ export default {
      
       eleObj:{
         get(){
-            return this.$store.getters['formBuilder/getObj'](this.data);
+            return this.$store.getters['formBuilder/getObj'](this.eno);
   		},
   		set(val){
   			return val;
@@ -63,7 +61,6 @@ export default {
       isContainer:{
         get(){
             if(this.eleObj != undefined){
-
               return (this.eleObj.ele=="container" ? true : false);
             }
           }
@@ -91,6 +88,7 @@ export default {
       },
       isForm:{
           get(){
+           
             if(this.eleObj != undefined){
               return (this.eleObj.ele=="form" ? true : false);
             }
@@ -160,11 +158,6 @@ export default {
             }
           }
       },
-     
-      
-  
-      
-
   },
  
   components:{

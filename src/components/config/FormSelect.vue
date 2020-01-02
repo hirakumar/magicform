@@ -166,7 +166,7 @@ export default {
 
         eleObj: {
             get() {
-                return this.$store.getters.getObj(this.eno);
+                return this.$store.getters['formBuilder/getObj'](this.eno);
             },
             set(val) {
                 return val;
@@ -198,11 +198,11 @@ export default {
       this.value =this.text.replace(/\s/g,'_').toLowerCase();
     },
     addOption : function(){
-      this.$store.dispatch('addOption',{text:this.text, value:this.value})
+      this.$store.dispatch('formBuilder/addOption',{text:this.text, value:this.value})
     },
     removeOption : function(index){
       console.log(index);
-      this.$store.dispatch('removeSelectOption',{index:index});
+      this.$store.dispatch('formBuilder/removeSelectOption',{index:index});
     },
     increaselevel: function() {
       try {
@@ -219,7 +219,7 @@ export default {
       }
     },
     remove: function() {
-            this.$store.dispatch("removeObj");
+            this.$store.dispatch("formBuilder/removeObj",this.eleObj);
         },
   },
   

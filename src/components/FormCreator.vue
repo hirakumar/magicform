@@ -60,10 +60,10 @@ export default {
 		width:100%;
 	}
 
-.buttonGroup,.formEle{
+.buttonGroup,.formEle,.formCheckBoxGroups{
 				border:dashed 1px gray;
 }
-.formGroupBlock,.btnEle,.divEle,.rowHolder{position:relative;
+.formGroupBlock,.btnEle,.divEle,.rowHolder,.eleHolder{position:relative;
 	.orderBtn{position:absolute; top:0px; right:0px; z-index:99}
 }
 .eleinfo{

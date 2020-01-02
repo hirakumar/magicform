@@ -92,61 +92,16 @@ export default {
   computed:{
     
   
-     eno:{
-          get(){
-             return this.data; 
-          }
-      },
      
       eleObj:{
         get(){
-            return this.$store.getters.getObj(this.eno);
+            return this.$store.getters['formBuilder/getObj'](this.data);
   		},
   		set(val){
   			return val;
   		}
       },
-      rowTag:{
-           get(){
-                return this.eleObj.tag;
-            },set(val){
-              
-               this.$store.commit('editObj',{tag:val})
-            }
-      },
-      noGutters:{
-            get(){
-                return this.eleObj['no-gutters'];
-            },set(val){
-                this.$store.commit('editObj',{"no-gutters":val})
-            }
-      },
-      alignV:{
-         
-          get(){
-                return this.eleObj['align-v'];
-            },set(val){
-                
-               this.$store.commit('editObj',{"align-v":val})
-            }
-      },
-       alignH:{
-         
-          get(){
-                return this.eleObj['align-h'];
-            },set(val){
-                
-               this.$store.commit('editObj',{"align-h":val})
-            }
-      },
-      alignContent:{
-        get(){
-                return this.eleObj['align-content'];
-            },set(val){
-                
-               this.$store.commit('editObj',{"align-content":val})
-            }
-      },
+     
   
   },
   methods:{

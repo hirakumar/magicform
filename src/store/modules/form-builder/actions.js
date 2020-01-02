@@ -236,17 +236,16 @@ const actions = {
   
         try{
   
-         
-        let obj;
-        if(payload!=undefined){
-          obj=payload.data;
-        }else{
-          obj=context.getters.getActiveObj
-        }
+          var obj;
+          if(payload!=undefined){
+            obj=payload;
+          }else{
+            obj=context.getters.getActiveObj
+          }
        
         var removeEle=[];
   
-        removeEle.push(context.getters.getActiveEno);
+        removeEle.push(obj.eno);
   
         // Recursive function to detect it's child and collect eno on remoEle variable
         var findChilds= function searchChild(parentID){
@@ -260,12 +259,12 @@ const actions = {
           }        
         }
   
-        findChilds(context.getters.getActiveEno);
+        findChilds(obj.eno);
         
         // Removing one by one
         removeEle.map((eno)=>{
             
-            let obj = context.getters.getObj(eno);
+            var obj = context.getters.getObj(eno);
             let index = context.getters.getIndexByEno(eno);
   
             // Removing specific obj from it's index

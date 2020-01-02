@@ -182,7 +182,11 @@ export default {
        
         eleObj: {
             get() {
-                return this.$store.getters.getObj(this.eno);
+                try{
+                    return this.$store.getters['formBuilder/getObj'](this.data);
+                } catch (err) {
+                    console.log("Error on eleObj :", err)
+                }
             },
             set(val) {
                 return val;
@@ -191,51 +195,79 @@ export default {
        
         isCol: {
             get() {
-                return (this.eleObj.ele == "col" ? true : false);
+                try{
+                    return (this.eleObj.ele == "col" ? true : false);
+                } catch (err) {
+                    console.log("Error on isCol :", err)
+                }
             }
         },
         device :{
             get(){
-                return this.$store.getters.getDeviceObj;
+                try{
+                    return this.$store.getters['formBuilder/getDeviceObj'];
+                } catch (err) {
+                    console.log("Error on device :", err)
+                }
             }
         },
        isResponsiveMode:{
-      get(){
-        return this.$store.getters.isResponsiveMode;
-      }
-    },
-        mycols:{
-		get(){
-            if(this.device.width>=1200){
-                return this.eleObj.xl;
-            } else if(this.device.width>=992){
-				return this.eleObj.lg;
-			}else if(this.device.width>=768){
-				return this.eleObj.md;
-			}else if(this.device.width>=576){
-				return this.eleObj.sm;
-            }else if(this.device.width<576){
-				return this.eleObj.cols
-			}
-		},
-		set(val){
-            
-            if(!this.isResponsiveMode){
-                 this.$store.commit('editObj',{cols:val})
-            }else{
-                if(this.device.width>=1200){                
-                    this.$store.commit('editObj',{xl:val})               
-                }else if(this.device.width>=992){
-                    this.$store.commit('editObj',{lg:val})
-                }else if(this.device.width>=768){
-                    this.$store.commit('editObj',{md:val})
-                }else if(this.device.width>=576){
-                    this.$store.commit('editObj',{sm:val})
-                } else if(this.device.width<576){
-                    this.$store.commit('editObj',{cols:val})
+            get(){
+                try{
+                    return this.$store.getters['formBuilder/isResponsiveMode'];
+                } catch (err) {
+                    console.log("Error on isResponsiveMode :", err)
                 }
             }
-			
+        },
+        mycols:{
+		get(){
+            try{
+           if(this.device !=undefined){
+                if(this.device.width>=1200){
+                    return this.eleObj.xl;
+                } else if(this.device.width>=992){
+                    return this.eleObj.lg;
+                }else if(this.device.width>=768){
+                    return this.eleObj.md;
+                }else if(this.device.width>=576){
+                    return this.eleObj.sm;
+                }else if(this.device.width<576){
+                    return this.eleObj.cols
+                }
+           }else{
+               return this.eleObj.cols
+           }
+           } catch (err) {
+                console.log("Error on get mycols :", err)
+            }
+            
+            
+		},
+		set(val){
+            try{
+            if(!this.isResponsiveMode){
+                 this.$store.commit('formBuilder/editObj',{cols:val})
+            }else{
+                if(this.device !=undefined){
+                    if(this.device.width>=1200){                
+                        this.$store.commit('formBuilder/editObj',{xl:val})               
+                    }else if(this.device.width>=992){
+                        this.$store.commit('formBuilder/editObj',{lg:val})
+                    }else if(this.device.width>=768){
+                        this.$store.commit('formBuilder/editObj',{md:val})
+                    }else if(this.device.width>=576){
+                        this.$store.commit('formBuilder/editObj',{sm:val})
+                    } else if(this.device.width<576){
+                        this.$store.commit('formBuilder/editObj',{cols:val})
+                    }
+                }else{
+                     this.$store.commit('formBuilder/editObj',{cols:val})
+                }
+            }
+			} catch (err) {
+                console.log("Error on set mycols :", err)
+            }
             
 				
 			
@@ -244,76 +276,107 @@ export default {
     }, 
     myoffset:{
 		get(){
-            if(this.device.width>=1200){
-                return this.eleObj['offset-xl'];
-            } else if(this.device.width>=992){
-				return this.eleObj['offset-lg'];
-			}else if(this.device.width>=768){
-				return this.eleObj['offset-md'];
-			}else if(this.device.width>=576){
-				return this.eleObj['offset-sm'];
-            }else if(this.device.width<576){
-				return this.eleObj.offset
-			}
+            try{
+            if(this.device !=undefined){
+                if(this.device.width>=1200){
+                    return this.eleObj['offset-xl'];
+                } else if(this.device.width>=992){
+                    return this.eleObj['offset-lg'];
+                }else if(this.device.width>=768){
+                    return this.eleObj['offset-md'];
+                }else if(this.device.width>=576){
+                    return this.eleObj['offset-sm'];
+                }else if(this.device.width<576){
+                    return this.eleObj.offset
+                }
+            }else{
+                return this.eleObj.offset
+            }
+             } catch (err) {
+                console.log("Error on get myoffset :", err)
+            }
 		},
 		set(val){
-            
-			if(this.device.width>=1200){
-                
-                this.$store.commit('editObj',{'offset-xl':val})               
-			}else if(this.device.width>=992){
-				this.$store.commit('editObj',{'offset-lg':val})
-			}else if(this.device.width>=768){
-				this.$store.commit('editObj',{'offset-md':val})
-			}else if(this.device.width>=576){
-                this.$store.commit('editObj',{'offset-sm':val})
-            } else if(this.device.width<576){
-				 this.$store.commit('editObj',{offset:val})
-			}		
+            try{
+            if(this.device !=undefined){
+                if(this.device.width>=1200){
+                    this.$store.commit('formBuilder/editObj',{'offset-xl':val})               
+                }else if(this.device.width>=992){
+                    this.$store.commit('formBuilder/editObj',{'offset-lg':val})
+                }else if(this.device.width>=768){
+                    this.$store.commit('formBuilder/editObj',{'offset-md':val})
+                }else if(this.device.width>=576){
+                    this.$store.commit('formBuilder/editObj',{'offset-sm':val})
+                } else if(this.device.width<576){
+                    this.$store.commit('formBuilder/editObj',{offset:val})
+                }	
+            }else{
+                 this.$store.commit('formBuilder/editObj',{offset:val})
+            }
+            } catch (err) {
+                console.log("Error on set myoffset :", err)
+            }
 			
 		}
 		
     },  
     myorder:{
 		get(){
-            if(this.device.width>=1200){
-                return this.eleObj['order-xl'];
-            } else if(this.device.width>=992){
-				return this.eleObj['order-lg'];
-			}else if(this.device.width>=768){
-				return this.eleObj['order-md'];
-			}else if(this.device.width>=576){
-				return this.eleObj['order-sm'];
-            }else if(this.device.width<576){
-				return this.eleObj.order
-			}
+            try{
+                if(this.device !=undefined){
+                    if(this.device.width>=1200){
+                        return this.eleObj['order-xl'];
+                    } else if(this.device.width>=992){
+                        return this.eleObj['order-lg'];
+                    }else if(this.device.width>=768){
+                        return this.eleObj['order-md'];
+                    }else if(this.device.width>=576){
+                        return this.eleObj['order-sm'];
+                    }else if(this.device.width<576){
+                        return this.eleObj.order
+                    }
+                }else{
+                    return this.eleObj.order
+                }
+            } catch (err) {
+                console.log("Error on get myorder :", err)
+            }
 		},
 		set(val){
-            
-			if(this.device.width>=1200){
-                
-                this.$store.commit('editObj',{'order-xl':val})               
-			}else if(this.device.width>=992){
-				this.$store.commit('editObj',{'order-lg':val})
-			}else if(this.device.width>=768){
-				this.$store.commit('editObj',{'order-md':val})
-			}else if(this.device.width>=576){
-                this.$store.commit('editObj',{'order-sm':val})
-            } else if(this.device.width<576){
-				 this.$store.commit('editObj',{order:val})
-			}		
+            try{
+                if(this.device !=undefined){
+                    if(this.device.width>=1200){
+                        this.$store.commit('formBuilder/editObj',{'order-xl':val})               
+                    }else if(this.device.width>=992){
+                        this.$store.commit('formBuilder/editObj',{'order-lg':val})
+                    }else if(this.device.width>=768){
+                        this.$store.commit('formBuilder/editObj',{'order-md':val})
+                    }else if(this.device.width>=576){
+                        this.$store.commit('formBuilder/editObj',{'order-sm':val})
+                    } else if(this.device.width<576){
+                        this.$store.commit('formBuilder/editObj',{order:val})
+                    }	
+                }else{
+                    this.$store.commit('formBuilder/editObj',{order:val})
+                }
+            } catch (err) {
+                console.log("Error on set myorder :", err)
+            }
 			
 		}
 		
 	},  
  colsLabel:{
             get(){
-                if(this.mycols!=undefined){
-                    return "Cols : "+this.mycols;
-                }else{
-                    return "Cols : ";
+                try {
+                    if(this.mycols!=undefined){
+                        return "Cols : "+this.mycols;
+                    }else{
+                        return "Cols : ";
+                    }
+                } catch (err) {
+                console.log("Error on colsLabel :", err)
                 }
-                
             }
         },
 
@@ -322,10 +385,13 @@ export default {
 
     },
     methods: {
-
         
-        remove: function() {
-            this.$store.dispatch("removeObj");
+        remove: function() {            
+             try {
+                this.$store.dispatch("formBuilder/removeObj");
+            } catch (err) {
+                console.log("Error on remove :", err)
+            }
         },
         increaselevel: function() {
             try {

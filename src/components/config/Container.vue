@@ -1,4 +1,5 @@
 <template>
+
     <b-card  title="Container">
          <b-button variant="link" size="md" class="trash" @click="removeObj">
             <font-awesome-icon :icon="['fas','trash-alt']" />
@@ -25,6 +26,7 @@
           
         </b-list-group>
     </b-card>
+
 </template>
 <script>
 export default {
@@ -34,20 +36,13 @@ export default {
     },
 
     computed: {
-        eno: {
-            get() {
-                return this.data;
-            }
-        },
+        
 
         eleObj: {
             get() {
-                return this.$store.getters.getObj(this.eno);
-            },
-            set(val) {
-                return val;
+                return this.$store.getters['formBuilder/getObj'](this.data);
             }
-        },
+        }
       
 
     },
@@ -56,7 +51,7 @@ export default {
     },
     methods: {
         removeObj() {
-            this.$store.dispatch("removeObj");
+            this.$store.dispatch("formBuilder/removeObj");
 
         },
         setContainerWidth(val) {

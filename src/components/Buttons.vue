@@ -54,19 +54,27 @@ export default {
     }
   },
   computed:{
+     eleObj: {
+            get() {
+                return this.$store.getters['formBuilder/getObj'](this.eno);
+            },
+            set(val) {
+                return val;
+            }
+        },
   isEditMode:{
       get(){
-        return this.$store.getters.isEditMode;
+        return this.$store.getters['formBuilder/isEditMode'];
       },      
     },
      isfirstOrder:{
       get(){
-        return this.$store.getters.isFirstOrder(this.data.eno);
+        return this.$store.getters['formBuilder/isFirstOrder'](this.data.eno);
       }
     },
     isLastOrder:{
       get(){
-        return this.$store.getters.isLastOrder(this.data.eno);
+        return this.$store.getters['formBuilder/isLastOrder'](this.data.eno);
       }
     },
     
@@ -77,38 +85,54 @@ export default {
   },
   methods:{
     clickedEle:function(event){
+      try{
       if(this.isEditMode){
-        this.$store.commit("setActiveEno",this.data.eno);
-        this.$store.commit("setEditMode",true);
+        this.$store.commit("formBuilder/setActiveEno",this.data.eno);
+        this.$store.commit("formBuilder/setEditMode",true);
+      }
+        }catch(error){
+        console.log("Error on clickedEle", error);
       }
     },
     mouseEnter : function(){
+      try{
       if(this.isEditMode){
         this.orderBtn=true;
       }else{
          this.orderBtn=false;
       }
+       }catch(error){
+        console.log("Error on mouseEnter", error);
+      }
       
     },
     remove: function() {
-      this.$store.dispatch("removeObj",{obj:this.data});
+      try{
+      this.$store.dispatch("formBuilder/removeObj",this.eleObj);
+       }catch(error){
+        console.log("Error on remove", error);
+      }
     },
     mouseLeave : function(){
-      if(this.isEditMode){
-        this.orderBtn=false;
+      try{
+        if(this.isEditMode){
+          this.orderBtn=false;
+        }
+      }catch(error){
+        console.log("Error on mouseLeave", error);
       }
       
     },
     setOrderUp : function(event){
       try{        
-        this.$store.dispatch('setOrder',{activeEno:this.data.eno,action:'up'})
+        this.$store.dispatch('formBuilder/setOrder',{activeEno:this.data.eno,action:'up'})
       }catch(error){
         console.log("Error on setOrderUp", error);
       }
     },
     setOrderDown : function(event){
       try{        
-        this.$store.dispatch('setOrder',{activeEno:this.data.eno,action:'down'})
+        this.$store.dispatch('formBuilder/setOrder',{activeEno:this.data.eno,action:'down'})
       }catch(error){
         console.log("Error on setOrderDown", error);
       }

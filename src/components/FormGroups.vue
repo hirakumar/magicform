@@ -1,6 +1,6 @@
 <template>
     <div class="formGroupBlock" @mouseenter="mouseEnter" @mouseleave="mouseLeave">
-   
+  
       <app-infoele :data="data"  v-if="isEditMode"></app-infoele>
      
       <b-button-group v-if="orderBtn" class="orderBtn">
@@ -98,7 +98,7 @@ export default {
       }
     },
     remove: function() {
-            this.$store.dispatch("formBuilder/removeObj",{obj:this.data});
+            this.$store.dispatch("formBuilder/removeObj",this.data);
         },
   },
   computed:{

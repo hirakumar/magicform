@@ -31,21 +31,21 @@ const mutations = {
         }
       },
       /* Input {order:3} */
-      editObj(state,payload){
+      editObj(state,payload,context){
         try{
         
         let obj = state.elements.find(item=>item.eno===state.activeEno);
         let objIndex = state.elements.indexOf(obj);     
-        
+         
           Object.entries(payload).map((item,index)=>{
-            if( !state.elements[objIndex].hasOwnProperty(item[0])){   
-                 
+            if( !state.elements[objIndex].hasOwnProperty(item[0])){                 
               Vue.set(state.elements[objIndex],item[0],item[1]);
             }else{
              
              state.elements[objIndex][item[0]]=item[1];
             }
           })
+          
          }catch(err){
           console.log("Error on editObj :", err);
         }

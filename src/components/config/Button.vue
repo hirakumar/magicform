@@ -231,7 +231,7 @@ export default {
 
         eleObj: {
             get() {
-                return this.$store.getters.getObj(this.eno);
+                return this.$store.getters['formBuilder/getObj'](this.data);
             },
             set(val) {
                 return val;
@@ -244,29 +244,29 @@ export default {
                 if (this.eleObj != undefined) {
                     switch (this.eleObj['border-style']) {
                         case 'pill':
-                            this.$store.commit('editObj', {
+                            this.$store.commit('formBuilder/editObj', {
                                 pill: true
                             })
-                            this.$store.commit('editObj', {
+                            this.$store.commit('formBuilder/editObj', {
                                 squared: false
                             })
 
                             break;
 
                         case 'squared':
-                            this.$store.commit('editObj', {
+                            this.$store.commit('formBuilder/editObj', {
                                 pill: false
                             })
-                            this.$store.commit('editObj', {
+                            this.$store.commit('formBuilder/editObj', {
                                 squared: true
                             })
                             break;
 
                         default:
-                            this.$store.commit('editObj', {
+                            this.$store.commit('formBuilder/editObj', {
                                 pill: false
                             })
-                            this.$store.commit('editObj', {
+                            this.$store.commit('formBuilder/editObj', {
                                 squared: false
                             })
                     }
@@ -276,19 +276,19 @@ export default {
                 console.log();
                 switch (val) {
                     case 'pill':
-                        this.$store.commit('editObj', {
+                        this.$store.commit('formBuilder/editObj', {
                             'border-style': 'pill'
                         })
                         break;
 
                     case 'squared':
-                        this.$store.commit('editObj', {
+                        this.$store.commit('formBuilder/editObj', {
                             'border-style': 'squared'
                         })
                         break;
 
                     default:
-                        this.$store.commit('editObj', {
+                        this.$store.commit('formBuilder/editObj', {
                             'border-style': null
                         })
                 }
@@ -316,7 +316,7 @@ export default {
             }
         },
         remove: function() {
-            this.$store.dispatch("removeObj");
+            this.$store.dispatch("formBuilder/removeObj",this.eleObj);
         },
 
     }

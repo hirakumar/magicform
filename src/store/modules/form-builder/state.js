@@ -14,7 +14,7 @@ const state = {
       {text:'Laptop', value:'laptop', landscape:true, status:false,width:992, height:500    },
       {text:'Desktop', value:'desktop', landscape:true, status:true, width:1280, height:800  }
     ],
-     selectedDevice:'desktop'
+     selectedDevice:null
 }
 
 

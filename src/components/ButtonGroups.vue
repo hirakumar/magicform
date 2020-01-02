@@ -1,8 +1,7 @@
 <template>    
     <div class="buttonGroup" >
-      <div class="eleHolder" v-if="isEditMode" >
-        <b-button @click="clickEvent" class="btn eleinfo btn-secondary btn-sm active" >Button Group</b-button>
-      </div>
+    
+       <app-infoele :data="data"  v-if="isEditMode"></app-infoele>
     <div v-html="data.before" class="before"></div>
    
     <b-btn-group
@@ -33,8 +32,8 @@ export default {
   methods:{
     clickEvent:function(event){
       if(this.isEditMode){
-        this.$store.commit('setActiveEno',this.data.eno);
-        this.$store.commit('setEditMode',true);
+        this.$store.commit('formBuilder/setActiveEno',this.data.eno);
+        this.$store.commit('formBuilder/setEditMode',true);
         event.preventDefault();
         event.stopPropagation();
       }   
@@ -69,6 +68,7 @@ export default {
   components: {
     'app-button' : Button,
     'app-elements' :  () => import('@/components/Elements.vue'),
+    'app-infoele' : () => import('@/components/InfoEle.vue')
    
   }
 }

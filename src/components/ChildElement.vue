@@ -1,5 +1,4 @@
 <template>
-
     <app-button v-if="isButton" :data="data"  />
     <app-div v-else-if="isDiv" :data="data" />
     <app-form v-else-if="isForm" :data="data" />
@@ -12,7 +11,7 @@
     <app-radiogroup v-else-if="isRadioGroup" :data="data" />
     <app-textarea v-else-if="isTextarea" :data="data" />
     <app-file v-else-if="isFile" :data="data" />
- 
+
 </template>
 <script>
 
@@ -22,7 +21,11 @@ export default {
   	data:Object
   },
   computed:{
-     
+     mydata:{
+       get(){
+         return this.data;
+       }
+     },
      isButton:{
         get(){
         return (this.data.ele=='button' ? true : false);

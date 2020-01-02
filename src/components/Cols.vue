@@ -9,16 +9,17 @@
 		:tag = "data.tag"
 		:class= "data.class"
     > 
+	<template  v-if="isEditMode">
 	<b-button-group class="orderBtn">
 		<b-link size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-link>
 		<b-link size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-link>
 		<b-link size="sm" @click="remove" v-if="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-link>
 	</b-button-group>
 	<app-infoele :data="data" @click ="clickCol" v-if="isEditMode"></app-infoele>
+	</template>
 	<app-elements v-for="child in myChilds" :key="child.eno" :data="child" :parentID="colID" /> 
 	
-    </b-col>
-  
+    </b-col>  
 </template>
 
 <script>
@@ -37,83 +38,132 @@ export default {
   computed: {
   	colID : { 
   		get(){
-  			return this.data.eno;
+			try{
+			  	return this.data.eno;
+			}catch(error){
+					console.log("Error on get colID :", error)
+			}
   		},	
   		set(val){
-  			return val;
+			try{
+				return val;
+			}catch(error){
+				console.log("Error on set colID :", error)
+			}
   		}
 	},
 	isEditMode:{
-      get(){
-        return this.$store.getters['formBuilder/isEditMode'];
-      },      
+    	get(){
+			try{
+				return this.$store.getters['formBuilder/isEditMode'];
+			}catch(error){
+				console.log("Error on get isEditMode :", error)
+			}
+      }      
     },
     hasChild:{
         get(){
-            if(this.data != undefined){
-                
-                return this.$store.getters['formBuilder/hasChild'](this.data.eno);
-            }
-            
+			try{
+            	if(this.data != undefined){
+					return this.$store.getters['formBuilder/hasChild'](this.data.eno);
+				}
+            }catch(error){
+				console.log("Error on get hasChild :", error)
+			}
         }
     },
     myChilds:{
       get(){
-        if(this.data != undefined){
-          return this.$store.getters['formBuilder/getChilds'](this.data.eno)
-        }
+		  	try{
+        		if(this.data != undefined){
+          			return this.$store.getters['formBuilder/getChilds'](this.data.eno)
+				}
+			}catch(error){
+				console.log("Error on myChilds :", error)
+			}
       }
     },
 	device :{
             get(){
-                return this.$store.getters['formBuilder/getDeviceObj'];
+				try{
+					return this.$store.getters['formBuilder/getDeviceObj'];
+				}catch(error){
+					console.log("Error on device :", error)
+				}
             }
 		}, 
 	mycols:{
 		get(){
+			try{
+				if(this.device !=undefined){
+					if(this.device.width>=1200){
+						return this.data.xl;
+					}else if(this.device.width>=992){
+						return this.data.lg;
+					}else if(this.device.width>=768){
+						return this.data.md;
+					} else if(this.device.width>=576){
+						return this.data.sm;
+					}else if(this.device.width<576){
+						return this.data.cols
+					}
+				}else{
+					return this.data.cols
+				}
 			
-			if(this.device.width>=1200){
-				return this.data.xl;
-			}else if(this.device.width>=992){
-				return this.data.lg;
-			}else if(this.device.width>=768){
-				return this.data.md;
-			} else if(this.device.width>=576){
-				return this.data.sm;
-			}else if(this.device.width<576){
-				return this.data.cols
+			}catch(error){
+				console.log("Error on mycols :", error)
 			}
+			
 		},	
 	},
 	myoffset:{
 		get(){
-			if(this.device.width>=1200){
-				return this.data['offset-xl'];
-			}else if(this.device.width>=992){
-				return this.data['offset-lg'];
-			}else if(this.device.width>=768){
-				return this.data['offset-md'];
-			} else if(this.device.width>=576){
-				return this.data['offset-sm'];
-			}else if(this.device.width<576){
-				return this.data.offset
+			try{
+				if(this.device !=undefined){
+					if(this.device.width>=1200){
+						return this.data['offset-xl'];
+					}else if(this.device.width>=992){
+						return this.data['offset-lg'];
+					}else if(this.device.width>=768){
+						return this.data['offset-md'];
+					} else if(this.device.width>=576){
+						return this.data['offset-sm'];
+					}else if(this.device.width<576){
+						return this.data.offset
+					}
+				}else{
+					return this.data.offset
+				}
+			}catch(error){
+				console.log("Error on myoffset :", error);
 			}
+		
 		},
 	},
 	myorder:{
 		get(){
-			
-			if(this.device.width>=1200){
-				return this.data['order-xl'];
-			}else if(this.device.width>=992){
-				return this.data['order-lg'];
-			}else if(this.device.width>=768){
-				return this.data['order-md'];
-			} else if(this.device.width>=576){
-				return this.data['order-sm'];
-			}else if(this.device.width<576){
-				return this.data.order
+			try{
+				if(this.device !=undefined){
+					if(this.device.width>=1200){
+					return this.data['order-xl'];
+					}else if(this.device.width>=992){
+						return this.data['order-lg'];
+					}else if(this.device.width>=768){
+						return this.data['order-md'];
+					} else if(this.device.width>=576){
+						return this.data['order-sm'];
+					}else if(this.device.width<576){
+						return this.data.order
+					}
+				}else{
+					return this.data.order
+				}
+				
+			}catch(error) {  
+				console.log("Error on myorder:", error); 
 			}
+		
 		},
 	}
    
@@ -121,21 +171,42 @@ export default {
   },
   methods:{
 	 hoverOn: function(id) {
-		  this.orderBtn=true;
+		 try{
+			this.orderBtn=true;
 		  this.$store.commit('formBuilder/changeEle',id);
 		  this.$el.classList.add('hoverEle');
+		 }catch(error){
+			 console.log("Error on hoverOn :", error);
+		 }
+		  
 	  },
 	  hoverOut :  function(){
-		  this.orderBtn=false;
-		   this.$el.classList.remove('hoverEle');
+		  try{
+			this.orderBtn=false;
+			this.$el.classList.remove('hoverEle');
+		 }catch(error){
+			 console.log("Error on hoverOut :", error);
+		 }
+
 	  },
 	  clickCol : function(event){
-		  event.currentTarget.classList.add('active');
-		  this.$store.commit('formBuilder/setEditMode',true);
-		  this.$store.commit('formBuilder/setActiveEno',this.data.eno);
+		try{
+			event.currentTarget.classList.add('active');
+			this.$store.commit('formBuilder/setEditMode',true);
+			this.$store.commit('formBuilder/setActiveEno',this.data.eno);
 			event.preventDefault();
 			event.stopPropagation();
-	  }
+		 }catch(error){
+			 console.log("Error on clickCol :", error);
+		 }
+	  },
+	   remove: function() {
+		try{
+			this.$store.dispatch("formBuilder/removeObj",this.data);
+		 }catch(error){
+			 console.log("Error on clickCol :", error);
+		 }
+        },
   },
   components:{
  	'app-elements' :  () => import('@/components/Elements.vue'),

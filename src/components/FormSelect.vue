@@ -34,8 +34,8 @@ export default {
   methods:{
     clickedSelectBox:function(event){
        if(this.isEditMode){
-        this.$store.commit("setActiveEno",this.data.eno);
-        this.$store.commit("setEditMode",true);
+        this.$store.commit("formBuilder/setActiveEno",this.data.eno);
+        this.$store.commit("formBuilder/setEditMode",true);
         event.preventDefault();
         event.stopPropagation();
        }
@@ -45,7 +45,7 @@ export default {
   computed:{
     isEditMode:{
       get(){
-        return this.$store.getters.isEditMode;
+        return this.$store.getters['formBuilder/isEditMode'];
       },   
     }
   },

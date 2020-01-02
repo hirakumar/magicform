@@ -42,6 +42,7 @@ const getters = {
         }
       },
       getObjByIndex : (state) => (index) => {
+
         return state.elements[index];
       },
       getActiveObj : state =>{

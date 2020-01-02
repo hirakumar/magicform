@@ -144,8 +144,7 @@
                   >
                   <b-form-checkbox v-model="eleObj.plaintext" class="float-right"  name="check-button" switch></b-form-checkbox>
                </b-form-group>
-            </b-list-group-item>
-         
+            </b-list-group-item>        
            
             
          </template>
@@ -231,7 +230,7 @@ export default {
 
         eleObj: {
             get() {
-                return this.$store.getters.getObj(this.eno);
+                return this.$store.getters['formBuilder/getObj'](this.data);
             },
             set(val) {
                 return val;

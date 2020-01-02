@@ -1,5 +1,5 @@
 <template>
-<div  >
+<div class="formCheckBoxGroups">
   <app-infoele :data="data" v-if="isEditMode"></app-infoele>
     <b-form-checkbox-group 
         :options = "data.options"
@@ -51,7 +51,15 @@ export default {
      }
   },
    methods:{
-    
+        clickedSelectBox:function(event){
+       if(this.isEditMode){
+        this.$store.commit("formBuilder/setActiveEno",this.data.eno);
+        this.$store.commit("formBuilder/setEditMode",true);
+        event.preventDefault();
+        event.stopPropagation();
+       }
+      
+    }
   },
   components:{
     'app-infoele' : InfoEle

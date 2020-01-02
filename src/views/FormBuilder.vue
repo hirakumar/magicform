@@ -19,15 +19,11 @@
    </b-container>
  </div>
     <app-tools :data="activeEno" v-if="hasElements" />
-    <app-panel :data="activeEno" v-if="isEditMode"></app-panel>
+    <app-panel :data="activeEno" ></app-panel>
   <b-container class="about" v-if="!hasElements">
       <b-row align-v="center" align-h="center" align-content="center">
-       
         <b-col cols="12" class="pt-3" > 
-          
-            <app-creator  ></app-creator>
-    </b-col>
-      
+          <app-creator  ></app-creator>
         </b-col>
       </b-row>   
   </b-container>
@@ -42,6 +38,14 @@
               <app-elements :data="mainParent" v-for="mainParent in mainParents" :key="mainParent.eno" />
       </div>
    </div> 
+    <b-container>
+      <b-row>
+          <b-col cols="8">
+            {{getRawElements}}
+          </b-col>
+      </b-row>
+    </b-container>
+   
   </div>
 </template>
 <script>
