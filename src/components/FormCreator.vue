@@ -51,7 +51,11 @@ export default {
 		
 	}
 }
-.toolsEle{position:absolute; left: 10px; top: 61px;}
+.toolsEle{position:absolute; left: 10px; top: 61px;
+	img{
+		width:22px
+	}
+}
 
 .showEditor{
 
@@ -125,16 +129,26 @@ export default {
 				}
 			}
 			.orderBtn{
+				position:absolute;
+				left: 49px;
+				top: 3px;
 				font-size:12px;
+				z-index:9;
 				a{
 					display:flex;
 					justify-content: center;
-					
+					color:#999999;
 					width:20px;
 					height:20px;
 					svg{
 						font-size:10px;
 					}
+				}
+			}
+			.formGroupBlock{
+				.orderBtn{
+					left:auto;
+					right:0px;
 				}
 			}
 		}

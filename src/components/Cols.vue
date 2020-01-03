@@ -11,7 +11,7 @@
     > 
 	<template  v-if="isEditMode">
 	<b-button-group class="orderBtn">
-		<b-link size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-link>
+		<b-link size="sm"  @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-link>
 		<b-link size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-link>
 		<b-link size="sm" @click="remove" v-if="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-link>
 	</b-button-group>
@@ -52,6 +52,17 @@ export default {
 			}
   		}
 	},
+	 isfirstOrder:{
+      get(){
+        return this.$store.getters['formBuilder/isFirstOrder'](this.data.eno);
+      }
+    },
+    isLastOrder:{
+      get(){
+        return this.$store.getters['formBuilder/isLastOrder'](this.data.eno);
+      }
+    },
+    
 	isEditMode:{
     	get(){
 			try{
