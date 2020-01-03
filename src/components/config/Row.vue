@@ -107,7 +107,7 @@ export default {
   methods:{
     
       remove: function(){
-          this.$store.dispatch("removeObj");
+          this.$store.dispatch("formBuilder/removeObj",this.eleObj);
       },
        increaselevel: function() {
             try {

@@ -1,6 +1,6 @@
 <template>
 <div class="configBlock" v-if="data!=undefined">
-  <app-configContainer v-if="isContainer" :data="data" />
+    <app-configContainer v-if="isContainer" :data="data" />
   <app-configCols v-if="isCol" :data="data" />
   <app-configRow v-if="isRow" :data="data" />
   <app-configFormGroup v-if="isFormGroup" :data="data" />

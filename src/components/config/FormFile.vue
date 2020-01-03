@@ -1,22 +1,23 @@
 <template>
-
+    
     <b-card title="Form File">
+        
         <b-button variant="link" size="md" class="trash" @click="remove">
             <font-awesome-icon :icon="['fas','trash-alt']" />
         </b-button>
         <b-list-group flush>
-            <b-list-group-item class="pl-0 pr-0">
+             <b-list-group-item class="pl-0 pr-0">
                 <b-form-group label="Placeholder : " label-cols="6" class="mb-0">
                     <b-input v-model="eleObj.placeholder" size="sm" />
                 </b-form-group>
             </b-list-group-item>
 
-            <b-list-group-item class="pl-0 pr-0">
+           <b-list-group-item class="pl-0 pr-0">
                 <b-form-group label="Drop Placeholder : " label-cols="6" class="mb-0">
                     <b-input v-model="eleObj['drop-placeholder']" size="sm" />
                 </b-form-group>
             </b-list-group-item>
-
+           
             <b-list-group-item class="pl-0 pr-0">
                 <b-form-group label="Name : " label-cols="6" class="mb-0">
                     <b-input v-model="eleObj.name" size="sm" />
@@ -101,9 +102,9 @@
                         <b-form-checkbox v-model="eleObj['no-drop']" class="float-right" name="check-button" switch></b-form-checkbox>
                     </b-form-group>
                 </b-list-group-item>
-
             </template>
         </b-list-group>
+
         <div class="float-right">
             <b-button size="sm" variant="secondary" @click="increaselevel" v-if="expandlevel<1">
                 <font-awesome-icon :icon="['fas','chevron-down']" />
@@ -153,7 +154,7 @@ export default {
 
         eleObj: {
             get() {
-                return this.$store.getters['getObj'](this.data);
+                return this.$store.getters['formBuilder/getObj'](this.data);
             },
             set(val) {
                 return val;

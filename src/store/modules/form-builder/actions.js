@@ -108,7 +108,18 @@ const actions = {
           
           case 'button':
           obj = {eno : lasteno+1, order:order, text:'Button', 'border-style':null, ele:'button', parent:activeObj.eno, id : `label${lasteno+1}`, name:`label${lasteno+1}`, active : false, disabled : false, append: false, replace : false, 'active-class':'active', exact: false, 'exact-active-class': '', 'router-tag':'a', block:false,size:'md',variant:'secondary', type:'button', tag:'button',pill:false,squared:false}
+          console.log("Adding Button", obj);
           context.commit('addElement',obj);
+          break;
+
+          case 'button-group':         
+            
+            let buttonGroupObj = {eno : lasteno+1, ele:'button-group', order:order,  parent:activeObj.eno, before:'', after:'', vertical:false, size:'md',tag:'div','aria-role':'group'}
+            context.commit('addElement',buttonGroupObj);
+      
+            let btnObj = {eno : lasteno+2, text:'Button', order:1, 'border-style':null, ele:'button', parent:lasteno+1, id : `btn${lasteno+1}`, name:`btn${lasteno+1}`, active : false, disabled : false, append: false, replace : false, 'active-class':'active', exact: false, 'exact-active-class': '', 'router-tag':'a', block:false,size:'md',variant:'secondary', type:'button', tag:'button',pill:false,squared:false}
+            context.commit('addElement',btnObj);
+
           break;
   
           case 'col':
@@ -158,20 +169,7 @@ const actions = {
         
         
       },
-      createButtonGroup(context,payload){
-        try{
-        let activeObj = context.getters.getActiveObj;
-        let lasteno = context.getters.getLastEno;  
-        
-        let buttonGroupObj = {eno : lasteno+1, ele:'button-group',  parent:activeObj.eno, before:'', after:'', vertical:false, size:'md',tag:'div','aria-role':'group'}
-        context.commit('addElement',buttonGroupObj);
-  
-        let btnObj = {eno : lasteno+2, text:'Button', order:1, 'border-style':null, ele:'button', parent:lasteno+1, id : `btn${lasteno+1}`, name:`btn${lasteno+1}`, active : false, disabled : false, append: false, replace : false, 'active-class':'active', exact: false, 'exact-active-class': '', 'router-tag':'a', block:false,size:'md',variant:'secondary', type:'button', tag:'button',pill:false,squared:false}
-        context.commit('addElement',btnObj);
-        }catch(error){
-          console.log("Error on createEle :" + error);
-        }
-      },
+
       createFormGroup(context,payload){
         try{
         let activeObj = context.getters.getActiveObj;

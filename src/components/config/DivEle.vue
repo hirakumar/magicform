@@ -71,11 +71,10 @@ export default {
     },
     methods:{
         remove: function(){
-          this.$store.dispatch("removeObj");
+          this.$store.dispatch("formBuilder/removeObj");
         },
         toggleModal : function(){
-            console.log(this.showCkEditor);
-           
+                  
             
         }
     },
@@ -106,7 +105,7 @@ export default {
 
         eleObj: {
             get() {
-                return this.$store.getters.getObj(this.eno);
+                return this.$store.getters['formBuilder/getObj'](this.eno);
             },
             set(val) {
                 return val;

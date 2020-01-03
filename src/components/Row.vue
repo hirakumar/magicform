@@ -10,15 +10,13 @@
       :align-content="data['align-content']"
        @mouseenter="mouseEnter" @mouseleave="mouseLeave"
       >  
-     <div class="rowHolder" v-if="isEditMode">
-         <app-infoele :data="data" v-if="isEditMode"></app-infoele> 
-         
-         <b-button-group class="orderBtn">
-         <!-- <b-button size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-button>
-          <b-button size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-button>
-          <b-button size="sm" @click="remove" v-show="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-button>-->
-        </b-button-group>
-       
+    <div class="eleHolder" v-if="isEditMode" >
+      <app-infoele :data="data"  ></app-infoele>          
+        <b-button-group class="orderBtn" v-if="orderBtn">
+        <b-button size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-button>
+        <b-button size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-button>
+        <b-button size="sm" @click="remove" v-show="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-button>
+      </b-button-group>       
     </div>
     <template v-if="hasChild">
       <app-elements :data="child" v-for="child in myChilds"  :key="child.eno" />
@@ -45,58 +43,90 @@ export default {
     }
   },
   computed:{
+   
      isfirstOrder:{
       get(){
-        if(this.data != undefined){
-          return this.$store.getters['isFirstOrder'](this.data.eno);
-        }
+        try{
+          if(this.data != undefined){
+            return this.$store.getters['formBuilder/isFirstOrder'](this.data.eno);
+          }
+        }catch(error){
+          console.log("Error on isfirstOrder : ", error);
+        }        
       }
     },
     isLastOrder:{
       get(){
-        if(this.data != undefined){
-        return this.$store.getters['isLastOrder'](this.data.eno);
-        }
+        try{
+          if(this.data != undefined){
+          return this.$store.getters['formBuilder/isLastOrder'](this.data.eno);
+          }
+         }catch(error){
+          console.log("Error on isLastOrder : ", error);
+        }  
       }
     },
     isEditMode:{
       get(){
-        return this.$store.getters['formBuilder/isEditMode'];
+        try{
+          return this.$store.getters['formBuilder/isEditMode'];
+         }catch(error){
+          console.log("Error on isEditMode : ", error);
+        }  
       },      
     },
-     hasChild:{
+    hasChild:{
         get(){
-            if(this.data != undefined){
-                
+          try{
+            if(this.data != undefined){                
                 return this.$store.getters['formBuilder/hasChild'](this.data.eno);
-            }            
+            } 
+            }catch(error){
+              console.log("Error on hasChild : ", error);
+          }            
         }
     },
     myChilds:{
       get(){
+        try{
         if(this.data != undefined){
           return this.$store.getters['formBuilder/getChilds'](this.data.eno)
         }
+        }catch(error){
+              console.log("Error on myChilds : ", error);
+          }   
       }
     },
   },
   methods:{
     clickCol : function(event){
+      try{
       event.currentTarget.classList.add('active');
       this.$store.commit('formBuilder/setEditMode',true);
       this.$store.commit('formBuilder/setActiveEno',this.data.eno);
       event.preventDefault();
       event.stopPropagation();
+       }catch(error){
+              console.log("Error on clickCol : ", error);
+          }  
     },
     mouseEnter:function(){
       // this.$store.commit('changeEle',this.data.eno);
+      try{
       if(this.isEditMode){
         this.orderBtn=true;
       }
+      }catch(error){
+              console.log("Error on mouseEnter : ", error);
+          }
     },
    
     mouseLeave:function(){
+       try{
       this.orderBtn=false;
+        }catch(error){
+              console.log("Error on mouseLeave : ", error);
+          }
     },
     increaselevel: function() {
       try {
@@ -114,7 +144,11 @@ export default {
         }
     },
     remove: function() {
-        this.$store.dispatch("formBuilder/removeObj");
+      try {
+        this.$store.dispatch("formBuilder/removeObj", this.data);
+         } catch (err) {
+            console.log("Error on decreaselevel :", err)
+        }
     },
     setOrderUp : function(event){
       try{        

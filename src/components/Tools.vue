@@ -4,14 +4,17 @@
       <!-- ### Container ###  -->
       <template v-if="isContainer">
           <b-button @click="addRow">Add Row</b-button>
-          <b-dropdown right text="Add Container">
-            <b-dropdown-item @click="addContainerBefore">   Before Container </b-dropdown-item>
-            <b-dropdown-item @click="addContainerAfter">   After Container </b-dropdown-item>
-          </b-dropdown>
+           <b-button @click="createContainer">
+             <img src="../assets/container.svg" />
+          </b-button>
+        
       </template>
       <!-- ### Row ### -->
       <template v-if="isRow">                 
-          <b-button @click="addCol">Add Col</b-button>
+           <b-button @click="addCol" >
+         <img src="../assets/col.svg" />
+         
+        </b-button>
            <b-button @click="addRow">Add Row</b-button>
                
       </template>
@@ -148,7 +151,7 @@ export default {
         this.$store.dispatch('formBuilder/createEle',{ele : 'button'});
       },
       createButtonGroup(){
-        this.$store.dispatch('formBuilder/createButtonGroup',{ele : 'button-group'});
+        this.$store.dispatch('formBuilder/createEle',{ele : 'button-group'});
       },
       addCol(){
         this.$store.dispatch('formBuilder/createEle',{ele:'col'});
