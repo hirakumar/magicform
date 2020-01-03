@@ -235,7 +235,7 @@ const actions = {
   removeObj(context,payload){
   
         try{
-          console.log(JSON.stringify(payload));
+          
           var obj;
           if(payload!=undefined){
             obj=payload;

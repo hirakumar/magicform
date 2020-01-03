@@ -153,7 +153,7 @@ export default {
 
         eleObj: {
             get() {
-                return this.$store.getters.getObj(this.eno);
+                return this.$store.getters['getObj'](this.data);
             },
             set(val) {
                 return val;
@@ -178,7 +178,7 @@ export default {
             }
         },
         remove: function() {
-            this.$store.dispatch("removeObj");
+            this.$store.dispatch("formBuilder/removeObj");
         },
 
     }

@@ -11,6 +11,7 @@
     <app-radiogroup v-else-if="isRadioGroup" :data="data" />
     <app-textarea v-else-if="isTextarea" :data="data" />
     <app-file v-else-if="isFile" :data="data" />
+    <app-buttongroup v-else-if="isButtonGroup" :data="data" />
 
 </template>
 <script>
@@ -61,6 +62,11 @@ export default {
          
        }
      },
+     isButtonGroup :{
+      get(){
+        return (this.data.ele=='button-group' ? true : false);
+      }
+    },
       isTextarea :{
        get(){
          return (this.data.ele=='form-textarea' ? true : false);
@@ -110,6 +116,7 @@ export default {
     'app-radiogroup' : () => import('@/components/FormRadioGroups.vue'),
     'app-textarea' : () => import('@/components/FormTextarea.vue'),
     'app-file' : () => import('@/components/FormFile.vue'),
+    'app-buttongroup'     : () => import('@/components/ButtonGroups.vue'),
       
   }
 }

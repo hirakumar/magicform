@@ -19,16 +19,16 @@
                     <b-col cols="12">
                         <b-input placeholder="Text"  v-model="text" @keyup="changeVal" />
                     </b-col>
-                    <b-col cols="2"><small>Value :</small></b-col>
-                    <b-col cols="10"> <b-input placeholder="Value" v-model="value" size="sm" :readonly="showFalse" :plaintext="showTrue" /></b-col>
+                    <b-col cols="3"><small>Value :</small></b-col>
+                    <b-col cols="9"> <b-input placeholder="Value" v-model="value" size="sm" :readonly="showFalse" :plaintext="showTrue" /></b-col>
                 </b-row>
             </b-col>
             <b-col cols="2"><b-button size="sm" @click="addOption"><font-awesome-icon :icon="['fas','plus']" /> </b-button></b-col>
         </b-row>     
         <template v-if="hasOptions">
           <b-row v-for="(opt,index) in options" :key="index" >
-              <b-col cols="1"> {{index+1}}. </b-col>
-              <b-col cols="9">  <b-input type="text" :value="opt.text" size="sm" :data-index="index" @keyup="changeText" />
+              <b-col cols="2"> {{index+1}}. </b-col>
+              <b-col cols="8">  <b-input type="text" :value="opt.text" size="sm" :data-index="index" @keyup="changeText" />
                   <b-input type="text" :value="opt.value" size="sm" :data-index="index" @keyup="changeValue" />
                 </b-col>
               <b-col cols="2"><b-button size="sm" @click="removeOption(index)"><font-awesome-icon :icon="['fas','trash-alt']" /> </b-button></b-col>
@@ -184,7 +184,7 @@ export default {
         },
         eleObj: {
             get() {
-                return this.$store.getters.getObj(this.eno);
+                return this.$store.getters['formBuilder/getObj'](this.eno);
             },
             set(val) {
                 return val;
@@ -221,19 +221,19 @@ export default {
                 console.log(val);
                 switch(val){
                     case "switches" :
-                        this.$store.commit('editObj', { switches : true })
-                        this.$store.commit('editObj', { buttons : false })
+                        this.$store.commit('formBuilder/editObj', { switches : true })
+                        this.$store.commit('formBuilder/editObj', { buttons : false })
                     break;
 
                     case "buttons" :
-                        this.$store.commit('editObj', { buttons : true })
-                        this.$store.commit('editObj', { switches : false })
+                        this.$store.commit('formBuilder/editObj', { buttons : true })
+                        this.$store.commit('formBuilder/editObj', { switches : false })
                         
                     break;
 
                     default:
-                        this.$store.commit('editObj', { switches : false })
-                        this.$store.commit('editObj', { buttons : false })
+                        this.$store.commit('formBuilder/editObj', { switches : false })
+                        this.$store.commit('formBuilder/editObj', { buttons : false })
                 }
                 return val;
             }
@@ -247,11 +247,11 @@ export default {
       this.value =this.text.replace(/\s/g,'_').toLowerCase();
     },
     addOption : function(){
-      this.$store.dispatch('addOption',{text:this.text, value:this.value})
+      this.$store.dispatch('formBuilder/addOption',{text:this.text, value:this.value})
     },
     removeOption : function(index){
       console.log(index);
-      this.$store.dispatch('removeSelectOption',{index:index});
+      this.$store.dispatch('formBuilder/removeSelectOption',{index:index});
     },
      increaselevel: function() {
             try {
@@ -269,14 +269,13 @@ export default {
             }
         },
          remove: function() {
-            this.$store.dispatch("removeObj");
+            this.$store.dispatch("formBuilder/removeObj");
         },
         changeText: function(e){
-            console.log("Changing Text");
-            console.log(e);
+            
             this.options[e.target.dataset.index].text = e.target.value;
             this.options[e.target.dataset.index].value = e.target.value.replace(/\s/g,'_').toLowerCase();
-             this.$store.commit('editObj', {
+             this.$store.commit('formBuilder/editObj', {
                     options:this.options
                 })
             e.preventDefault();
@@ -285,7 +284,7 @@ export default {
          changeValue: function(e){
             
             this.options[e.target.dataset.index].value = e.target.value.replace(/\s/g,'_').toLowerCase();
-             this.$store.commit('editObj', {
+             this.$store.commit('formBuilder/editObj', {
                     options:this.options
                 })
             e.preventDefault();

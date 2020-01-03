@@ -8,9 +8,11 @@
 		:align-self = "data['align-self']"
 		:tag = "data.tag"
 		:class= "data.class"
+		@mouseenter="mouseEnter"
+		@mouseleave="mouseLeave"
     > 
 	<template  v-if="isEditMode">
-	<b-button-group class="orderBtn">
+	<b-button-group class="orderBtn" v-if="orderBtn">
 		<b-link size="sm"  @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-link>
 		<b-link size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-link>
 		<b-link size="sm" @click="remove" v-if="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-link>
@@ -181,7 +183,7 @@ export default {
 	
   },
   methods:{
-	 hoverOn: function(id) {
+	 mouseEnter: function(id) {
 		 try{
 			this.orderBtn=true;
 		  this.$store.commit('formBuilder/changeEle',id);
@@ -191,7 +193,7 @@ export default {
 		 }
 		  
 	  },
-	  hoverOut :  function(){
+	  mouseLeave :  function(){
 		  try{
 			this.orderBtn=false;
 			this.$el.classList.remove('hoverEle');

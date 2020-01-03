@@ -13,12 +13,14 @@
           </b-col>
           <b-col>
             <b-form-checkbox v-model="isEditMode" class="float-right mt-2" name="check-button"  switch></b-form-checkbox>
-             <b-button variant="link" @click="toggleResponsiveMode" class="float-right"><img src="../assets/responsive.svg" width="30" height="30" /></b-button>
+             <b-button v-if="isEditMode" variant="link" @click="toggleResponsiveMode" class="float-right"><img src="../assets/responsive.svg" width="30" height="30" /></b-button>
           </b-col>
       </b-row>
    </b-container>
  </div>
+    <template v-if="isEditMode">
     <app-tools :data="activeEno" v-if="hasElements" />
+    </template>
     <app-panel :data="activeEno" ></app-panel>
   <b-container class="about" v-if="!hasElements">
       <b-row align-v="center" align-h="center" align-content="center">
@@ -28,7 +30,7 @@
       </b-row>   
   </b-container>
   <!--  <div  > -->
-   <div :class="['formEditor pt-3',showEditor]" >
+   <div :class="['formEditor pt-3',showEditor]"   >
      
       <!--  <div class="device " :style="editorStyle" v-if="hasElements" > -->
         

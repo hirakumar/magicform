@@ -60,8 +60,10 @@ export default {
 .showEditor{
 
 .rowHolder,.eleHolder{
-		min-height:16px;
+		min-height:20px;
 		width:100%;
+		display: flex;
+		flex-direction: row;
 	}
 
 .buttonGroup,.formEle,.formCheckBoxGroups{
@@ -72,11 +74,11 @@ export default {
 }
 .eleinfo{
 		padding: 0px;
-		font-size: 10px;
-		line-height: 12px;
+		font-size: 12px;
+		line-height: 20px;
 		border-radius: 0px; 
 		position:relative; 
-		top:-6px; 
+		top:0px; 
 		left:0px;
 		background:#ccc;
 		border:#ccc;
@@ -101,7 +103,10 @@ export default {
 	}
 
 .buttonGroup,.formGroupBlock{
-		position:relative
+		position:relative;
+		.btn-group{
+			flex-wrap: wrap;
+		}
 	}
 .container,.container-fluid{
 	border:dashed 1px #ccc;
@@ -127,19 +132,30 @@ export default {
 				.eleinfo{
 					left:0px;
 				}
+				.btn-group{
+					.orderBtn{
+						min-width:20px;
+						padding-left:5px;
+						padding-right:5px;
+						border-radius:20px;
+					}
+				}
 			}
 			.orderBtn{
 				position:absolute;
-				left: 49px;
-				top: 3px;
+				left: 62px;
+				top: 0px;
 				font-size:12px;
 				z-index:9;
+				background:#fff;
+				
 				a{
 					display:flex;
 					justify-content: center;
 					color:#999999;
 					width:20px;
 					height:20px;
+					align-items:center;
 					svg{
 						font-size:10px;
 					}

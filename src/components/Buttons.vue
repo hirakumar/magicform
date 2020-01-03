@@ -33,9 +33,9 @@
      >{{data.text}}</b-button>
      
         <b-button-group v-if="orderBtn && isEditMode" class="orderBtn">
-          <b-button size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-button>
-          <b-button size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-button>
-          <b-button size="sm" @click="remove" >  <font-awesome-icon :icon="['fas','trash-alt']" /></b-button>
+          <b-link size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" ></font-awesome-icon> </b-link>
+          <b-link size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" ></font-awesome-icon> </b-link>
+          <b-link size="sm" @click="remove" :data-eno="data.eno" >  <font-awesome-icon :icon="['fas','trash-alt']" /></font-awesome-icon> </b-link>
         </b-button-group>
      
     </div>
@@ -54,14 +54,7 @@ export default {
     }
   },
   computed:{
-     eleObj: {
-            get() {
-                return this.$store.getters['formBuilder/getObj'](this.eno);
-            },
-            set(val) {
-                return val;
-            }
-        },
+    
   isEditMode:{
       get(){
         return this.$store.getters['formBuilder/isEditMode'];
@@ -108,7 +101,7 @@ export default {
     },
     remove: function() {
       try{
-        this.$store.dispatch("formBuilder/removeObj",this.eleObj);
+        this.$store.dispatch("formBuilder/removeObj",this.data);
        }catch(error){
         console.log("Error on remove", error);
       }

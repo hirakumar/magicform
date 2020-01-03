@@ -39,7 +39,7 @@ export default {
      },
     isEditMode:{
       get(){
-        return this.$store.getters.isEditMode;
+        return this.$store.getters['formBuilder/isEditMode'];
       },      
     },
   

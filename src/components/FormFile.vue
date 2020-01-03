@@ -40,7 +40,7 @@ export default {
      
       isEditMode:{
       get(){
-        return this.$store.getters.isEditMode;
+        return this.$store.getters['formBuilder/isEditMode'];
       },      
     },
   
@@ -51,8 +51,8 @@ export default {
   methods:{
      clickedEle:function(event){
        if(this.isEditMode){
-        this.$store.commit("setActiveEno",this.data.eno);
-        this.$store.commit("setEditMode",true);
+        this.$store.commit("formBuilder/setActiveEno",this.data.eno);
+        this.$store.commit("formBuilder/setEditMode",true);
         event.preventDefault();
         event.stopPropagation();
        }
