@@ -10,14 +10,14 @@
       :align-content="data['align-content']"
        @mouseenter="mouseEnter" @mouseleave="mouseLeave"
       >  
-    <div class="eleHolder" v-if="isEditMode" >
+    <template v-if="isEditMode" >
       <app-infoele :data="data"  ></app-infoele>          
         <b-button-group class="orderBtn" v-if="orderBtn">
-        <b-button size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-button>
-        <b-button size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-button>
-        <b-button size="sm" @click="remove" v-show="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-button>
+        <b-link  size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-link>
+        <b-link  size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-link>
+        <b-link  size="sm" @click="remove" v-show="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-link>
       </b-button-group>       
-    </div>
+    </template>
     <template v-if="hasChild">
       <app-elements :data="child" v-for="child in myChilds"  :key="child.eno" />
   </template>

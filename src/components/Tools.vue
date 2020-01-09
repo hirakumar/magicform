@@ -4,9 +4,7 @@
       <!-- ### Container ###  -->
       <template v-if="isContainer">
           <b-button @click="addRow">Add Row</b-button>
-           <b-button @click="createContainer">
-             <img src="../assets/container.svg" />
-          </b-button>
+          
         
       </template>
       <!-- ### Row ### -->

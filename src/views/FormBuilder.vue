@@ -40,13 +40,15 @@
               <app-elements :data="mainParent" v-for="mainParent in mainParents" :key="mainParent.eno" />
       </div>
    </div> 
-    <b-container>
+    <!--
+      <b-container>
       <b-row>
           <b-col cols="8">
             {{getRawElements}}
           </b-col>
       </b-row>
     </b-container>
+    -->
    
   </div>
 </template>

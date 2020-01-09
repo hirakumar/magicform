@@ -10,6 +10,7 @@
       <app-infoele :data="data"  v-if="isEditMode"></app-infoele>
     </template>
     <div v-html="data.text" :class="data.class" @click="clickedEle" :id="data.id"></div>
+    
   </div>
 </template>
 <script>

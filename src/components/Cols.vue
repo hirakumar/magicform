@@ -219,7 +219,23 @@ export default {
 		 }catch(error){
 			 console.log("Error on clickCol :", error);
 		 }
-        },
+		},
+		setOrderUp : function(event){
+      try{
+        
+        this.$store.dispatch('formBuilder/setOrder',{activeEno:this.data.eno,action:'up'})
+      }catch(error){
+        console.log("Error on setOrderUp", error);
+      }
+    },
+    setOrderDown : function(event){
+      try{
+        
+        this.$store.dispatch('formBuilder/setOrder',{activeEno:this.data.eno,action:'down'})
+      }catch(error){
+        console.log("Error on setOrderDown", error);
+      }
+    },
   },
   components:{
  	'app-elements' :  () => import('@/components/Elements.vue'),

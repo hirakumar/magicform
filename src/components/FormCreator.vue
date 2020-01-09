@@ -58,21 +58,24 @@ export default {
 }
 
 .showEditor{
-
-.rowHolder,.eleHolder{
+	.rowHolder,.eleHolder{
 		min-height:20px;
 		width:100%;
 		display: flex;
 		flex-direction: row;
 	}
 
-.buttonGroup,.formEle,.formCheckBoxGroups{
-				border:dashed 1px gray;
-}
-.formGroupBlock,.btnEle,.divEle,.rowHolder,.eleHolder{position:relative;
-	.orderBtn{position:absolute; top:0px; right:0px; z-index:99}
-}
-.eleinfo{
+	.buttonGroup,.formEle,.formCheckBoxGroups{
+		border:dashed 1px gray;
+	}
+	.formGroupBlock,.btnEle,.divEle,.rowHolder,.eleHolder{
+		position:relative;
+		.orderBtn{position:absolute; top:0px; right:0px; z-index:99; display: flex}
+	}
+	.formGroupBlock,.btnEle,.divEle{
+ border:dotted 1px #333;
+	}
+	.eleinfo{
 		padding: 0px;
 		font-size: 12px;
 		line-height: 20px;
@@ -113,34 +116,7 @@ export default {
 	
 	
 	.row{
-		border:dashed 1px #999;
-		
-		.col,.col,.col-1,.col-2,.col-3,.col-4,.col-5,.col-6,.col-7,.col-8,.col-9,.col-10,.col-11,.col-12{
-			border:dashed 1px #333;
-			min-height:20px;
-			.eleinfo{
-				left:-15px;
-				top:-5px;
-				background:#333;
-				border:#333;
-				position:absolute;
-				top:0px;
-				left:0px;
-			}
-			.buttonGroup{
-				border:dashed 1px gray;
-				.eleinfo{
-					left:0px;
-				}
-				.btn-group{
-					.orderBtn{
-						min-width:20px;
-						padding-left:5px;
-						padding-right:5px;
-						border-radius:20px;
-					}
-				}
-			}
+		border:dashed 1px #999; position: relative;
 			.orderBtn{
 				position:absolute;
 				left: 62px;
@@ -159,6 +135,53 @@ export default {
 					svg{
 						font-size:10px;
 					}
+				}
+			}
+		.col,.col,.col-1,.col-2,.col-3,.col-4,.col-5,.col-6,.col-7,.col-8,.col-9,.col-10,.col-11,.col-12{
+			border:dashed 1px #333;
+			min-height:20px;
+			.eleinfo{
+				left:-15px;
+				top:-5px;
+				background:#333;
+				border:#333;
+				position:absolute;
+				top:0px;
+				left:0px;
+			}
+			.buttonGroup,.btnEle{
+				border:dashed 1px gray; position: relative;
+				.eleinfo{
+					left:0px;
+				}
+				.orderBtn{
+						
+						min-width:20px;
+						padding-left:5px;
+						padding-right:5px;
+						border-radius:20px;
+						background:none;
+						a{
+							background:white
+						}
+						
+					}
+				.btn-group{
+					position: absolute;
+					left:65px;
+					background:none;
+							
+					
+				}
+			}
+		
+			.divEle{
+				
+				.orderBtn{
+					display: inline-block;
+					left:auto;
+					right:0px;
+					background:none;
 				}
 			}
 			.formGroupBlock{
