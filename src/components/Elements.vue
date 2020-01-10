@@ -1,9 +1,6 @@
 <template>  
-
-
-<app-parentelement :data="data" v-if="hasChild" />
- <app-childelement :data="data" v-else />   
-
+    <app-parentelement :data="data" v-if="hasChild" />
+    <app-childelement :data="data" v-else />   
 </template>
 <script>
 

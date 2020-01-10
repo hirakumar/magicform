@@ -66,7 +66,7 @@ export default {
     },
     inputs:{
       get(){
-        return this.$store.getters.getInputs(this.formGroupID);
+        return this.$store.getters['formBuilder/getInputs'](this.formGroupID);
       },
       set(val){
         return val;
@@ -74,34 +74,34 @@ export default {
     },
     formcheckboxgroups :{
       get(){
-        return this.$store.getters.getformCheckboxGroup(this.formGroupID)
+        return this.$store.getters['formBuilder/getformCheckboxGroup'](this.formGroupID)
       }
     },
     formradiogroups :{
       get(){
-        return this.$store.getters.getformRadioGroup(this.formGroupID)
+        return this.$store.getters['formBuilder/getformRadioGroup'](this.formGroupID)
       }
     },
     formfiles:{
        get(){
-        return this.$store.getters.getformFile(this.formGroupID)
+        return this.$store.getters['formBuilder/getformFile'](this.formGroupID)
       }
     },
     formSelects:{
       get(){
-        return this.$store.getters.getformSelect(this.formGroupID)
+        return this.$store.getters['formBuilder/getformSelect'](this.formGroupID)
         
       }
     },
     formTextareas:{
       get(){
-        return this.$store.getters.getformTextarea(this.formGroupID)
+        return this.$store.getters['formBuilder/getformTextarea'](this.formGroupID)
         
       }
     },
     checkboxes :{
 		get(){
-			return this.$store.getters.getformcheckboxs(this.formGroupID)
+			return this.$store.getters['formBuilder/getformcheckboxs'](this.formGroupID)
 		}
 	}
   },

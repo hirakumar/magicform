@@ -21,22 +21,27 @@
   </div>
 </template>
 <script>
+
+import formBuilderStore from './store/modules/form-builder'
 export default {
   name :'App',
+  created(){
+     this.$store.registerModule('formBuilder', formBuilderStore)
+  },
   computed:{
     isEditMode:{
       get(){
         return this.$store.getters.isEditMode;
       },
       set(val){         
-         return this.$store.commit('setEditMode',val);        
+         return this.$store.commit('formBuilder/setEditMode',val);        
       }
     },
   },
   methods:{
     goGenerator:function(){
      
-      this.$store.commit('setEditMode',false);
+      this.$store.commit('formBuilder/setEditMode',false);
     },
    
   },

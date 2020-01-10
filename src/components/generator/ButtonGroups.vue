@@ -33,13 +33,13 @@ export default {
 
     hasChild:{
         get(){
-            return this.$store.getters.hasChild(this.data.eno);
+            return this.$store.getters['hasChild'](this.data.eno);
         }
     },
     buttons:{
         get(){
             if(this.hasChild){
-                return this.$store.getters.getChilds(this.data.eno);
+                return this.$store.getters['getChilds'](this.data.eno);
             }
         }
     }

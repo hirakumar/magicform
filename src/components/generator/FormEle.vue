@@ -25,7 +25,7 @@ export default {
         get(){
             if(this.data != undefined){
                 
-                return this.$store.getters.hasChild(this.data.eno);
+                return this.$store.getters['formBuilder/hasChild'](this.data.eno);
             }
             
         }
@@ -33,13 +33,13 @@ export default {
     myChilds:{
       get(){
         if(this.data != undefined){
-          return this.$store.getters.getChilds(this.data.eno)
+          return this.$store.getters['formBuilder/getChilds'](this.data.eno)
         }
       }
     },
     isEditMode:{
       get(){
-        return this.$store.getters.isEditMode;
+        return this.$store.getters['formBuilder/isEditMode'];
       },
       
     },

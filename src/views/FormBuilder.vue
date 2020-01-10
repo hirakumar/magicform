@@ -2,12 +2,15 @@
 <div>
   <div class="border-bottom">
    <b-container >
+    
       <b-row v-if="hasElements" >
           <b-col class="pt-2 pb-2">
-           
+       
+          sss : {{selectedDevice}}
             <b-form inline v-if="isResponsiveMode">
-            <b-select class="mr-1" v-model="selectedDevice" :options="deviceOptions" size="sm" ></b-select>
-            <b-input class="mr-1 " type="text" placeholder="width" v-model="selectedDeviceObj.width" size="sm" /> <span class="pr-1">x</span> <b-input class="mr-1" type="text" v-model="selectedDeviceObj.height" placeholder="height" size="sm" />
+            <b-select class="mr-1 " v-if="hasSelectedDevice" v-model="selectedDevice" :options="deviceOptions" size="sm" ></b-select>
+            <b-input class="mr-1 " type="text" placeholder="width" v-if="hasSelectedDevice" v-model="selectedDeviceObj.width" size="sm" />
+             <span class="pr-1">x</span> <b-input class="mr-1" type="text"  v-if="hasSelectedDevice" v-model="selectedDeviceObj.height" placeholder="height" size="sm" />
             <b-button size="sm" @click="rotate" v-if="rotateStatus">  Rotate</b-button>
             </b-form>
           </b-col>
@@ -56,16 +59,16 @@
 
 
 
-import formBuilderStore from '../store/modules/form-builder'
+
 export default {
-  name: 'About',
+  name: 'FormBuilder',
   data:function(){
     return {
      showTrue : true
     }
   },
    created() {
-            this.$store.registerModule('formBuilder', formBuilderStore)
+           
         },
   computed:{
     getRawElements:{
@@ -83,14 +86,28 @@ export default {
     },
     selectedDevice:{
        get(){
-          return this.$store.getters.getSelectedDevice;
+          console.log( "asdfasdf");
+            var obj = this.$store.getters['formBuilder/getDeviceOptions'].find(item=>item.value=== this.$store.getters.getSelectedDevice);       
+            
+            return obj;  
+          
        },
        set(val){
-       
-        var obj = this.$store.getters['formBuilder/getDeviceOptions'].find(item=>item.value===val);
-       
+          var obj = this.$store.getters['formBuilder/getDeviceOptions'].find(item=>item.value===val);       
           this.$store.dispatch('formBuilder/setSelectedDevice',obj.value);
        }        
+    },
+    hasSelectedDevice:{
+      get(){
+        if(this.selectedDevice!=null){
+          return true;
+        }else{
+          return false;
+        }
+      },
+      set(val){
+        return val;
+      }
     },
     rotateStatus:{
       get(){        
@@ -103,8 +120,10 @@ export default {
     },
     selectedDeviceObj:{
        get(){
+          if(this.$store.getters['formBuilder/getDeviceOptions']!=undefined){
+            return this.$store.getters['formBuilder/getDeviceOptions'].find(item=>item.value===this.selectedDevice);
+          }
           
-          return this.$store.getters['formBuilder/getDeviceOptions'].find(item=>item.value===this.selectedDevice);
        },
     },
     deviceOptions: {
@@ -114,7 +133,7 @@ export default {
     },
     editorStyle:{
       get(){
-        console.log(this.selectedDeviceObj);
+        
         if(this.selectedDeviceObj != undefined){
             return `width:${this.selectedDeviceObj.width}px;min-height:${this.selectedDeviceObj.height}px;`
         }else{
@@ -126,7 +145,7 @@ export default {
     },
     hasElements :{
       get(){
-       
+        console.log(this.$store.getters['formBuilder/hasElements']);
         return this.$store.getters['formBuilder/hasElements'];
       }
     },
@@ -182,6 +201,7 @@ export default {
     },
     isResponsiveMode:{
       get(){
+        console.log("asdfasd");
         return this.$store.getters['formBuilder/isResponsiveMode'];
       }
     },
@@ -194,9 +214,11 @@ export default {
   methods:{
 
     rotate:function(){
+     if(this.selectedDeviceObj != undefined){
       let deviceClone = Object.assign({},this.selectedDeviceObj);
       this.selectedDeviceObj.width=deviceClone.height;
       this.selectedDeviceObj.height=deviceClone.width;
+      }
     },
     toggleResponsiveMode : function(){
       this.$store.dispatch('formBuilder/setResponsiveMode');

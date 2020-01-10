@@ -44,7 +44,7 @@ export default {
 	  },
 	  childs:{
 		  get(){
-			  return this.$store.getters.getChilds(this.colID);
+			  return this.$store.getters['formBuilder/getChilds'](this.colID);
 		  }
 	  },  
 	

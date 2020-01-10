@@ -49,7 +49,7 @@ export default {
     hasChild:{
         get(){
             if(this.objID != undefined){
-                return this.$store.getters.hasChild(this.objID);
+                return this.$store.getters['formBuilder/hasChild'](this.objID);
             }
             
         }

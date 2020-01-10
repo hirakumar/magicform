@@ -177,7 +177,11 @@ const mutations = {
         state.activeEno=payload;
       },
       setEditMode(state,payload){
-        state.editMode=payload;  
+        try{
+        state.editMode=payload;
+      }catch(error){
+        console.log("Error on mutation setEditMode :", error);
+      }
       },
       addElement(state,payload){
         try{

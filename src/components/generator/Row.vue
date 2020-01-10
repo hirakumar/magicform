@@ -32,7 +32,7 @@ export default {
     
   	cols:{
   		get(){
-  			return this.$store.getters.getCols(this.data.eno);
+  			return this.$store.getters['formBuilder/getCols'](this.data.eno);
   		},
   		set(val){
   			return val;

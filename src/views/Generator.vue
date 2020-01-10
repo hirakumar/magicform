@@ -4,7 +4,7 @@
   <b-tabs content-class="mt-3" align="center">
     <b-tab title="Form" active>
       <div id="htmlform">
-  <app-element :data="mainParent" v-for="mainParent in mainParents" :key="mainParent.eno" ></app-element>
+ <app-element :data="mainParent" v-for="mainParent in mainParents" :key="mainParent.eno" ></app-element> 
   </div>
     </b-tab>
     <b-tab title="HTML">
@@ -36,9 +36,13 @@
   computed:{
      mainParents:{
         get(){
-          return this.$store.getters.getMainParents;
+          console.log("My First :" , this.$store.getters['formBuilder/getMainParents'])
+         return this.$store.getters['formBuilder/getMainParents'];
         }
       }
+  },
+  created(){
+     
   },
   components:{    
       'app-element' :  () => import('@/components/generator/Elements.vue'),

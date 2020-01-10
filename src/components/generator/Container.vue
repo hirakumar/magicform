@@ -17,7 +17,7 @@ export default {
   computed:{
   	rows:{
   		get(){
-  			return this.$store.getters.getRows(this.data.eno);
+  			return this.$store.getters['formBuilder/getRows'](this.data.eno);
   		},
   		set(val){
   			return val;
