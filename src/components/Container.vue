@@ -1,12 +1,8 @@
 <template>
   <b-container :data-eno="data.eno" :fluid="data.fluid"  :tag="data.tag" :id="data.id" :class="data.class"  @mouseenter="mouseEnter" @mouseleave="mouseLeave" >
     <div class="eleHolder" v-if="isEditMode" >
-      <app-infoele :data="data"  ></app-infoele>          
-        <b-button-group class="orderBtn" v-if="orderBtn">
-        <b-button size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-button>
-        <b-button size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-button>
-        <b-button size="sm" @click="remove" v-show="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-button>
-      </b-button-group>       
+      <app-infoele :data="data"  ref="infoeleapp"   ></app-infoele>          
+           
     </div>
      
       <app-elements :data="child" v-for="child in myChilds" :key="child.eno" v-if="hasChild" />
@@ -29,29 +25,8 @@ export default {
     }
   },
   computed:{
-  
-isfirstOrder:{
-      get(){
-        try{
-          if(this.data != undefined){
-            return this.$store.getters['formBuilder/isFirstOrder'](this.data.eno);
-          }
-        }catch(error){
-          console.log("Error on isfirstOrder : ", error);
-        }        
-      }
-    },
-    isLastOrder:{
-      get(){
-        try{
-          if(this.data != undefined){
-          return this.$store.getters['formBuilder/isLastOrder'](this.data.eno);
-          }
-         }catch(error){
-          console.log("Error on isLastOrder : ", error);
-        }  
-      }
-    },
+
+    
     isEditMode:{
       get(){
         try{
@@ -100,9 +75,8 @@ isfirstOrder:{
     mouseEnter:function(){
       // this.$store.commit('changeEle',this.data.eno);
       try{
-      if(this.isEditMode){
-        this.orderBtn=true;
-      }
+        this.$refs.infoeleapp.setOrder(true);
+       
       }catch(error){
               console.log("Error on mouseEnter : ", error);
           }
@@ -110,10 +84,10 @@ isfirstOrder:{
    
     mouseLeave:function(){
        try{
-      this.orderBtn=false;
+          this.$refs.infoeleapp.setOrder(false);
         }catch(error){
               console.log("Error on mouseLeave : ", error);
-          }
+        }
     },
     increaselevel: function() {
       try {

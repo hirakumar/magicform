@@ -6,7 +6,7 @@
       <b-row v-if="hasElements" >
           <b-col class="pt-2 pb-2">
        
-          sss : {{selectedDevice}}
+          sdf : {{selectedDevice}}
             <b-form inline v-if="isResponsiveMode">
             <b-select class="mr-1 " v-if="hasSelectedDevice" v-model="selectedDevice" :options="deviceOptions" size="sm" ></b-select>
             <b-input class="mr-1 " type="text" placeholder="width" v-if="hasSelectedDevice" v-model="selectedDeviceObj.width" size="sm" />
@@ -43,7 +43,7 @@
               <app-elements :data="mainParent" v-for="mainParent in mainParents" :key="mainParent.eno" />
       </div>
    </div> 
-    <!--
+  
       <b-container>
       <b-row>
           <b-col cols="8">
@@ -51,7 +51,7 @@
           </b-col>
       </b-row>
     </b-container>
-    -->
+   
    
   </div>
 </template>
@@ -234,7 +234,7 @@ export default {
   
 }
 </script>
-<style scoped lang="scss">
+<style  lang="scss">
 .vh{
   height:100vh;
 }
@@ -248,4 +248,176 @@ export default {
     
   }
 }
+
+
+.configBlock{ position:absolute; width:350px ; right:15px; top:80px; z-index:99;
+	.card-title{text-transform: uppercase; font-size:14px}
+	.list-group-item {
+		padding:3px 0;
+		font-size:12px;
+		.form-row{
+			legend{
+				padding-top:3px;
+				padding-bottom:3px;
+			}
+		}
+		
+	}
+}
+.toolsEle{position:absolute; left: 10px; top: 61px;
+	img{
+		width:22px
+	}
+}
+
+.showEditor{
+
+	.rowHolder{
+		min-height:20px;
+		width:100%;
+		display: flex;
+		flex-direction: row;
+	}
+  .eleHolder{
+		min-height:20px;
+		width:100%;
+		display: flex;
+		flex-direction: row;
+	}
+
+	.buttonGroup,.formEle,.formCheckBoxGroups{
+		border:dashed 1px gray;
+    
+	}
+	.formGroupBlock,.btnEle,.divEle,.rowHolder,.eleHolder{
+		position:relative;
+		.orderBtn{position:absolute; top:0px; right:0px; z-index:99; display: flex}
+	}
+	.formGroupBlock,.btnEle,.divEle{
+ border:dotted 1px #333;
+	}
+	.eleinfo{
+		padding: 0px;
+		font-size: 12px;
+		line-height: 20px;
+		border-radius: 0px; 
+		position:relative; 
+		top:0px; 
+		left:0px;
+		background:#ccc;
+		border:#ccc;
+		color:#fff;
+		text-decoration:none;
+		&:after{
+			content:'';
+			display:block;
+			width:100%;
+			height:1px;
+		}
+		.ele,.eno,.eno_class,.eno_id,span{
+			display: inline-block;
+			min-width: 15px;
+			min-height: 13px;			
+			text-align: center;	
+			padding-left:2px;
+			padding-right:2px;	
+			color:#fff;	
+		}
+		
+	}
+
+.buttonGroup,.formGroupBlock{
+		position:relative;
+		.btn-group{
+			flex-wrap: wrap;
+		}
+	}
+.container,.container-fluid{
+	border:dashed 1px #ccc;
+	
+	
+	.row{
+		border:dashed 1px #999; position: relative;
+			.orderBtn{
+				position:absolute;
+				left: 62px;
+				top: 0px;
+				font-size:12px;
+				z-index:9;
+				background:#fff;
+				
+				a{
+					display:flex;
+					justify-content: center;
+					color:#999999;
+					width:20px;
+					height:20px;
+					align-items:center;
+					svg{
+						font-size:10px;
+					}
+				}
+			}
+		.col,.col,.col-1,.col-2,.col-3,.col-4,.col-5,.col-6,.col-7,.col-8,.col-9,.col-10,.col-11,.col-12{
+			border:dashed 1px #333;
+			min-height:20px;
+			.eleinfo{
+				left:-15px;
+				top:-5px;
+				background:#333;
+				border:#333;
+				position:absolute;
+				top:0px;
+				left:0px;
+			}
+			.buttonGroup,.btnEle{
+				border:dashed 1px gray; position: relative;
+				.eleinfo{
+					left:0px;
+				}
+				.orderBtn{
+						
+						min-width:20px;
+						padding-left:5px;
+						padding-right:5px;
+						border-radius:20px;
+						background:none;
+						a{
+							background:white
+						}
+						
+					}
+				.btn-group{
+					position: absolute;
+					left:65px;
+					background:none;
+							
+					
+				}
+			}
+		
+			.divEle{
+				
+				.orderBtn{
+					display: inline-block;
+					left:auto;
+					right:0px;
+					background:none;
+				}
+			}
+			.formGroupBlock{
+				.orderBtn{
+					left:auto;
+					right:0px;
+				}
+			}
+		}
+	}
+}
+
+}
+
+
+
+
 </style>
