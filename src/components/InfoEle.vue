@@ -2,16 +2,17 @@
 <div class="eleHolder">
   <b-link  :class="['eleinfo',myClass]" size="md" @click ="clickCol" :title="info">
    
-    <span class="ele">{{data.ele}}</span> 
-     <span class="eno">:{{data.eno}}</span>
-     order : {{orderBtn}}
-    <b-button-group class="orderBtn" v-if="orderBtn">
+    <span class="ele">{{data.ele}} :{{data.eno}}</span> 
+   
+   
+     
+  </b-link>
+  <b-button-group class="orderBtn" v-if="orderBtn">
     
         <b-button size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-button>
         <b-button size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-button>
         <b-button size="sm" @click="remove" v-show="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-button>
-      </b-button-group>   
-  </b-link>
+      </b-button-group>  
  </div>
 </template>
 <script>

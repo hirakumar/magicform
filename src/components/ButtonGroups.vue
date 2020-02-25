@@ -3,14 +3,17 @@
 		@mouseleave="mouseLeave" >
       
     <template  v-if="isEditMode">
+
+      <!--
       <b-button-group class="orderBtn" v-if="orderBtn">
         <b-link size="sm"  @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-link>
         <b-link size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-link>
         <b-link size="sm" @click="remove" v-if="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-link>
       </b-button-group>
-      <app-infoele :data="data"  v-if="isEditMode"></app-infoele>
+      -->
+      <app-infoele :data="data" ref="infoele"  v-if="isEditMode"></app-infoele>
     </template>
-      <div v-html="data.before" class="before"></div>
+      
    
       <b-btn-group
         :id = "data.id"
@@ -25,7 +28,7 @@
       </template>
     
       </b-btn-group>
-  <div v-html="data.after" class="after"></div>
+
   </div>
 </template>
 
@@ -61,7 +64,9 @@ export default {
     },
      mouseEnter: function() {
 		 try{
-			this.orderBtn=true;
+      this.orderBtn=true;
+     
+     this.$refs.infoele.setOrder(true);
 		  this.$store.commit('formBuilder/changeEle',this.data.id);
 		
 		 }catch(error){

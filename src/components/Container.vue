@@ -75,7 +75,7 @@ export default {
     mouseEnter:function(){
       // this.$store.commit('changeEle',this.data.eno);
       try{
-        this.$refs.infoeleapp.setOrder(true);
+       // this.$refs.infoeleapp.setOrder(true);
        
       }catch(error){
               console.log("Error on mouseEnter : ", error);
@@ -84,7 +84,7 @@ export default {
    
     mouseLeave:function(){
        try{
-          this.$refs.infoeleapp.setOrder(false);
+         // this.$refs.infoeleapp.setOrder(false);
         }catch(error){
               console.log("Error on mouseLeave : ", error);
         }

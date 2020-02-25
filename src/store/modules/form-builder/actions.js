@@ -77,8 +77,8 @@ const actions = {
         }
         
         var lasteno = context.getters.getLastEno;  
-       
-        if(lasteno==null){
+        
+        if(lasteno == null){
           context.commit('setLastEno',{eno:0});
         }
         
@@ -96,7 +96,7 @@ const actions = {
      
   
         switch(payload.ele){
-  
+          /* ****** CREATE FROM ******  */
           case 'form': 
           
           obj = {eno : lasteno+1, order:order,  ele:'form', inline:false, novalidate:false, validated:false};
@@ -106,60 +106,77 @@ const actions = {
           context.commit('addElement',obj);
           break;
           
+          /* ****** CREATE BUTTON ******  */
           case 'button':
           obj = {eno : lasteno+1, order:order, text:'Button', 'border-style':null, ele:'button', parent:activeObj.eno, id : `label${lasteno+1}`, name:`label${lasteno+1}`, active : false, disabled : false, append: false, replace : false, 'active-class':'active', exact: false, 'exact-active-class': '', 'router-tag':'a', block:false,size:'md',variant:'secondary', type:'button', tag:'button',pill:false,squared:false}
           console.log("Adding Button", obj);
           context.commit('addElement',obj);
           break;
 
+          /* ****** CREATE BUTTON GROUP ******  */
           case 'button-group':         
+          
+          /* Creating Button Group Element */
+           new Promise( resolve => {
+              setTimeout(()=>{
+                let obj = {eno : lasteno+1, ele:'button-group', order:order,  parent:activeObj.eno, before:'', after:'', vertical:false, size:'md',tag:'div','aria-role':'group'}
+                context.commit('addElement',obj);
+                resolve("done!");
+              },300)
+           }).then(
+              /* Creating Button Element */
+              new Promise(resolve => {
+                setTimeout(()=>{
+                  let obj = {eno : lasteno+2, text:'Button', order:1, 'border-style':null, ele:'button', parent:lasteno+1, id : `btn${lasteno+1}`, name:`btn${lasteno+1}`, active : false, disabled : false, append: false, replace : false, 'active-class':'active', exact: false, 'exact-active-class': '', 'router-tag':'a', block:false,size:'md',variant:'secondary', type:'button', tag:'button',pill:false,squared:false}
+                  context.commit('addElement',obj);
+                },300);
+                
+               })
+            )
             
-            let buttonGroupObj = {eno : lasteno+1, ele:'button-group', order:order,  parent:activeObj.eno, before:'', after:'', vertical:false, size:'md',tag:'div','aria-role':'group'}
-            context.commit('addElement',buttonGroupObj);
-      
-            let btnObj = {eno : lasteno+2, text:'Button', order:1, 'border-style':null, ele:'button', parent:lasteno+1, id : `btn${lasteno+1}`, name:`btn${lasteno+1}`, active : false, disabled : false, append: false, replace : false, 'active-class':'active', exact: false, 'exact-active-class': '', 'router-tag':'a', block:false,size:'md',variant:'secondary', type:'button', tag:'button',pill:false,squared:false}
-            context.commit('addElement',btnObj);
-
           break;
-  
+          /* ****** CREATE COL ******  */
           case 'col':
-          if(activeObj.ele=="row"){
-            parentID=activeObj.eno;
-          }else if(activeObj.ele=="col"){
-            parentID=activeObj.parent;
-          }
-          obj = {eno:lasteno+1, parent:parentID, ele:'col', order:order}
-          context.commit('addElement',obj);
+            if(activeObj.ele=="row"){
+              parentID=activeObj.eno;
+            }else if(activeObj.ele=="col"){
+              parentID=activeObj.parent;
+            }
+            obj = {eno:lasteno+1, parent:parentID, ele:'col', order:order}
+            context.commit('addElement',obj);
           break;
-  
+          
+           /* ****** CREATE ROW ******  */
           case 'row':
-          let parentID;
-          if(activeObj.ele=="container"){
-            parentID=activeObj.eno;
-          }else if(activeObj.ele=="row"){
-            parentID=activeObj.parent;
-          }
-          let rowObj = {eno:lasteno+1, parent:parentID, ele:'row', order:order}
-          context.commit('addElement',rowObj);
-  
-          obj = {eno:lasteno+2, parent:rowObj.eno, ele:'col', order:1}
-          context.commit('addElement',obj);
+            let parentID;
+            if(activeObj.ele=="container"){
+              parentID=activeObj.eno;
+            }else if(activeObj.ele=="row"){
+              parentID=activeObj.parent;
+            }
+            let rowObj = {eno:lasteno+1, parent:parentID, ele:'row', order:order}
+            context.commit('addElement',rowObj);
+    
+            obj = {eno:lasteno+2, parent:rowObj.eno, ele:'col', order:1}
+            context.commit('addElement',obj);
           break;
-  
+
+           /* ****** CREATE DIV ******  */
           case 'div':
-          obj = {eno : lasteno+1, parent:activeObj.eno, ele:'div', order:order, text:'<b>Sample Text</b>' }
-          context.commit('addElement',obj);
+            obj = {eno : lasteno+1, parent:activeObj.eno, ele:'div', order:order, text:'<b>Sample Text</b>' }
+            context.commit('addElement',obj);
           break;
-  
+
+          /* ****** CREATE CONTAINER ******  */
           case 'container':
-          let containerObj = {eno : lasteno+1, parent:activeObj.eno, ele:'container', order:order }
-          context.commit('addElement',containerObj);
-  
-          let rowObj1 = {eno:lasteno+2, parent:containerObj.eno, ele:'row', order:1}
-          context.commit('addElement',rowObj1);
-  
-          let colObj = {eno:lasteno+3, parent:rowObj1.eno, ele:'col', order:1}
-          context.commit('addElement',colObj);
+            let containerObj = {eno : lasteno+1, parent:activeObj.eno, ele:'container', order:order }
+            context.commit('addElement',containerObj);
+    
+            let rowObj1 = {eno:lasteno+2, parent:containerObj.eno, ele:'row', order:1}
+            context.commit('addElement',rowObj1);
+    
+            let colObj = {eno:lasteno+3, parent:rowObj1.eno, ele:'col', order:1}
+            context.commit('addElement',colObj);
           break;
         }
         

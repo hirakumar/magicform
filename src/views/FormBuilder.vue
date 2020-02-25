@@ -224,6 +224,18 @@ export default {
       this.$store.dispatch('formBuilder/setResponsiveMode');
     }
   },
+  mounted:function() {
+    console.log("Mounted : " , this.$store.getters['formBuilder/hasElements']);
+    console.log("childs :",this.$store.getters['formBuilder/getLastEno']);
+    /* Value assign for lastEno */
+    if(this.$store.getters['formBuilder/hasElements'] == true && this.$store.getters['formBuilder/getLastEno']==null){
+     
+      let list =this.$store.getters['formBuilder/getRawElements'].sort((a,b)=> { return a.eno - b.eno} );
+          let lasteno= list[list.length-1].eno;
+         
+         this.$store.commit('formBuilder/setLastEno',{eno:lasteno});
+    }
+  },
   components:{
     
     'app-creator':() => import('@/components/FormCreator.vue'),
@@ -381,6 +393,7 @@ export default {
 						padding-left:5px;
 						padding-right:5px;
 						border-radius:20px;
+            left:150px;
 						background:none;
 						a{
 							background:white
@@ -389,7 +402,7 @@ export default {
 					}
 				.btn-group{
 					position: absolute;
-					left:65px;
+					left:0px;
 					background:none;
 							
 					
