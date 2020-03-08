@@ -6,7 +6,7 @@
       <b-row v-if="hasElements" >
           <b-col class="pt-2 pb-2">
        
-          sdf : {{selectedDevice}}
+          Device : {{selectedDevice}}
             <b-form inline v-if="isResponsiveMode">
             <b-select class="mr-1 " v-if="hasSelectedDevice" v-model="selectedDevice" :options="deviceOptions" size="sm" ></b-select>
             <b-input class="mr-1 " type="text" placeholder="width" v-if="hasSelectedDevice" v-model="selectedDeviceObj.width" size="sm" />
@@ -401,10 +401,13 @@ export default {
 						
 					}
 				.btn-group{
-					position: absolute;
+					position: static;
 					left:0px;
 					background:none;
-							
+					.btnEle{
+            display:flex;
+          flex-direction: column;		
+          }
 					
 				}
 			}

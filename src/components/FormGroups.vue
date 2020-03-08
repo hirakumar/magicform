@@ -63,10 +63,12 @@ export default {
 
        mouseEnter: function() {
 		 try{
+        if(this.isEditMode){
       this.orderBtn=true;
      
      this.$refs.infoele.setOrder(true);
-		  this.$store.commit('formBuilder/changeEle',this.data.id);
+      this.$store.commit('formBuilder/changeEle',this.data.id);
+        }
 		
 		 }catch(error){
 			 console.log("Error on hoverOn :", error);
@@ -75,8 +77,10 @@ export default {
 	  },
 	  mouseLeave :  function(){
 		  try{
+         if(this.isEditMode){
 			this.orderBtn=false;
-			this.$refs.infoele.setOrder(false);
+      this.$refs.infoele.setOrder(false);
+         }
 		 }catch(error){
 			 console.log("Error on hoverOut :", error);
 		 }

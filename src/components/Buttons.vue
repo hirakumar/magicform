@@ -1,7 +1,10 @@
 <template>
     <div class="btnEle"  @mouseenter = "mouseEnter"
         @mouseleave = "mouseLeave">
-        <app-infoele :data="data"  v-if="isEditMode"></app-infoele>
+        <template  v-if="isEditMode">
+      <app-infoele :data="data" ref="infoele"  v-if="isEditMode"></app-infoele>
+    </template>
+    <div class="btnCont">
     <b-button @click="clickedEle"
         :id = "data.id"
         :class = "data.class"
@@ -31,12 +34,8 @@
         :data-eno = "data.eno"
        
      >{{data.text}}</b-button>
-     
-        <b-button-group v-if="orderBtn && isEditMode" class="orderBtn">
-          <b-link size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" ></font-awesome-icon> </b-link>
-          <b-link size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" ></font-awesome-icon> </b-link>
-          <b-link size="sm" @click="remove" :data-eno="data.eno" >  <font-awesome-icon :icon="['fas','trash-alt']" /></font-awesome-icon> </b-link>
-        </b-button-group>
+     </div>
+       
      
     </div>
 
@@ -87,17 +86,28 @@ export default {
         console.log("Error on clickedEle", error);
       }
     },
-    mouseEnter : function(){
-      try{
-      if(this.isEditMode){
-        this.orderBtn=true;
-      }else{
-         this.orderBtn=false;
-      }
-       }catch(error){
-        console.log("Error on mouseEnter", error);
-      }
-      
+  mouseEnter: function() {
+		try{
+       if(this.isEditMode){
+      		this.orderBtn=true;
+     		this.$refs.infoele.setOrder(true);
+        this.$store.commit('formBuilder/changeEle',this.data.id);
+       }
+		}catch(error){
+			 console.log("Error on hoverOn :", error);
+		}
+		  
+	  },
+	  mouseLeave :  function(){
+		  try{
+         if(this.isEditMode){
+			this.orderBtn=false;
+      this.$refs.infoele.setOrder(false);
+         }
+		 }catch(error){
+			 console.log("Error on hoverOut :", error);
+		 }
+
     },
     remove: function() {
       try{
@@ -106,16 +116,7 @@ export default {
         console.log("Error on remove", error);
       }
     },
-    mouseLeave : function(){
-      try{
-        if(this.isEditMode){
-          this.orderBtn=false;
-        }
-      }catch(error){
-        console.log("Error on mouseLeave", error);
-      }
-      
-    },
+
     setOrderUp : function(event){
       try{        
         this.$store.dispatch('formBuilder/setOrder',{activeEno:this.data.eno,action:'up'})

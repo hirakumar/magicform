@@ -179,22 +179,24 @@ export default {
   },
   methods:{
 
-       mouseEnter: function() {
-		 try{
-      this.orderBtn=true;
-     
-     this.$refs.infoele.setOrder(true);
-		  this.$store.commit('formBuilder/changeEle',this.data.id);
-		
-		 }catch(error){
+    mouseEnter: function() {
+		try{
+			 if(this.isEditMode){
+      		this.orderBtn=true;
+     		this.$refs.infoele.setOrder(true);
+			  this.$store.commit('formBuilder/changeEle',this.data.id);
+			 }
+		}catch(error){
 			 console.log("Error on hoverOn :", error);
-		 }
+		}
 		  
 	  },
 	  mouseLeave :  function(){
 		  try{
+			   if(this.isEditMode){
 			this.orderBtn=false;
 			this.$refs.infoele.setOrder(false);
+			   }
 		 }catch(error){
 			 console.log("Error on hoverOut :", error);
 		 }

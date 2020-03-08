@@ -1,12 +1,9 @@
 <template>
    <div class="formEle"  @mouseenter="mouseEnter" @mouseleave="mouseLeave">  
      
-      <app-infoele :data="data" v-if="isEditMode"></app-infoele>
-         <b-button-group v-if="orderBtn" class="orderBtn">
-        <b-button size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-button>
-      <b-button size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-button>
-      <b-button size="sm" @click="remove" v-if="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-button>
-      </b-button-group>
+      <template  v-if="isEditMode">
+      <app-infoele :data="data" ref="infoele"  v-if="isEditMode"></app-infoele>
+    </template>
       <b-form @submit="onSubmit" @reset="onReset" :class="data.class" :id="data.id" :inline="data.inline" :novalidate="data.novalidate" :validated="data.validated" >
        
         <app-elements :data="child" v-for="child in myChilds" :key="child.eno" />
@@ -71,16 +68,30 @@ export default {
      
   },
     methods:{
-       mouseEnter:function(){
-    // this.$store.commit('changeEle',this.data.eno);
-    if(this.isEditMode){
+ mouseEnter: function() {
+		 try{
+        if(this.isEditMode){
       this.orderBtn=true;
-    }
-    
-    },
-   
-    mouseLeave:function(){
-      this.orderBtn=false;
+     
+     this.$refs.infoele.setOrder(true);
+      this.$store.commit('formBuilder/changeEle',this.data.id);
+        }
+		
+		 }catch(error){
+			 console.log("Error on hoverOn :", error);
+		 }
+		  
+	  },
+	  mouseLeave :  function(){
+		  try{
+         if(this.isEditMode){
+			this.orderBtn=false;
+      this.$refs.infoele.setOrder(false);
+         }
+		 }catch(error){
+			 console.log("Error on hoverOut :", error);
+		 }
+
     },
      clickedEle:function(event){
        if(this.isEditMode){

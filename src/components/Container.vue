@@ -1,9 +1,8 @@
 <template>
   <b-container :data-eno="data.eno" :fluid="data.fluid"  :tag="data.tag" :id="data.id" :class="data.class"  @mouseenter="mouseEnter" @mouseleave="mouseLeave" >
-    <div class="eleHolder" v-if="isEditMode" >
-      <app-infoele :data="data"  ref="infoeleapp"   ></app-infoele>          
-           
-    </div>
+   <template  v-if="isEditMode">
+      <app-infoele :data="data" ref="infoele"  v-if="isEditMode"></app-infoele>
+    </template>
      
       <app-elements :data="child" v-for="child in myChilds" :key="child.eno" v-if="hasChild" />
  </b-container>
@@ -72,22 +71,30 @@ export default {
               console.log("Error on clickCol : ", error);
           }  
     },
-    mouseEnter:function(){
-      // this.$store.commit('changeEle',this.data.eno);
-      try{
-       // this.$refs.infoeleapp.setOrder(true);
-       
-      }catch(error){
-              console.log("Error on mouseEnter : ", error);
-          }
-    },
-   
-    mouseLeave:function(){
-       try{
-         // this.$refs.infoeleapp.setOrder(false);
-        }catch(error){
-              console.log("Error on mouseLeave : ", error);
+    
+    mouseEnter: function() {
+		try{
+        if(this.isEditMode){
+      
+      		this.orderBtn=true;
+     		this.$refs.infoele.setOrder(true);
+        this.$store.commit('formBuilder/changeEle',this.data.id);
         }
+		}catch(error){
+			 console.log("Error on hoverOn :", error);
+		}
+		  
+	  },
+	  mouseLeave :  function(){
+		  try{
+         if(this.isEditMode){
+			this.orderBtn=false;
+      this.$refs.infoele.setOrder(false);
+         }
+		 }catch(error){
+			 console.log("Error on hoverOut :", error);
+		 }
+
     },
     increaselevel: function() {
       try {
