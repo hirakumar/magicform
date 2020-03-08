@@ -3,14 +3,6 @@
 		@mouseleave="mouseLeave" >
       
     <template  v-if="isEditMode">
-
-      <!--
-      <b-button-group class="orderBtn" v-if="orderBtn">
-        <b-link size="sm"  @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-link>
-        <b-link size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-link>
-        <b-link size="sm" @click="remove" v-if="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-link>
-      </b-button-group>
-      -->
       <app-infoele :data="data" ref="infoele"  v-if="isEditMode"></app-infoele>
     </template>
       
@@ -77,7 +69,7 @@ export default {
 	  mouseLeave :  function(){
 		  try{
 			this.orderBtn=false;
-			
+			this.$refs.infoele.setOrder(false);
 		 }catch(error){
 			 console.log("Error on hoverOut :", error);
 		 }

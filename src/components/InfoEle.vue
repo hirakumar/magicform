@@ -3,16 +3,16 @@
   <b-link  :class="['eleinfo',myClass]" size="md" @click ="clickCol" :title="info">
    
     <span class="ele">{{data.ele}} :{{data.eno}}</span> 
-   
-   
-     
-  </b-link>
-  <b-button-group class="orderBtn" v-if="orderBtn">
+     <b-button-group class="orderBtn" v-if="orderBtn">
     
         <b-button size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-button>
         <b-button size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-button>
         <b-button size="sm" @click="remove" v-show="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-button>
-      </b-button-group>  
+      </b-button-group> 
+   
+     
+  </b-link>
+ 
  </div>
 </template>
 <script>
@@ -129,8 +129,31 @@ export default {
 
 }
 </script>
-<style scoped>
-.eleinfo.containerEle{
-  left:-15px;
+<style lang="scss" scoped>
+.eleHolder{
+
+  .eleinfo{
+  
+    .ele{
+
+    }
+    .orderBtn{
+      
+      position:static !important;
+      display:inline-block;
+      button{
+      padding: 0px;
+      height: 20px;
+      display: inline-block;
+      width: 20px;
+        svg{
+          width:11px;
+          height:11px;
+          top:-2px;
+          position:relative;
+        }
+      }
+    }
+  }
 }
 </style>

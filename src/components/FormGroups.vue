@@ -1,13 +1,11 @@
 <template>
     <div class="formGroupBlock" @mouseenter="mouseEnter" @mouseleave="mouseLeave">
   
-      <app-infoele :data="data"  v-if="isEditMode"></app-infoele>
+   <template  v-if="isEditMode">
+      <app-infoele :data="data" ref="infoele"  v-if="isEditMode"></app-infoele>
+    </template>
      
-      <b-button-group v-if="orderBtn" class="orderBtn">
-        <b-button size="sm" @click="setOrderUp" v-if="!isfirstOrder"> <font-awesome-icon :icon="['fas','chevron-up']" /> </b-button>
-      <b-button size="sm" @click="setOrderDown" v-if="!isLastOrder">  <font-awesome-icon :icon="['fas','chevron-down']" /></b-button>
-      <b-button size="sm" @click="remove" v-if="isEditMode">  <font-awesome-icon :icon="['fas','trash-alt']" /></b-button>
-      </b-button-group>
+   
      
       <template v-if="data.before!=undefined">
         <div v-html="data.before" class="before" ></div>
@@ -62,17 +60,29 @@ export default {
     }
   },
   methods:{
-    mouseEnter:function(){
-    // this.$store.commit('changeEle',this.data.eno);
-    if(this.isEditMode){
+
+       mouseEnter: function() {
+		 try{
       this.orderBtn=true;
-    }
-    
+     
+     this.$refs.infoele.setOrder(true);
+		  this.$store.commit('formBuilder/changeEle',this.data.id);
+		
+		 }catch(error){
+			 console.log("Error on hoverOn :", error);
+		 }
+		  
+	  },
+	  mouseLeave :  function(){
+		  try{
+			this.orderBtn=false;
+			this.$refs.infoele.setOrder(false);
+		 }catch(error){
+			 console.log("Error on hoverOut :", error);
+		 }
+
     },
-   
-    mouseLeave:function(){
-      this.orderBtn=false;
-    },
+  
     clickEvent:function(event){
       try{
         this.$store.commit('formBuilder/setActiveEno',this.data.eno);
